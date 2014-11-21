@@ -1,0 +1,18 @@
+product_homepage:
+    path:     /
+    defaults: { _controller: ProductBundle:Accueil:accueil }
+
+
+product_overall:
+    path:     /
+    defaults: { _controller: ProductBundle:Accueil:accueil }
+
+
+services_overall:
+    path:     /
+    defaults: { _controller: ProductBundle:Accueil:accueil }
+
+
+Demande_contact:
+    path:     /
+    defaults: { _controller: ProductBundle:Accueil:accueil }
