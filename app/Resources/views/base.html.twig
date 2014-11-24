@@ -2,12 +2,107 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        <title>{% block title %}Bienvenue !{% endblock %}</title>
+        {% block stylesheets %}
+        <link href='http://fonts.googleapis.com/css?family=Irish+Grover' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=La+Belle+Aurore' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="{{asset('bundles/InstantSoin/css/bootstrap.css')}}">
+        <link rel="stylesheet" href="{{asset('bundles/InstantSoin/css/style.css')}}">
+        {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        <section class="header">
+                <header>
+                    <hgroup>
+                        <h2 class="titre">{% block InstantSoin_title %}<a href="{{ path( 'product_homepage' ) }}">L'instant Soin</a>{% endblock %}</h2>
+                    </hgroup>
+
+                    {% block navigation %}
+                        <nav>
+                        <img class="logo" src="{{asset('bundles/InstantSoin/Images/logo.jpg')}}" alt="Impossible à charger">
+                            <ul class="menu">
+                                                                    
+                                <li>
+                                    <a href="{{ path( 'product_overall' ) }}">Produits</a>
+                                    <ul>
+                                            <li><a href="#">Crèmes de jour / crèmes de nuit</a></li>
+                                            <li><a href="#">Gommages et masques</a></li>
+                                            <li><a href="#">Maquillage</a></li>
+                                            <li><a href="#">Démaquillants et lotions</a></li>
+                                            <li><a href="#">Parfumerie</a></li>
+                                    </ul>
+                                </li>
+
+                                <li>
+                                    <a href="{{ path( 'services_overall' ) }}">Services</a>
+                                    <ul>
+                                            <li><a href="#">Les soins visage</a></li>
+                                            <li><a href="#">Les soins du corps</a></li>
+                                            <li><a href="#">Massages</a></li>
+                                            <li><a href="#">Epilations</a></li>
+                                            <li><a href="#">Soin des ongles</a></li>
+                                            <li><a href="#">Les forfaits soin</a></li>
+                                    </ul>
+                                </li>
+
+                                <li>
+                                    <a href="{{ path( 'services_overall' ) }}">Matériels</a>
+                                </li>
+
+                                <li>
+                                {{ form_start(search) }}
+                                    {{ form_widget(search.recherche, {'attr': {'class': 'searchInput'}}) }}
+                                    {{ form_widget(search.save) }}
+                                {{ form_end(search) }}
+                                </li>
+                            </ul>
+                            <div class="connexion">
+                                    {% if app.user %} 
+                                        <a href="#">Me déconnecter</a>
+                                    {% else  %}
+                                        <a href="#">Me connecter</a>
+                                    {% endif %}
+                                    <hr>
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                        <a href="#">Administration</a>
+                                    <hr>
+                                    {% endif %}
+                                    {% if is_granted('ROLE_BIBLIOTHECAIRE') %}
+                                        <a href="#">Administration</a>
+                                    <hr>
+                                    {% endif %}
+                                    {% if is_granted('ROLE_ETUDIANT') or is_granted('ROLE_PROFESSEUR') %}
+                                        <a href="#">Profil</a>
+                                    <hr>
+                                    {% endif %}
+                                    {% if is_granted('ROLE_ETUDIANT') or is_granted('ROLE_PROFESSEUR') or is_granted('IS_AUTHENTICATED_ANONYMOUSLY') %}
+                                        <a href="#">Panier</a>
+                                    {% endif %}
+                            </div>
+                        </nav>
+                        <hr>
+                    {% endblock %}
+                </header>
+        </section>
+
+        <section class="main-col">
+                {% block body %}{% endblock %}
+        </section>
+        <aside class="sidebar">
+                {% block sidebar %}{% endblock %}
+        </aside>
+
+        <section>
+            <footer>
+                {% block footer %}
+                    <hr>
+                        <p>Site internet créé par Arnaud Hascoet -&nbsp;<a href="{{ path( 'Demande_contact' ) }}">Contacter L'Instant Soin</a></p>
+                {% endblock %}
+            </footer>
+        </section>
+
+            {% block javascripts %}{% endblock %}
+
     </body>
 </html>

@@ -16,3 +16,11 @@ services_overall:
 Demande_contact:
     path:     /
     defaults: { _controller: ProductBundle:Accueil:accueil }
+
+
+Accueil_sidebar:
+    pattern:  /sidebar
+    defaults: { _controller: ProductBundle:Accueil:sidebar }
+    requirements:
+        _method:  GET
+

@@ -10,10 +10,16 @@ class AccueilController extends Controller
     {
 
     	$search = $this->createFormBuilder()
-                                ->add('recherche', 'search', array('label' => '', 'attr' => array('class' => 'livreSearch')))
-                                ->add('save', 'submit', array('label' => 'Rechercher','attr' => array('class' => 'livreSearch')))
+                                ->add('recherche', 'search', array('label' => '', 'attr' => array('class' => 'productSearch')))
+                                ->add('save', 'submit', array('label' => 'Rechercher','attr' => array('class' => 'productSearch')))
                                 ->getForm();
                                 
         return $this->render('ProductBundle:Accueil:accueil.html.twig', array('search' => $search->createView()));
     }
+
+    public function sidebarAction() {
+       
+        return $this->render('ProductBundle:Accueil:sidebar.html.twig');
+    }
+
 }
