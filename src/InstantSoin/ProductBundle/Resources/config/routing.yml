@@ -24,3 +24,12 @@ Accueil_sidebar:
     requirements:
         _method:  GET
 
+whoswho:
+    pattern:  /whoswho
+    defaults: { _controller: ProductBundle:Accueil:whoswho }
+    requirements:
+        _method:  GET
+
+Lien_Clairjoie:
+    pattern:  /clairjoie
+    defaults: { _controller: ProductBundle:Accueil:clairjoie }
