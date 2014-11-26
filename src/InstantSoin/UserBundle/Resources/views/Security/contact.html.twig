@@ -1,0 +1,26 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+        <h1>Nous contacter</h1>
+
+    {% for flashMessage in app.session.flashbag.get('contact-notice') %}
+        <div class="add_success">
+        {{ flashMessage }}
+        </div>
+    {% endfor %}
+
+    <form action="{{ path('Bibliotheque_contact') }}" method="post" {{ form_enctype(form) }} class=>
+        <fieldset class="contact spacer">
+        {{ form_errors(form) }}
+
+        {{ form_row(form.name , {'label_attr': {'class': 'spacer'}} ) }}
+        {{ form_row(form.email , {'label_attr': {'class': 'spacer'}} ) }}
+        {{ form_row(form.subject , {'label_attr': {'class': 'spacer'}} ) }}
+        {{ form_row(form.body , {'label_attr': {'class': 'contact spacer'}} ) }}
+
+        {{ form_rest(form) }}
+
+        <input type="submit" value="Envoyer" />
+        </fieldset>
+    </form>
+{% endblock %}

@@ -2,3 +2,29 @@ product:
     resource: "@ProductBundle/Resources/config/routing.yml"
     prefix:   /
 
+user:
+    resource: "@UserBundle/Resources/config/routing.yml"
+    prefix:   /
+
+login:
+   pattern:   /login
+   defaults:  { _controller: UserBundle:Security:login }
+
+login_check:
+   pattern:   /login_check
+
+logout:
+  pattern:    /logout
+
+admin:
+  pattern:    /admin
+  defaults:   { _controller: UserBundle:Admin:admin }
+
+bibliotheque_bibliothecaire:
+  pattern:    /estheticienne
+  defaults:   { _controller: UserBundle:Bibliothecaire:bibliothecaire }
+
+bibliotheque_profil:
+  path:     /profil
+  defaults: { _controller: UserBundle:Security:profil }
+

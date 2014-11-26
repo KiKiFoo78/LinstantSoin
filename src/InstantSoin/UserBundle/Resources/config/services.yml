@@ -1,0 +1,4 @@
+services:
+    RedirectionApresLogin:
+        class: InstantSoin\UserBundle\Redirection\UserRedirection
+        arguments: [@router]

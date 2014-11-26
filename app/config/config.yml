@@ -4,7 +4,7 @@ imports:
 
 framework:
     #esi:             ~
-    #translator:      { fallback: "%locale%" }
+    translator:      { fallback: "%locale%" }
     secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -70,3 +70,16 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+
+# Levée d'exceptions :
+services:
+    kernel.listener.your_listener_name:
+        class: InstantSoin\UserBundle\EventListener\UserExceptionListener
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception, method: onKernelException }
+
+
+parameters:
+    # Bibliotheque contact email address
+    InstantSoin.emails.contact_email: arnaud.hascoet@gmail.com

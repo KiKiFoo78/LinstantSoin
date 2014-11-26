@@ -4,14 +4,17 @@ product_homepage:
 
 
 product_overall:
-    path:     /
-    defaults: { _controller: ProductBundle:Accueil:accueil }
+    path:     /products_overall
+    defaults: { _controller: ProductBundle:Products:products_overall }
 
 
 services_overall:
-    path:     /
-    defaults: { _controller: ProductBundle:Accueil:accueil }
+    path:     /services_overall
+    defaults: { _controller: ProductBundle:Services:services_overall }
 
+equipment_overall:
+    path:     /equipment_overall
+    defaults: { _controller: ProductBundle:Equipment:equipment_overall }
 
 Demande_contact:
     path:     /
@@ -33,3 +36,7 @@ whoswho:
 Lien_Clairjoie:
     pattern:  /clairjoie
     defaults: { _controller: ProductBundle:Accueil:clairjoie }
+
+Lien_Cnd_shellac:
+    pattern:  /cnd_shellac
+    defaults: { _controller: ProductBundle:Accueil:cnd_shellac }
