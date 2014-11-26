@@ -106,21 +106,6 @@ class User implements UserInterface
      */
     private $roles;
 
-    /**
-    * @var $emprunt
-    *
-    * @ORM\ManyToOne(targetEntity="Emprunt", inversedBy="user", cascade={"persist"})
-    * @ORM\JoinColumns({@ORM\JoinColumn(name="emprunt_id", referencedColumnName="id")})
-    */
-    private $emprunt;
-
-    /**
-    * @var $reservation
-    *
-    * @ORM\ManyToOne(targetEntity="Reservation", inversedBy="user", cascade={"persist"})
-    * @ORM\JoinColumns({@ORM\JoinColumn(name="reservation_id", referencedColumnName="id")})
-    */
-    private $reservation;
 
     public function eraseCredentials()
     {
