@@ -12,10 +12,9 @@ class LoadUser implements FixtureInterface
   public function load(ObjectManager $manager)
   {
     // Les noms d'utilisateurs à créer
-    $listNames = array('Alexandre', 'Marine', 'Anna');
-    $listNames2 = array('Robert', 'Etienne');
-    $listNames3 = array('Jacqueline', 'Bernadette');
-    $listNames4 = array('Bastien', 'Arnaud');
+    $listNames = array('Sandra');
+    $listNames3 = array('Eva', 'Akemi');
+    $listNames4 = array('Arnaud');
 
     foreach ($listNames as $name) {
       
@@ -35,22 +34,6 @@ class LoadUser implements FixtureInterface
       $manager->persist($user);
     }
 
-    foreach ($listNames2 as $name) {
-      $user = new User;
-      $user->setNom($name);
-      $user->setPrenom($name);
-      $user->setEmail('bibliotheque@afap.com');
-      $user->setAdresse1('10 rue de mon cul');
-      $user->setAdresse2('');
-      $user->setCodepostal(75001);
-      $user->setVille('Paris');
-      $user->setTelephone(0100000000);
-      $user->setUsername($name);
-      $user->setPassword($name);
-      $user->setSalt('');
-      $user->setRoles('ROLE_USER');
-      $manager->persist($user);
-    }
     foreach ($listNames3 as $name) {
       $user = new User;
       $user->setNom($name);

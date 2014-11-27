@@ -2,4 +2,29 @@
 
 {% block body %}
     <h1>Les services de soins à domicile effectués :</h1>
+
+	<form action="{{ path( 'services_face' ) }}">
+   	<input type="submit" class="face" name="face" value="Les soins&#10&#13visage">
+   	</form>
+
+	<form action="{{ path( 'services_body' ) }}">
+   	<input type="submit" class="body" name="body" value="Les soins&#10&#13du corps">
+	</form>
+
+	<form action="{{ path( 'services_soins' ) }}">
+   	<input type="submit" class="soins" name="soins" value="Les soins&#10&#13des ongles">
+	</form>
+
+	<form action="{{ path( 'services_forfaits' ) }}">
+   	<input type="submit" class="forfaits" name="forfaits" value="Les forfaits">
+	</form>
+
+   	<form action="{{ path( 'services_massages' ) }}">
+   	<input type="submit" class="massages" name="massages" value="Les massages">
+	</form>
+
+   	<form action="{{ path( 'services_peeling' ) }}">
+   	<input type="submit" class="peeling" name="peeling" value="Les épilations">
+	</form>
+
 {% endblock %}

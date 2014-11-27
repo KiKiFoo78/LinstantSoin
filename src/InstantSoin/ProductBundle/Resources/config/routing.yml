@@ -3,22 +3,99 @@ product_homepage:
     defaults: { _controller: ProductBundle:Accueil:accueil }
 
 
+#ROUTING PRODUCTS
+
 product_overall:
     path:     /products_overall
     defaults: { _controller: ProductBundle:Products:products_overall }
 
+product_cremes:
+    path:     /product_cremes
+    defaults: { _controller: ProductBundle:Products:products_cremes }
+
+product_gommages:
+    path:     /product_gommages
+    defaults: { _controller: ProductBundle:Products:products_gommages }
+
+product_maquillage:
+    path:     /product_maquillage
+    defaults: { _controller: ProductBundle:Products:products_maquillage }
+
+product_lotions:
+    path:     /product_lotions
+    defaults: { _controller: ProductBundle:Products:products_lotions }
+
+product_parfumerie:
+    path:     /product_parfumerie
+    defaults: { _controller: ProductBundle:Products:products_parfumerie }
+
+
+#ROUTING SERVICES
 
 services_overall:
     path:     /services_overall
     defaults: { _controller: ProductBundle:Services:services_overall }
 
+services_face:
+    path:     /services_face
+    defaults: { _controller: ProductBundle:Services:services_face }
+
+services_body:
+    path:     /services_body
+    defaults: { _controller: ProductBundle:Services:services_body }
+
+services_soins:
+    path:     /services_soins
+    defaults: { _controller: ProductBundle:Services:services_soins }
+
+services_massages:
+    path:     /services_massages
+    defaults: { _controller: ProductBundle:Services:services_massages }
+
+services_peeling:
+    path:     /services_peeling
+    defaults: { _controller: ProductBundle:Services:services_peeling }
+
+services_forfaits:
+    path:     /services_forfaits
+    defaults: { _controller: ProductBundle:Services:services_forfaits }
+
+
+
+
+
+
+
+
+#ROUTING EQUIPEMENTS
+
 equipment_overall:
     path:     /equipment_overall
     defaults: { _controller: ProductBundle:Equipment:equipment_overall }
 
+
+
+
+
+
+
+
+
+
+
+
+
 Demande_contact:
     path:     /
     defaults: { _controller: ProductBundle:Accueil:accueil }
+
+
+
+
+
+
+
+
 
 
 Accueil_sidebar:
