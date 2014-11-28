@@ -42,7 +42,7 @@ class ServicesController extends Controller
     }
 
 
-    public function services_soinAction()
+    public function services_soinsAction()
     {
 
     	$search = $this->createFormBuilder()
@@ -50,7 +50,7 @@ class ServicesController extends Controller
                                 ->add('save', 'submit', array('label' => 'Rechercher','attr' => array('class' => 'productSearch')))
                                 ->getForm();
                                 
-        return $this->render('ProductBundle:Services:Services_soin.html.twig', array('search' => $search->createView()));
+        return $this->render('ProductBundle:Services:Services_soins.html.twig', array('search' => $search->createView()));
     }
 
 

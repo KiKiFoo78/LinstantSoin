@@ -10,18 +10,22 @@
 
 	<form action="{{ path( 'product_gommages' ) }}">
    	<input type="submit" class="gommages" name="gommages" value="Gommages&#10&#13et&#10&#13masques">
+      <img src="{{asset('bundles/InstantSoin/Images/Buttons/masque.jpg')}}" alt="">
 	</form>
 
    	<form action="{{ path( 'product_maquillage' ) }}">
    	<input type="submit" class="maquillage" name="maquillage" value="Maquillage">
+      <img src="{{asset('bundles/InstantSoin/Images/Buttons/maquillage.jpg')}}" alt="">
 	</form>
 
    	<form action="{{ path( 'product_lotions' ) }}">
    	<input type="submit" class="lotions" name="lotions" value="Démaquillants&#10&#13et&#10&#13lotions">
+      <img src="{{asset('bundles/InstantSoin/Images/Buttons/lotion.jpg')}}" alt="">
 	</form>
 
    	<form action="{{ path( 'product_parfumerie' ) }}">
    	<input type="submit" class="parfumerie" name="parfumerie" value="Parfumerie">
+      <img src="{{asset('bundles/InstantSoin/Images/Buttons/parfumerie.jpg')}}" alt="">
 	</form>
 
 {% endblock %}

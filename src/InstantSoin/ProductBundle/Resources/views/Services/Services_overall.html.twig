@@ -5,26 +5,32 @@
 
 	<form action="{{ path( 'services_face' ) }}">
    	<input type="submit" class="face" name="face" value="Les soins&#10&#13visage">
+      <img src="{{asset('bundles/InstantSoin/Images/Buttons/face.jpg')}}" alt="">
    	</form>
 
 	<form action="{{ path( 'services_body' ) }}">
    	<input type="submit" class="body2" name="body" value="Les soins&#10&#13du corps">
+      <img src="{{asset('bundles/InstantSoin/Images/Buttons/.jpeg')}}" alt="">
 	</form>
 
 	<form action="{{ path( 'services_soins' ) }}">
    	<input type="submit" class="soins" name="soins" value="Les soins&#10&#13des ongles">
+      <img src="{{asset('bundles/InstantSoin/Images/Buttons/manucure.jpg')}}" alt="">
 	</form>
 
 	<form action="{{ path( 'services_forfaits' ) }}">
    	<input type="submit" class="forfaits" name="forfaits" value="Les forfaits">
+      <img src="{{asset('bundles/InstantSoin/Images/Buttons/.jpeg')}}" alt="">
 	</form>
 
    	<form action="{{ path( 'services_massages' ) }}">
    	<input type="submit" class="massages" name="massages" value="Les massages">
+      <img src="{{asset('bundles/InstantSoin/Images/Buttons/massages.jpg')}}" alt="">
 	</form>
 
    	<form action="{{ path( 'services_peeling' ) }}">
    	<input type="submit" class="peeling" name="peeling" value="Les épilations">
+      <img src="{{asset('bundles/InstantSoin/Images/Buttons/epilation.jpg')}}" alt="">
 	</form>
 
 {% endblock %}
