@@ -1,14 +1,14 @@
 {% extends 'ProductBundle::layout.html.twig' %}
 
 {% block body %}
-    <h1>Les services de soins à domicile effectués :</h1>
+    <h3>Les services de soins à domicile effectués :</h3>
 
 	<form action="{{ path( 'services_face' ) }}">
    	<input type="submit" class="face" name="face" value="Les soins&#10&#13visage">
    	</form>
 
 	<form action="{{ path( 'services_body' ) }}">
-   	<input type="submit" class="body" name="body" value="Les soins&#10&#13du corps">
+   	<input type="submit" class="body2" name="body" value="Les soins&#10&#13du corps">
 	</form>
 
 	<form action="{{ path( 'services_soins' ) }}">

@@ -18,7 +18,7 @@ class ServicesController extends Controller
     }
 
 
-    public function products_faceAction()
+    public function services_faceAction()
     {
 
     	$search = $this->createFormBuilder()
@@ -26,11 +26,11 @@ class ServicesController extends Controller
                                 ->add('save', 'submit', array('label' => 'Rechercher','attr' => array('class' => 'productSearch')))
                                 ->getForm();
                                 
-        return $this->render('ProductBundle:Products:Services_face.html.twig', array('search' => $search->createView()));
+        return $this->render('ProductBundle:Services:Services_face.html.twig', array('search' => $search->createView()));
     }
 
 
-    public function products_bodyAction()
+    public function services_bodyAction()
     {
 
     	$search = $this->createFormBuilder()
@@ -38,11 +38,11 @@ class ServicesController extends Controller
                                 ->add('save', 'submit', array('label' => 'Rechercher','attr' => array('class' => 'productSearch')))
                                 ->getForm();
                                 
-        return $this->render('ProductBundle:Products:Services_body.html.twig', array('search' => $search->createView()));
+        return $this->render('ProductBundle:Services:Services_body.html.twig', array('search' => $search->createView()));
     }
 
 
-    public function products_soinAction()
+    public function services_soinAction()
     {
 
     	$search = $this->createFormBuilder()
@@ -50,11 +50,11 @@ class ServicesController extends Controller
                                 ->add('save', 'submit', array('label' => 'Rechercher','attr' => array('class' => 'productSearch')))
                                 ->getForm();
                                 
-        return $this->render('ProductBundle:Products:Services_soin.html.twig', array('search' => $search->createView()));
+        return $this->render('ProductBundle:Services:Services_soin.html.twig', array('search' => $search->createView()));
     }
 
 
-    public function products_forfaitsAction()
+    public function services_forfaitsAction()
     {
 
     	$search = $this->createFormBuilder()
@@ -62,11 +62,11 @@ class ServicesController extends Controller
                                 ->add('save', 'submit', array('label' => 'Rechercher','attr' => array('class' => 'productSearch')))
                                 ->getForm();
                                 
-        return $this->render('ProductBundle:Products:Services_forfaits.html.twig', array('search' => $search->createView()));
+        return $this->render('ProductBundle:Services:Services_forfaits.html.twig', array('search' => $search->createView()));
     }
 
 
-    public function products_massagesAction()
+    public function services_massagesAction()
     {
 
     	$search = $this->createFormBuilder()
@@ -74,11 +74,11 @@ class ServicesController extends Controller
                                 ->add('save', 'submit', array('label' => 'Rechercher','attr' => array('class' => 'productSearch')))
                                 ->getForm();
                                 
-        return $this->render('ProductBundle:Products:Services_massages.html.twig', array('search' => $search->createView()));
+        return $this->render('ProductBundle:Services:Services_massages.html.twig', array('search' => $search->createView()));
     }
 
 
-    public function products_peelingAction()
+    public function services_peelingAction()
     {
 
     	$search = $this->createFormBuilder()
@@ -86,6 +86,6 @@ class ServicesController extends Controller
                                 ->add('save', 'submit', array('label' => 'Rechercher','attr' => array('class' => 'productSearch')))
                                 ->getForm();
                                 
-        return $this->render('ProductBundle:Products:Services_peeling.html.twig', array('search' => $search->createView()));
+        return $this->render('ProductBundle:Services:Services_peeling.html.twig', array('search' => $search->createView()));
     }
 }
