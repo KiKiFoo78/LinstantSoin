@@ -26,17 +26,17 @@ class UserRedirection implements AuthenticationSuccessHandlerInterface
         
         if (in_array("ROLE_ESTHETICIENNE", $rolesTab)){
 
-            $redirection = new RedirectResponse($this->router->generate('InstantSoin_Estheticienne'));
+            $redirection = new RedirectResponse($this->router->generate('estheticienne'));
         }
 
         if (in_array("ROLE_ADMIN", $rolesTab)){
 
-            $redirection = new RedirectResponse($this->router->generate('InstantSoin_Admin'));
+            $redirection = new RedirectResponse($this->router->generate('admin'));
         }
 
         if (in_array("ROLE_USER",  $rolesTab)){
 
-            $redirection = new RedirectResponse($this->router->generate('InstantSoin_User'));
+            $redirection = new RedirectResponse($this->router->generate('product_homepage'));
         }
 
         return $redirection;

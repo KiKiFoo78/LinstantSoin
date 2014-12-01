@@ -86,8 +86,8 @@ equipment_overall:
 
 
 Demande_contact:
-    path:     /
-    defaults: { _controller: ProductBundle:Accueil:accueil }
+    path:     /contact
+    defaults: { _controller: UserBundle:Security:contact }
 
 
 

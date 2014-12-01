@@ -20,11 +20,11 @@ admin:
   pattern:    /admin
   defaults:   { _controller: UserBundle:Admin:admin }
 
-bibliotheque_bibliothecaire:
+estheticienne:
   pattern:    /estheticienne
-  defaults:   { _controller: UserBundle:Bibliothecaire:bibliothecaire }
+  defaults:   { _controller: UserBundle:Estheticienne:estheticienne }
 
-bibliotheque_profil:
+user_profil:
   path:     /profil
   defaults: { _controller: UserBundle:Security:profil }
 

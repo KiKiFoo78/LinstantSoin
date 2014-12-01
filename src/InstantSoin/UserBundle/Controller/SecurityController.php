@@ -142,13 +142,13 @@ class SecurityController extends Controller
 	                $message = \Swift_Message::newInstance()
 	                    ->setSubject('Demande de contact du site de la bibliotheque')
 	                    ->setFrom('arnaud.hascoet@gmail.com')
-	                    ->setTo($this->container->getParameter('bibliotheque.emails.contact_email'))
+	                    ->setTo($this->container->getParameter('InstantSoin.emails.contact_email'))
 	                    ->setBody($this->renderView('UserBundle:Security:contactEmail.txt.twig', array('enquiry' => $enquiry)));
 	                $this->get('mailer')->send($message);
 	        
 	                $this->get('session')->getFlashBag()->add('contact-notice', 'Votre message a bien été envoyé. Merci!');
 	        
-	                return $this->redirect($this->generateUrl('Bibliotheque_contact'));
+	                return $this->redirect($this->generateUrl('Demande_contact'));
 	            }
 	        }
 

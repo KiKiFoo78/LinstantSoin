@@ -1,7 +1,7 @@
 {% extends '::base.html.twig' %}
 
 {% block body %}
-        <h1>Nous contacter</h1>
+        <h1>Me contacter</h1>
 
     {% for flashMessage in app.session.flashbag.get('contact-notice') %}
         <div class="add_success">
@@ -9,7 +9,7 @@
         </div>
     {% endfor %}
 
-    <form action="{{ path('Bibliotheque_contact') }}" method="post" {{ form_enctype(form) }} class=>
+    <form action="{{ path('Demande_contact') }}" method="post" {{ form_enctype(form) }} class=>
         <fieldset class="contact spacer">
         {{ form_errors(form) }}
 

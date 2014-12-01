@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Bienvenue !{% endblock %}</title>
+        <title>{% block title %}Accueil admin{% endblock %}</title>
         {% block stylesheets %}
         <link href="//fonts.googleapis.com/css?family=Lily+Script One:400" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="{{asset('bundles/InstantSoin/css/bootstrap.css')}}">
@@ -69,11 +69,11 @@
                                     <hr>
                                     {% endif %}
                                     {% if is_granted('ROLE_ESTHETICIENNE') %}
-                                        <a href="{{ path('estheticienne') }}">Administration</a>
+                                        <a href="{{ path('bibliotheque_bibliothecaire') }}">Administration</a>
                                     <hr>
                                     {% endif %}
                                     {% if is_granted('ROLE_USER') %}
-                                        <a href="{{ path( 'user_profil' ) }}">Profil</a>
+                                        <a href="{{ path( 'bibliotheque_profil' ) }}">Profil</a>
                                     <hr>
                                     {% endif %}
                                     {% if is_granted('ROLE_USER') or is_granted('IS_AUTHENTICATED_ANONYMOUSLY') %}
