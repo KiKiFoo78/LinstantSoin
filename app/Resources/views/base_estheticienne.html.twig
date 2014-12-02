@@ -5,6 +5,7 @@
         <title>{% block title %}Accueil Estheticienne{% endblock %}</title>
         {% block stylesheets %}
         <link href="//fonts.googleapis.com/css?family=Lily+Script One:400" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="{{asset('bundles/InstantSoin/jquery/jquery-ui.css')}}">
         <link rel="stylesheet" href="{{asset('bundles/InstantSoin/css/bootstrap.css')}}">
         <link rel="stylesheet" href="{{asset('bundles/InstantSoin/css/style.css')}}">
         {% endblock %}
@@ -23,34 +24,28 @@
                             <ul class="menu">
 
                                 <li>
-                                    <a href="{{ path( 'services_overall' ) }}">Prestations</a>
+                                    <a href="{{ path( 'services_overall' ) }}">Mes clients</a>
                                     <ul>
-                                            <li><a href="services_face">Les soins visage</a></li>
-                                            <li><a href="services_body">Les soins du corps</a></li>
-                                            <li><a href="services_soin">Soin des ongles</a></li>
-                                            <li><a href="services_forfaits">Les forfaits soin</a></li>
-                                            <li><a href="services_massages">Massages</a></li>
-                                            <li><a href="services_peeling">Epilations</a></li>
+                                            <li><a href="services_face">Créer un client</a></li>
+                                            <li><a href="services_body">Modifier un client</a></li>
+                                            <li><a href="services_soin">Supprimer un client</a></li>
                                     </ul>
                                 </li>
 
                                 <li>
-                                    <a href="{{ path( 'product_overall' ) }}">La boutique</a>
+                                    <a href="{{ path( 'product_overall' ) }}">Les commandes</a>
                                     <ul>
-                                            <li><a href="{{ path( 'product_cremes' ) }}">Crèmes de jour / crèmes de nuit</a></li>
-                                            <li><a href="{{ path( 'product_gommages' ) }}">Gommages et masques</a></li>
-                                            <li><a href="{{ path( 'product_maquillage' ) }}">Maquillage</a></li>
-                                            <li><a href="{{ path( 'product_lotions' ) }}">Démaquillants et lotions</a></li>
-                                            <li><a href="{{ path( 'product_parfumerie' ) }}">Parfumerie</a></li>
-                                            <li><a href="{{ path( 'equipment_overall' ) }}">Matériels</a></li>
+                                            <li><a href="{{ path( 'product_cremes' ) }}">Commandes passées</a></li>
+                                            <li><a href="{{ path( 'product_gommages' ) }}">Gérer les commandes</a></li>
                                     </ul>
                                 </li>
 
                                 <li>
-                                {{ form_start(search) }}
-                                    {{ form_widget(search.recherche, {'attr': {'class': 'searchInput'}}) }}
-                                    {{ form_widget(search.save) }}
-                                {{ form_end(search) }}
+                                    <a href="{{ path( 'product_overall' ) }}">Le programme fidélité</a>
+                                    <ul>
+                                            <li><a href="{{ path( 'product_cremes' ) }}">Consulter les bons à échéance</a></li>
+                                            <li><a href="{{ path( 'product_gommages' ) }}">Gérer les bons</a></li>
+                                    </ul>
                                 </li>
                             </ul>
                             <div class="connexion">
@@ -86,7 +81,7 @@
                 {% block body %}{% endblock %}
         </section>
         <aside class="sidebar">
-                {% block sidebar %}{% endblock %}
+                {% block sidebar_estheticienne %}{% endblock %}
         </aside>
 
         <section>
@@ -99,33 +94,13 @@
         </section>
 
             {% block javascripts %}
-            <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
-            <script type="text/javascript">
-            function initialisation(){
-                var centreCarte = new google.maps.LatLng(49.023402, 1.705735);
-                var optionsCarte = {
-                    zoom: 9,
-                    center: centreCarte,
-                    marker: true,
-                    mapTypeId: google.maps.MapTypeId.ROADMAP
-                }
 
-                var maCarte = new google.maps.Map(document.getElementById("EmplacementDeMaCarte"), optionsCarte);
-
-                var marker = new google.maps.Marker({
-                    position: centreCarte,
-                    map: maCarte
-                });
-
-                var optionsCercle = {
-                    map: maCarte,
-                    center: maCarte.getCenter(),
-                    radius: 15000
-                }
-                var monCercle = new google.maps.Circle(optionsCercle);
-            }
-            google.maps.event.addDomListener(window, 'load', initialisation);
+            <script>
+            $(function() {
+            $( "#accordion" ).accordion();
+            });
             </script>
+            
             {% endblock %}
 
     </body>

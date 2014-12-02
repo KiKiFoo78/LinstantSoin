@@ -5,6 +5,7 @@
         <title>{% block title %}Accueil admin{% endblock %}</title>
         {% block stylesheets %}
         <link href="//fonts.googleapis.com/css?family=Lily+Script One:400" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="{{asset('bundles/InstantSoin/jquery/jquery-ui.css')}}">
         <link rel="stylesheet" href="{{asset('bundles/InstantSoin/css/bootstrap.css')}}">
         <link rel="stylesheet" href="{{asset('bundles/InstantSoin/css/style.css')}}">
         {% endblock %}
@@ -99,33 +100,13 @@
         </section>
 
             {% block javascripts %}
-            <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
-            <script type="text/javascript">
-            function initialisation(){
-                var centreCarte = new google.maps.LatLng(49.023402, 1.705735);
-                var optionsCarte = {
-                    zoom: 9,
-                    center: centreCarte,
-                    marker: true,
-                    mapTypeId: google.maps.MapTypeId.ROADMAP
-                }
 
-                var maCarte = new google.maps.Map(document.getElementById("EmplacementDeMaCarte"), optionsCarte);
-
-                var marker = new google.maps.Marker({
-                    position: centreCarte,
-                    map: maCarte
-                });
-
-                var optionsCercle = {
-                    map: maCarte,
-                    center: maCarte.getCenter(),
-                    radius: 15000
-                }
-                var monCercle = new google.maps.Circle(optionsCercle);
-            }
-            google.maps.event.addDomListener(window, 'load', initialisation);
+            <script>
+            $(function() {
+            $( "#accordion" ).accordion();
+            });
             </script>
+            
             {% endblock %}
 
     </body>

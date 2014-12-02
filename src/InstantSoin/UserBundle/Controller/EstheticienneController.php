@@ -19,12 +19,14 @@ class EstheticienneController extends Controller
 	
 	public function estheticienneAction()
 	{
-		$search = $this->createFormBuilder()
-                                ->add('recherche', 'search', array('label' => '', 'attr' => array('class' => 'productSearch')))
-                                ->add('save', 'submit', array('label' => 'Rechercher','attr' => array('class' => 'productSearch')))
-                                ->getForm();
-                                
-		return $this->render('UserBundle:Estheticienne:Estheticienne.html.twig', array('search' => $search->createView()));
+        
+		return $this->render('UserBundle:Estheticienne:Estheticienne.html.twig');
 	}
+
+
+	public function sidebar_estheticienneAction() {
+       
+        return $this->render('UserBundle:Estheticienne:sidebar_estheticienne.html.twig');
+    }
 
 }

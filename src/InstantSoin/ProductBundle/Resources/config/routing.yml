@@ -104,6 +104,12 @@ Accueil_sidebar:
     requirements:
         _method:  GET
 
+Estheticienne_sidebar:
+    pattern:  /Estheticienne_sidebar
+    defaults: { _controller: UserBundle:Estheticienne:sidebar_estheticienne }
+    requirements:
+        _method:  GET
+
 whoswho:
     pattern:  /whoswho
     defaults: { _controller: ProductBundle:Accueil:whoswho }
