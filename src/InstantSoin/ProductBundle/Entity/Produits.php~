@@ -1,0 +1,88 @@
+<?php
+
+namespace InstantSoin\ProductBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use InstantSoin\ProductBundle\Entity\Produits;
+
+
+/**
+ * Produits
+ *
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="InstantSoin\ProductBundle\Repository\ProduitsRepository")
+ */
+class Produits
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="reference", type="string", length=4, unique=true)
+     */
+    private $reference;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="designation", type="string", length=255)
+     */
+    private $designation;
+
+    
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="text")
+     */
+    private $description;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="InstantSoin\ProductBundle\Entity\Categorie")     
+     */
+    private $categorie;
+
+    /**
+     * @var string
+     * @Assert\File( maxSize = "2048k", mimeTypesMessage = "Please upload a valid Image")
+     * @ORM\Column(name="image", type="string", length=255)
+     */
+    private $image;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="urlimage", type="string", length=255)
+     */
+    private $urlimage;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="altimage", type="string", length=255)
+     */
+    private $altimage;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="InstantSoin\ProductBundle\Entity\Fournisseurs")
+     */
+    private $fournisseurs;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="stock", type="integer")
+     */
+    private $stock;
+
+}

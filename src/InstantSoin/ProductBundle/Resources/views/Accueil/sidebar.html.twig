@@ -1,39 +1,66 @@
 <section>
     <h3>Informations utiles</h3>
-	<p><a href="{{ path( 'whoswho' ) }}">Qui suis-je?</a></p>
+
+    <div id="accordion">
+	    <h4>Me connaître</h4>
+    		<div>
+			<p><a href="{{ path( 'whoswho' ) }}">Qui suis-je?</a></p>
+			<blockquote>
+			Titulaire d'un cap et d'un BP d'esthétique-cosmétique et fort de mes 13 ans d'experience en institut sur Paris et en région parisienne, j'ai décidé de me mettre à domicile pour privilégier votre bien-être et votre confort tout cela sans stress et sans attente.
+			</blockquote>
+			<blockquote>
+			Votre bien-être étant ma priorité, j'ai choisi de travailler avec des produits naturels et certifiés bio de la marque Clairjoie pour la peau mais aussi Shellac pour les ongles. Pour une hygiène parfaite le linge est à usage unique et le matériel est stérilisé et désinfecté après chaque cliente.
+			</blockquote>
+			<blockquote>
+			Je vous assure des soins de qualité tout comme en institut de beauté avec des conseils et réponses à vos questions et ne suis présente pour vous rien que pour vous !
+			</blockquote>
+			<blockquote>
+			Mon métier est ma passion, alors ne doutez plus et prenez vite rendez-vous soit par téléphone soit par email.
+			</blockquote>
+			<blockquote>
+			A  très bientôt, votre esthéticienne, Sandra.
+			</blockquote>
+			<br>
+			<a target=_blank href="{{ path( 'Lien_Clairjoie' ) }}"><img src="{{ asset('bundles/InstantSoin/Images/Clairjoie.jpg') }}" alt="Impossible dafficher limage"></a>
+			<a target=_blank href="{{ path( 'Lien_Cnd_shellac' ) }}"><img src="{{ asset('bundles/InstantSoin/Images/Cnd_shellac.png') }}" alt="Impossible dafficher limage"></a>
+			</div>
+	
+		<h4>Zone de déplacement</h4>
+			<div>
+				<blockquote>
+					Rayon de 15 km aux alentours de Follainville.
+					<br>
+					Suivant les secteurs je me déplace pour un montant minimum de 15€.
+				</blockquote>
+				<div id="EmplacementDeMaCarte">
+				</div>
+			</div>
+			
+
+		<h4>Horaires</h4>
+			<div>
+				<blockquote>
+					Du lundi au samedi de 8h30 à 20h00.
+				</blockquote>
+			</div>
+
+		<h4>Me contacter</h4>
+			<div>
+				<p>N'hésitez pas à me contacter pour tout renseignement:</p>
+				<blockquote>
+					06-11-57-10-10 ou <br><a href="mailto:linstantsoin@free.fr">linstantsoin@free.fr</a>
+				</blockquote>
+			</div>
+	</div>
 
 	<hr>
-
-	<p>Zone de déplacement :</p>
-	<blockquote>
-		Rayon de 15 km aux alentours de Follainville.
-		<br>
-		Suivant les secteurs je me déplace pour un montant minimum de 15€.
-	</blockquote>
-
-	<div id="EmplacementDeMaCarte"></div>
-
-	<hr>
-
-	<p>Horaires :</p>
-	<blockquote>
-		Du lundi au samedi de 8h30 à 20h00.
-	</blockquote>
-
-	<hr>
-
-	<p>N'hésitez pas à me contacter pour tout renseignement:</p>
-	<blockquote>
-	06-11-57-10-10 ou <br><a href="mailto:linstantsoin@free.fr">linstantsoin@free.fr</a>
-	</blockquote>
-
-	<hr>
+	
 	<div>
-	<object type="application/x-shockwave-flash" data="{{ asset('bundles/InstantSoin/Music/dewplayer-playlist.swf') }}" margin="auto" width="250" height="125" id="dewplayer" name="dewplayer">
-	<param name="wmode" value="transparent" />
-	<param name="movie" value="{{ asset('bundles/InstantSoin/Music/dewplayer-playlist.swf') }}" />
-	<param name="flashvars" value="showtime=true&autostart=true&randomplay=true&autoreplay=true&volume=50&xml={{ asset('bundles/InstantSoin/Music/playlist.xml') }}" />
-	</object>
+		<object type="application/x-shockwave-flash" data="{{ asset('bundles/InstantSoin/Music/dewplayer-playlist.swf') }}" margin="auto" width="250" height="125" id="dewplayer" name="dewplayer">
+		<param name="wmode" value="transparent" />
+		<param name="movie" value="{{ asset('bundles/InstantSoin/Music/dewplayer-playlist.swf') }}" />
+		<param name="flashvars" value="showtime=true&autostart=true&randomplay=true&autoreplay=true&volume=50&xml={{ asset('bundles/InstantSoin/Music/playlist.xml') }}" />
+		</object>
 	</div>
 
 </section>
