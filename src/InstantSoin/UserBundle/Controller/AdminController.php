@@ -17,13 +17,15 @@ use InstantSoin\UserBundle\Entity\User;
 class AdminController extends Controller
 {
 	public function adminAction()
-	{	
-		$search = $this->createFormBuilder()
-                                ->add('recherche', 'search', array('label' => '', 'attr' => array('class' => 'productSearch')))
-                                ->add('save', 'submit', array('label' => 'Rechercher','attr' => array('class' => 'productSearch')))
-                                ->getForm();
+	{
                                 
-		return $this->render('UserBundle:Admin:admin.html.twig', array('search' => $search->createView()));
+		return $this->render('UserBundle:Admin:admin.html.twig');
 	}
 	
+	public function sidebar_adminAction()
+	{
+       
+        return $this->render('UserBundle:Admin:sidebar_admin.html.twig');
+    }
+
 }

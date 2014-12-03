@@ -1,11 +1,11 @@
 {% extends 'ProductBundle::layout.html.twig' %}
 {% block body %}
 <h1>Votre profil</h1>
+
 <ul class="menu">
 	<li><a href="#">TBD</a></li>
 	<li><a href="#">TBD</a></li>
-	<li><a href="{{ path( 'user_profil', {'username' : username } ) }}">Mes informations</a></li>
+	<li><a href="{{ path( 'profil_info', {'username' : username } ) }}">Mes informations</a></li>
 </ul>
-
 {% endblock %}
 

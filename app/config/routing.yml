@@ -25,6 +25,11 @@ estheticienne:
   defaults:   { _controller: UserBundle:Estheticienne:estheticienne }
 
 user_profil:
-  path:     /profil
+  path:     /user_profil
   defaults: { _controller: UserBundle:Security:profil }
+
+
+profil_info:
+  path:     /profil_info/{username}
+  defaults: { _controller: UserBundle:Security:profil_info }
 

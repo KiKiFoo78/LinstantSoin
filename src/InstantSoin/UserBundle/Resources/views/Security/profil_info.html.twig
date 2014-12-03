@@ -1,15 +1,14 @@
 {% extends 'ProductBundle::layout.html.twig' %}
 {% block body %}
-<h1>Profil</h1>
-<ul class="menu">
-	<li><a href="#">TBD</a></li>
+<h1>Votre profil</h1>
+<ul class="menu"><li><a href="#">TBD</a></li>
 	<li><a href="#">TBD</a></li>
 	<li><a href="{{ path( 'user_profil' ) }}">Mes informations</a></li>
 </ul>
-<h1>Edition de votre profil</h1>
+<h4>Edition de votre profil</h4>
 
 {{ form_start(form) }}
-		<fieldset class='userField spacer'>
+		<fieldset>
 			{{ form_label(form.nom, 'Nom :', {'label_attr': {'class': 'label spacerUser'}}) }}
 			{{ form_widget(form.nom) }}
 			<br>

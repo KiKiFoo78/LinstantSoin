@@ -65,16 +65,16 @@ class User implements UserInterface
     private $ville;
 
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="telephone", type="integer", length=10)
+     * @ORM\Column(name="telephone", type="string", length=10)
      */
     private $telephone;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="email", type="string", length=50)
+     * @ORM\Column(name="email", type="text", length=10)
      */
     private $email;
 
@@ -355,7 +355,7 @@ class User implements UserInterface
     /**
      * Set telephone
      *
-     * @param integer $telephone
+     * @param string $telephone
      * @return User
      */
     public function setTelephone($telephone)
@@ -368,7 +368,7 @@ class User implements UserInterface
     /**
      * Get telephone
      *
-     * @return integer 
+     * @return string 
      */
     public function getTelephone()
     {

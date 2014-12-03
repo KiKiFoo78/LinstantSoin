@@ -81,13 +81,14 @@ class SecurityController extends Controller
 									->add('username', 'text', array('required' => true))
 									->add('password', 'repeated', array(
 										    'type' => 'password',
-										    'invalid_message' => 'Les mots de passe doivent correspondre',
+										    
 										    'options' => array(
 										    	'required' => true,
-										    	'read_only' => true,
+										    	'read_only' => false,
 										    ),
 										    'first_options'  => array('label' => 'Mot de passe'),
-										    'second_options' => array('label' => 'Mot de passe (validation)'),
+										    'invalid_message' => 'Les 2 mots de passe sont différents',
+										    'second_options' => array('label' => 'Mot de passe (vérification)'),
 										))
 									->add('save', 'submit', array(
 														'label' => 'Enregistrer',
@@ -109,7 +110,7 @@ class SecurityController extends Controller
         	$em = $this->getDoctrine()->getManager();
 			$em->flush();
 
-			$session->getFlashBag()->add('user_modif_success', 'Utilisateur mis à jour correctement dans la base de donnée.');
+			$session->getFlashBag()->add('user_modif_success', 'Utilisateur mis à jour correctement dans la base de données.');
 
 			return $this->redirect($this->generateUrl('profil_info', array('username' => $username)));
 

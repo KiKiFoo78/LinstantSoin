@@ -1,4 +1,4 @@
-{% extends '::base_estheticienne.html.twig' %}
+{% extends '::base_admin.html.twig' %}
 
 {% block stylesheets %}
     {{ parent() }}
@@ -6,5 +6,5 @@
 {% endblock %}
 
 {% block sidebar %}
-    {% render url('Estheticienne_sidebar') %}
+    {% render url('sidebar_admin') %}
 {% endblock %}
