@@ -4,6 +4,8 @@ namespace InstantSoin\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * user
@@ -396,6 +398,55 @@ class User implements UserInterface
     public function getEmail()
     {
         return $this->email;
+    }
+
+    public static function loadValidatorMetadata(ClassMetadata $metadata)
+    {
+        $metadata->addPropertyConstraint('nom', new Assert\NotBlank());
+        $metadata->addPropertyConstraint('nom', new Assert\Length(array(
+            'min'   => 2,
+            'max'   => 50,
+            'minMessage' => 'Votre nom doit avoir un minimum de 2 caractères.',
+            'maxMessage' => 'Votre nom doit avoir un maximum de 50 caractères.',
+        )));
+
+        $metadata->addPropertyConstraint('prenom', new Assert\NotBlank());
+        $metadata->addPropertyConstraint('prenom', new Assert\Length(array(
+            'min'   => 2,
+            'max'   => 50,
+            'minMessage' => 'Votre prénom doit avoir un minimum de 2 caractères.',
+            'maxMessage' => 'Votre prénom doit avoir un maximum de 50 caractères.',
+        )));
+
+        $metadata->addPropertyConstraint('adresse1', new Assert\NotBlank());
+
+        $metadata->addPropertyConstraint('codepostal', new Assert\NotBlank());
+        $metadata->addPropertyConstraint('codepostal', new Assert\Length(array(
+            'min'   => 5,
+            'max'   => 5,
+            'minMessage' => 'Le code postal doit avoir 5 chiffres.',
+            'maxMessage' => 'Le code postal doit avoir 5 chiffres.',
+        )));
+
+        $metadata->addPropertyConstraint('ville', new Assert\NotBlank());
+        $metadata->addPropertyConstraint('ville', new Assert\Length(array(
+            'min'   => 2,
+            'max'   => 50,
+            'minMessage' => 'Votre ville doit avoir un minimum de 2 caractères.',
+            'maxMessage' => 'Votre ville doit avoir un maximum de 50 caractères.',
+        )));
+
+        $metadata->addPropertyConstraint('telephone', new Assert\NotBlank());
+        $metadata->addPropertyConstraint('telephone', new Assert\Length(array(
+            'min'   => 10,
+            'max'   => 10,
+            'minMessage' => 'Le numéro de téléphone doit avoir 10 chiffres.',
+            'maxMessage' => 'Le numéro de téléphone doit avoir 10 chiffres.',
+        )));
+
+
+        $metadata->addPropertyConstraint('email', new Assert\Email());
+
     }
 
 }

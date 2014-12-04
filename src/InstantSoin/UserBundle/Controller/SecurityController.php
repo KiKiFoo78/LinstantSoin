@@ -13,6 +13,12 @@ use InstantSoin\UserBundle\Form\EnquiryType;
 
 class SecurityController extends Controller
 {
+
+
+	/*
+	 * CONNEXION USER
+	 */
+
 	public function loginAction(Request $request)
 	{
 		$search = $this->createFormBuilder()
@@ -39,7 +45,75 @@ class SecurityController extends Controller
 			));
 	}
 
+	/*
+	 * CREATION USER
+	 */
 
+
+	public function new_accountAction(Request $request){
+
+		$search = $this->createFormBuilder()
+                                ->add('recherche', 'search', array('label' => '', 'attr' => array('class' => 'livreSearch')))
+                                ->add('save', 'submit', array('label' => 'Rechercher','attr' => array('class' => 'livreSearch')))
+                                ->getForm();
+
+		$session = $this->getRequest()->getSession();
+		$user = new User();
+
+		$form = $this->createFormBuilder($user)
+					->add('nom', 'text', array('required' => true))
+					->add('prenom', 'text', array('required' => true))
+					->add('adresse1', 'text', array('required' => true))
+					->add('adresse2', 'text', array('required' => false))
+					->add('codepostal', 'number', array('required' => true))
+					->add('ville', 'text', array('required' => true))
+					->add('telephone', 'number', array('required' => true))
+					->add('email', 'text', array('required' => true))
+					->add('username', 'text', array(
+							'required' => true,
+							'read_only' => true,
+						))
+					->add('password', 'text', array(
+							'required' => true,
+							'read_only' => true,
+						))
+					
+					->add('save', 'submit', array('label' => 'Enregistrer', 'attr' => array('class' => 'submit spacer')))
+					->getForm();
+
+		$form->handleRequest($request);
+
+	    if ($form->isValid()) {
+
+	    		$factory = $this->get('security.encoder_factory');
+	            $encoder = $factory->getEncoder($user);
+	            $password = $encoder->encodePassword($form->get('password')->getData(), $user->getSalt());
+	            $user->setPassword($password);
+	            $role = 'ROLE_USER';
+	            $user->setRoles($role);
+
+				$username = $form->get('username')->getData();
+
+	        	$em = $this->getDoctrine()->getManager();
+				$em->persist($user);
+				$em->flush();
+
+				$session->getFlashBag()->add('user_add_success', 'Votre compte a été correctment créé ! Vous pouvez dores et déjà vous connecter à votre espace.');
+				$session->getFlashBag()->add('user_add_warning', 'Votre mot de passe est identique à votre nom d\'utilisateur : ' .$username. ' Veuillez le changer dans votre profil lors de votre première connexion');
+
+				return $this->redirect($this->generateUrl('new_account'));
+		}
+
+		return $this->render('UserBundle:Security:new_account.html.twig', array('search' => $search->createView(), 'form' => $form->createView()));
+	}
+
+
+
+
+
+	 /*
+	 * MODIFICATION USER
+	 */
 	
 	public function profilAction()
     {
@@ -87,7 +161,7 @@ class SecurityController extends Controller
 										    	'read_only' => false,
 										    ),
 										    'first_options'  => array('label' => 'Mot de passe'),
-										    'invalid_message' => 'Les 2 mots de passe sont différents',
+										    'invalid_message' => 'Les mots de passe doivent correspondre',
 										    'second_options' => array('label' => 'Mot de passe (vérification)'),
 										))
 									->add('save', 'submit', array(
@@ -99,7 +173,7 @@ class SecurityController extends Controller
 									->getForm();
 
 	    $form->handleRequest($request);
-	 
+
 	    if ($form->isValid()) {
 	    	
 	    	$factory = $this->get('security.encoder_factory');
@@ -110,7 +184,7 @@ class SecurityController extends Controller
         	$em = $this->getDoctrine()->getManager();
 			$em->flush();
 
-			$session->getFlashBag()->add('user_modif_success', 'Utilisateur mis à jour correctement dans la base de données.');
+			$session->getFlashBag()->add('user_modif_success', 'Les données ont été mises à jour correctement.');
 
 			return $this->redirect($this->generateUrl('profil_info', array('username' => $username)));
 
@@ -121,7 +195,9 @@ class SecurityController extends Controller
 
     }
 
-
+     /*
+	 * ENVOI EMAIL CLIENT OU ANONYMOUS
+	 */
 
 
 	public function contactAction()
@@ -133,7 +209,6 @@ class SecurityController extends Controller
 
 	        $enquiry = new Enquiry();
 	        $form = $this->createForm(new EnquiryType(), $enquiry);
-
 
 	        $request = $this->getRequest();
 	        if ($request->getMethod() == 'POST') {

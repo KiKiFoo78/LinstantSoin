@@ -1,0 +1,62 @@
+{% extends 'ProductBundle::layout.html.twig' %}
+{% block body %}
+<h3>Création de votre espace</h3>
+
+{% for flashMessage in app.session.flashbag.get('user_add_success') %}
+        <div class="add_success">
+        <p>
+        {{ flashMessage }}
+        </p>
+        <br>
+        </div>
+{% endfor %}
+<br><br>
+{% for flashMessage in app.session.flashbag.get('user_add_warning') %}
+        <div class="add_warning">
+        <p>
+        {{ flashMessage }}
+        </p>
+        <br>
+        </div>
+{% endfor %}
+<br><br>
+{{ form_start(form) }}
+	{{ form_errors(form) }}
+	<fieldset>
+		{{ form_errors(form) }}
+		<br>
+		{{ form_label(form.nom, 'Nom :', {'label_attr': {'class': 'label spacerUser'}}) }}
+		{{ form_widget(form.nom, {'attr': {'id': 'nom'}}) }}
+		<br>
+		{{ form_label(form.prenom, 'Prenom :', {'label_attr': {'class': 'label spacerUser'}}) }}
+		{{ form_widget(form.prenom) }}
+		<br>
+		{{ form_label(form.adresse1, 'Adresse 1 :',{'label_attr': {'class': 'label spacerUser'}}) }}
+		{{ form_widget(form.adresse1) }}
+		<br>
+		{{ form_label(form.adresse2, 'Adresse 2 :', {'label_attr': {'class': 'label spacerUser'}}) }}
+		{{ form_widget(form.adresse2) }}
+		<br>
+		{{ form_label(form.codepostal, 'Code postal :', {'label_attr': {'class': 'label spacerUser'}}) }}
+		{{ form_widget(form.codepostal) }}
+		<br>
+		{{ form_label(form.ville, 'Ville :', {'label_attr': {'class': 'label spacerUser'}}) }}
+		{{ form_widget(form.ville) }}
+		<br>
+		{{ form_label(form.email, 'Email :', {'label_attr': {'class': 'label spacerUser'}}) }}
+		{{ form_widget(form.email) }}
+		<br>
+		{{ form_label(form.telephone, 'Telephone :', {'label_attr': {'class': 'label spacerUser'}}) }}
+		{{ form_widget(form.telephone) }}
+		<br>
+		{{ form_label(form.username, "Nom d'utilisateur :", {'label_attr': {'class': 'label spacerUser'}}) }}
+		{{ form_widget(form.username, {'attr': {'id': 'username'}}) }}
+		<br>
+		{{ form_label(form.password, "Mot de passe :", {'label_attr': {'class': 'label spacerUser'}}) }}
+		{{ form_widget(form.password, {'attr': {'id': 'form_password'}}) }}
+		<br>
+	</fieldset>
+	{{ form_rest(form) }}
+{{ form_end(form) }}
+
+{% endblock %}

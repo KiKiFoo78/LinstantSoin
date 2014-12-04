@@ -77,6 +77,10 @@
                                     {% if is_granted('ROLE_USER') or is_granted('IS_AUTHENTICATED_ANONYMOUSLY') %}
                                         <a href="#">Mon panier</a>
                                     {% endif %}
+                                    <hr>
+                                    {% if not app.user %} 
+                                        <a href="{{ path('new_account') }}">Créer un compte</a>
+                                    {% endif %}
                             </div>
                         </nav>
                         <hr>
@@ -102,9 +106,9 @@
 
             {% block javascripts %}
             <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
-            <script type="text/javascript"></script>
             <script src="//code.jquery.com/jquery-1.10.2.js"></script>
             <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+            <script type="text/javascript" src="{{asset('bundles/InstantSoin/js/app.js')}}" ></script>
             <script>
             function initialisation(){
                 var centreCarte = new google.maps.LatLng(49.0217586,1.7138252);

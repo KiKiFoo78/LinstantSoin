@@ -89,11 +89,9 @@ Demande_contact:
     path:     /contact
     defaults: { _controller: UserBundle:Security:contact }
 
-
-
-
-
-
+new_account:
+    path:     /new_account
+    defaults: { _controller: UserBundle:Security:new_account }
 
 
 
