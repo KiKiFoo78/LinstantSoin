@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Constraints as Assert;
+use InstantSoin\UserBundle\Component\Validator\Constraints as CustomAssert;
 
 /**
  * user
@@ -419,14 +420,15 @@ class User implements UserInterface
         )));
 
         $metadata->addPropertyConstraint('adresse1', new Assert\NotBlank());
+        $metadata->addPropertyConstraint('adresse1', new Assert\Length(array(
+            'min'   => 2,
+            'max'   => 50,
+            'minMessage' => 'Votre adresse doit avoir un minimum de 2 caractères.',
+            'maxMessage' => 'Votre adresse doit avoir un maximum de 50 caractères.',
+        )));
 
         $metadata->addPropertyConstraint('codepostal', new Assert\NotBlank());
-        $metadata->addPropertyConstraint('codepostal', new Assert\Length(array(
-            'min'   => 5,
-            'max'   => 5,
-            'minMessage' => 'Le code postal doit avoir 5 chiffres.',
-            'maxMessage' => 'Le code postal doit avoir 5 chiffres.',
-        )));
+        $metadata->addPropertyConstraint('codepostal', new CustomAssert\ZipCode());
 
         $metadata->addPropertyConstraint('ville', new Assert\NotBlank());
         $metadata->addPropertyConstraint('ville', new Assert\Length(array(
@@ -443,7 +445,6 @@ class User implements UserInterface
             'minMessage' => 'Le numéro de téléphone doit avoir 10 chiffres.',
             'maxMessage' => 'Le numéro de téléphone doit avoir 10 chiffres.',
         )));
-
 
         $metadata->addPropertyConstraint('email', new Assert\Email());
 

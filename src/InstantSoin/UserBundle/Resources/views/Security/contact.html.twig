@@ -9,7 +9,7 @@
         </div>
     {% endfor %}
 
-    <form action="{{ path('Demande_contact') }}" method="post" {{ form_enctype(form) }} class=>
+    <form action="{{ path('Demande_contact') }}" method="post" {{ form_enctype(form) }}>
         <fieldset class="contact spacer">
         {{ form_errors(form) }}
 

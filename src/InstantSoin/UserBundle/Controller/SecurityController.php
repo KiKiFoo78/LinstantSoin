@@ -67,7 +67,7 @@ class SecurityController extends Controller
 					->add('adresse2', 'text', array('required' => false))
 					->add('codepostal', 'number', array('required' => true))
 					->add('ville', 'text', array('required' => true))
-					->add('telephone', 'number', array('required' => true))
+					->add('telephone', 'text', array('required' => true))
 					->add('email', 'text', array('required' => true))
 					->add('username', 'text', array(
 							'required' => true,
@@ -150,12 +150,11 @@ class SecurityController extends Controller
 									->add('adresse2', 'text', array('required' => false))
 									->add('codepostal', 'number', array('required' => true))
 									->add('ville', 'text', array('required' => true))
-									->add('telephone', 'number', array('required' => true))
+									->add('telephone', 'text', array('required' => true))
 									->add('email', 'text', array('required' => true))
-									->add('username', 'text', array('required' => true))
+									
 									->add('password', 'repeated', array(
 										    'type' => 'password',
-										    
 										    'options' => array(
 										    	'required' => true,
 										    	'read_only' => false,
@@ -195,11 +194,12 @@ class SecurityController extends Controller
 
     }
 
+
+
+
      /*
 	 * ENVOI EMAIL CLIENT OU ANONYMOUS
 	 */
-
-
 	public function contactAction()
 	{
 			$search = $this->createFormBuilder()
@@ -216,13 +216,13 @@ class SecurityController extends Controller
 
 	            if ($form->isValid()) {
 	                $message = \Swift_Message::newInstance()
-	                    ->setSubject('Demande de contact du site de la bibliotheque')
+	                    ->setSubject('Demande de contact / de renseignements à partir du site L\'Instant Soin')
 	                    ->setFrom('arnaud.hascoet@gmail.com')
 	                    ->setTo($this->container->getParameter('InstantSoin.emails.contact_email'))
 	                    ->setBody($this->renderView('UserBundle:Security:contactEmail.txt.twig', array('enquiry' => $enquiry)));
 	                $this->get('mailer')->send($message);
 	        
-	                $this->get('session')->getFlashBag()->add('contact-notice', 'Votre message a bien été envoyé. Merci!');
+	                $this->get('session')->getFlashBag()->add('contact-notice', 'Votre message a bien été envoyé. Merci !');
 	        
 	                return $this->redirect($this->generateUrl('Demande_contact'));
 	            }
