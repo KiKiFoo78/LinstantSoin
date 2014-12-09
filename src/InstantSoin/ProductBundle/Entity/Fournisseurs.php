@@ -80,9 +80,9 @@ class Fournisseurs
     private $adresse3;
 
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="code_postal", type="integer", length=5)
+     * @ORM\Column(name="code_postal", type="string", length=5)
      */
     private $code_postal;
 
@@ -319,7 +319,7 @@ class Fournisseurs
     /**
      * Set code_postal
      *
-     * @param integer $codePostal
+     * @param string $codePostal
      * @return Fournisseurs
      */
     public function setCodePostal($codePostal)
@@ -332,7 +332,7 @@ class Fournisseurs
     /**
      * Get code_postal
      *
-     * @return integer 
+     * @return string 
      */
     public function getCodePostal()
     {

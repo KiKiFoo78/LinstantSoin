@@ -45,16 +45,17 @@ class SecurityController extends Controller
 			));
 	}
 
-	/*
+
+
+
+	/******************************************************************************************************************************
 	 * CREATION USER
-	 */
-
-
+	 ******************************************************************************************************************************/
 	public function new_accountAction(Request $request){
 
 		$search = $this->createFormBuilder()
-                                ->add('recherche', 'search', array('label' => '', 'attr' => array('class' => 'livreSearch')))
-                                ->add('save', 'submit', array('label' => 'Rechercher','attr' => array('class' => 'livreSearch')))
+                                ->add('recherche', 'search', array('label' => '', 'attr' => array('class' => 'productSearch')))
+                                ->add('save', 'submit', array('label' => 'Rechercher','attr' => array('class' => 'productSearch')))
                                 ->getForm();
 
 		$session = $this->getRequest()->getSession();
@@ -78,7 +79,7 @@ class SecurityController extends Controller
 							'read_only' => true,
 						))
 					
-					->add('save', 'submit', array('label' => 'Enregistrer', 'attr' => array('class' => 'submit spacer')))
+					->add('save', 'submit', array('label' => 'Enregistrer'))
 					->getForm();
 
 		$form->handleRequest($request);

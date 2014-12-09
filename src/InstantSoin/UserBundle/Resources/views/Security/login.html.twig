@@ -6,19 +6,19 @@
     <div class="alert alert-danger">{{ error.message }}</div>
   {% endif %}
   <form action="{{ path('login_check') }}" method="post">
-    <fieldset class="fieldLogin spacer">
+    <fieldset class="fieldLogin">
         <label for="username">Nom d'utilisateur :</label>
-        <input class="username spacer" type="text" id="username" name="_username" value="{{ last_username }}" />
-        <br>
+        <input class="username" type="text" id="username" name="_username" value="{{ last_username }}" />
+        <br><br>
         
         <label for="password">Mot de passe :</label>
-        <input class="password spacer" type="password" id="password" name="_password" />
-        <br>
+        <input class="password" type="password" id="password" name="_password" />
+        <br><br>
         
-        <label for="rememberMe">Se rappeller de moi</label>
-        <input class="password spacer" type="checkbox" id="rememberMe" name="_rememberMe">
-        
-        <input class="submit spacer" type="submit" value="Connexion" />
+        <label for="rememberMe">Se souvenir de moi :</label>
+        <input type="checkbox" id="rememberMe" name="_rememberMe">
+        <br><br>
+        <input class="submit" type="submit" value="Connexion" />
       </fieldset>
   </form>
 {% endblock %}

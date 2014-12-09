@@ -129,3 +129,127 @@ Lien_Clairjoie:
 Lien_Cnd_shellac:
     pattern:  /cnd_shellac
     defaults: { _controller: ProductBundle:Accueil:cnd_shellac }
+
+# -------------------------------------------------------------------------------------- #
+# ------------ GESTION DES PRODUITS / CATEGORIES / FOURNISSEURS / SERVICES : ----------- #
+# -------------------------------------------------------------------------------------- #
+
+
+
+# ------------------------------------- CATEGORIES ------------------------------------- #
+createCategory:
+    pattern:  /createCategory
+    defaults: { _controller: ProductBundle:CategoryAdmin:createCategory }
+    requirements:
+        _method:  GET
+
+
+updateCategory:
+    pattern:  /updateCategory
+    defaults: { _controller: ProductBundle:CategoryAdmin:updateCategory }
+    requirements:
+        _method:  GET
+
+
+deleteCategory:
+    pattern:  /deleteCategory
+    defaults: { _controller: ProductBundle:CategoryAdmin:deleteCategory }
+    requirements:
+        _method:  GET
+
+
+listingCategory:
+    pattern:  /listingCategory
+    defaults: { _controller: ProductBundle:CategoryAdmin:listingCategory }
+    requirements:
+        _method:  GET
+
+
+
+# ------------------------------------ SUPPLIERS ------------------------------------ #
+createSupplier:
+    pattern:  /createSupplier
+    defaults: { _controller: ProductBundle:SupplierAdmin:createSupplier }
+    requirements:
+        _method:  GET|POST
+
+
+updateSupplier:
+    pattern:  /updateSupplier
+    defaults: { _controller: ProductBundle:SupplierAdmin:updateSupplier }
+    requirements:
+        _method:  GET
+
+
+deleteSupplier:
+    pattern:  /deleteSupplier
+    defaults: { _controller: ProductBundle:SupplierAdmin:deleteSupplier }
+    requirements:
+        _method:  GET
+
+
+listingSupplier:
+    pattern:  /listingSupplier
+    defaults: { _controller: ProductBundle:SupplierAdmin:listingSupplier }
+    requirements:
+        _method:  GET
+
+
+
+# ------------------------------------ SERVICES ------------------------------------ #
+createServices:
+    pattern:  /createServices
+    defaults: { _controller: ProductBundle:ServicesAdmin:createServices }
+    requirements:
+        _method:  GET
+
+
+updateServices:
+    pattern:  /updateServices
+    defaults: { _controller: ProductBundle:ServicesAdmin:updateServices }
+    requirements:
+        _method:  GET
+
+
+deleteServices:
+    pattern:  /deleteServices
+    defaults: { _controller: ProductBundle:ServicesAdmin:deleteServices }
+    requirements:
+        _method:  GET
+
+
+listingServices:
+    pattern:  /listingServices
+    defaults: { _controller: ProductBundle:ServicesAdmin:listingServices }
+    requirements:
+        _method:  GET
+
+
+
+# ------------------------------------ PRODUCTS ------------------------------------ #
+createProducts:
+    pattern:  /createProducts
+    defaults: { _controller: ProductBundle:ProductsAdmin:createProducts }
+    requirements:
+        _method:  GET
+
+
+updateProducts:
+    pattern:  /updateProducts
+    defaults: { _controller: ProductBundle:ProductsAdmin:updateProducts }
+    requirements:
+        _method:  GET
+
+
+deleteProducts:
+    pattern:  /deleteProducts
+    defaults: { _controller: ProductBundle:ProductsAdmin:deleteProducts }
+    requirements:
+        _method:  GET
+
+
+listingProducts:
+    pattern:  /listingProducts
+    defaults: { _controller: ProductBundle:ProductsAdmin:listingProducts }
+    requirements:
+        _method:  GET

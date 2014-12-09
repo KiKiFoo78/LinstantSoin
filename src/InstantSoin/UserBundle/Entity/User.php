@@ -442,8 +442,7 @@ class User implements UserInterface
         $metadata->addPropertyConstraint('telephone', new Assert\Length(array(
             'min'   => 10,
             'max'   => 10,
-            'minMessage' => 'Le numéro de téléphone doit avoir 10 chiffres.',
-            'maxMessage' => 'Le numéro de téléphone doit avoir 10 chiffres.',
+            'exactMessage' => 'Le numéro de téléphone doit avoir 10 chiffres.',
         )));
 
         $metadata->addPropertyConstraint('email', new Assert\Email());

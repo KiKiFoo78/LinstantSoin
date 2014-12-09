@@ -9,7 +9,7 @@ class ProductsController extends Controller
     public function products_overallAction()
     {
 
-    	$search = $this->createFormBuilder()
+        $search = $this->createFormBuilder()
                                 ->add('recherche', 'search', array('label' => '', 'attr' => array('class' => 'productSearch')))
                                 ->add('save', 'submit', array('label' => 'Rechercher','attr' => array('class' => 'productSearch')))
                                 ->getForm();
@@ -21,7 +21,7 @@ class ProductsController extends Controller
     public function products_cremesAction()
     {
 
-    	$search = $this->createFormBuilder()
+        $search = $this->createFormBuilder()
                                 ->add('recherche', 'search', array('label' => '', 'attr' => array('class' => 'productSearch')))
                                 ->add('save', 'submit', array('label' => 'Rechercher','attr' => array('class' => 'productSearch')))
                                 ->getForm();
@@ -34,7 +34,7 @@ class ProductsController extends Controller
     public function products_gommagesAction()
     {
 
-    	$search = $this->createFormBuilder()
+        $search = $this->createFormBuilder()
                                 ->add('recherche', 'search', array('label' => '', 'attr' => array('class' => 'productSearch')))
                                 ->add('save', 'submit', array('label' => 'Rechercher','attr' => array('class' => 'productSearch')))
                                 ->getForm();
@@ -48,7 +48,7 @@ class ProductsController extends Controller
     public function products_maquillageAction()
     {
 
-    	$search = $this->createFormBuilder()
+        $search = $this->createFormBuilder()
                                 ->add('recherche', 'search', array('label' => '', 'attr' => array('class' => 'productSearch')))
                                 ->add('save', 'submit', array('label' => 'Rechercher','attr' => array('class' => 'productSearch')))
                                 ->getForm();
@@ -61,7 +61,7 @@ class ProductsController extends Controller
     public function products_lotionsAction()
     {
 
-    	$search = $this->createFormBuilder()
+        $search = $this->createFormBuilder()
                                 ->add('recherche', 'search', array('label' => '', 'attr' => array('class' => 'productSearch')))
                                 ->add('save', 'submit', array('label' => 'Rechercher','attr' => array('class' => 'productSearch')))
                                 ->getForm();
@@ -74,7 +74,7 @@ class ProductsController extends Controller
     public function products_parfumerieAction()
     {
 
-    	$search = $this->createFormBuilder()
+        $search = $this->createFormBuilder()
                                 ->add('recherche', 'search', array('label' => '', 'attr' => array('class' => 'productSearch')))
                                 ->add('save', 'submit', array('label' => 'Rechercher','attr' => array('class' => 'productSearch')))
                                 ->getForm();

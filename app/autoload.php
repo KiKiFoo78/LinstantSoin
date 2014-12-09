@@ -11,3 +11,8 @@ $loader = require __DIR__.'/../vendor/autoload.php';
 AnnotationRegistry::registerLoader(array($loader, 'loadClass'));
 
 return $loader;
+
+$loader->registerNamespaces(array(
+    // ...
+    'FOS' => __DIR__.'/../vendor/bundles',
+));
