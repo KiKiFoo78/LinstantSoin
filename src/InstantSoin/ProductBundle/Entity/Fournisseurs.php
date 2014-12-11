@@ -26,7 +26,7 @@ class Fournisseurs
     /**
      * @var string
      *
-     * @ORM\Column(name="designation", type="string", length=255)
+     * @ORM\Column(name="nom", type="string", length=255)
      */
     private $nom;
 

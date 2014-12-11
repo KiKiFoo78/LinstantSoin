@@ -141,7 +141,7 @@ createCategory:
     pattern:  /createCategory
     defaults: { _controller: ProductBundle:CategoryAdmin:createCategory }
     requirements:
-        _method:  GET
+        _method:  GET|POST
 
 
 updateCategory:
@@ -201,7 +201,7 @@ createServices:
     pattern:  /createServices
     defaults: { _controller: ProductBundle:ServicesAdmin:createServices }
     requirements:
-        _method:  GET
+        _method:  GET|POST
 
 
 updateServices:
@@ -231,7 +231,7 @@ createProducts:
     pattern:  /createProducts
     defaults: { _controller: ProductBundle:ProductsAdmin:createProducts }
     requirements:
-        _method:  GET
+        _method:  GET|POST
 
 
 updateProducts:

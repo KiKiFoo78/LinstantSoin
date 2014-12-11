@@ -16,7 +16,7 @@ class CategorieRepository extends EntityRepository
     {
         return $this->getEntityManager()
             ->createQuery(
-                'SELECT intitule FROM ProductBundle:Categorie intitule ORDER BY nom.nom ASC'
+                'SELECT intitule FROM ProductBundle:Categorie intitule ORDER BY intitule.intitule ASC'
             )
             ->getResult();
     }

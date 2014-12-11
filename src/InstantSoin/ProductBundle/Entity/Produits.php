@@ -27,7 +27,7 @@ class Produits
     /**
      * @var string
      *
-     * @ORM\Column(name="reference", type="string", length=4, unique=true)
+     * @ORM\Column(name="reference", type="string", length=10, unique=true)
      */
     private $reference;
 
