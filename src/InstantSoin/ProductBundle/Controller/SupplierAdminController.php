@@ -69,9 +69,21 @@ class SupplierAdminController extends Controller
 
 
 
-    public function deleteSupplierAction()
+    public function deleteSupplierAction($nom, Request $request)
     {
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:Fournisseurs');
+        $fournisseur = $repository->findByNom($nom)[0];
 
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($fournisseur);
+        $em->flush();
+
+
+
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:Fournisseurs');
+        $fournisseurs = $repository->findAllOrderedByName();
+
+        return $this->render('ProductBundle:Suppliers:listingSuplier.html.twig', array('fournisseurs' => $fournisseurs));
     }
 
 
@@ -80,9 +92,13 @@ class SupplierAdminController extends Controller
 
     public function listingSupplierAction()
     {
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:Fournisseurs');
+        $fournisseurs = $repository->findAllOrderedByName();
 
+        $_SESSION['fournisseurs']=$fournisseurs;
+
+        return $this->render('ProductBundle:Suppliers:listingSuplier.html.twig', array('fournisseurs' => $fournisseurs));
     }
-
 
 
 

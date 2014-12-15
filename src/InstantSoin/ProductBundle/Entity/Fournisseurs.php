@@ -4,7 +4,10 @@ namespace InstantSoin\ProductBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
 use InstantSoin\ProductBundle\Entity\Fournisseurs;
+
+use InstantSoin\UserBundle\Component\Validator\Constraints as CustomAssert;
 
 /**
  * Fournisseurs
@@ -440,4 +443,51 @@ class Fournisseurs
     {
         return $this->produits;
     }
+
+    public static function loadValidatorMetadata(ClassMetadata $metadata)
+    {
+        $metadata->addPropertyConstraint('nom', new Assert\NotBlank());
+        $metadata->addPropertyConstraint('nom', new Assert\Length(array(
+            'min'   => 2,
+            'max'   => 50,
+            'minMessage' => 'Le nom du fournisseur doit avoir un minimum de 2 caractères.',
+            'maxMessage' => 'Le nom du fournisseur avoir un maximum de 50 caractères.',
+        )));
+
+        $metadata->addPropertyConstraint('description', new Assert\NotBlank());
+        $metadata->addPropertyConstraint('description', new Assert\Length(array(
+            'min'   => 2,
+            'max'   => 50,
+            'minMessage' => 'La description de ce fournisseur doit être au minimum de 2 caractères.',
+            'maxMessage' => 'La description de ce fournisseur doit être au maximum de 250 caractères.',
+        )));
+
+        $metadata->addPropertyConstraint('adresse1', new Assert\NotBlank());
+        $metadata->addPropertyConstraint('adresse1', new Assert\Length(array(
+            'min'   => 2,
+            'max'   => 50,
+            'minMessage' => 'L\'adresse doit avoir un minimum de 2 caractères.',
+            'maxMessage' => 'L\'adresse doit avoir un maximum de 50 caractères.',
+        )));
+
+        $metadata->addPropertyConstraint('code_postal', new Assert\NotBlank());
+        $metadata->addPropertyConstraint('code_postal', new CustomAssert\ZipCode());
+
+        $metadata->addPropertyConstraint('ville', new Assert\NotBlank());
+        $metadata->addPropertyConstraint('ville', new Assert\Length(array(
+            'min'   => 2,
+            'max'   => 50,
+            'minMessage' => 'La ville doit avoir un minimum de 2 caractères.',
+            'maxMessage' => 'La ville doit avoir un maximum de 50 caractères.',
+        )));
+
+        $metadata->addPropertyConstraint('telephone', new Assert\NotBlank());
+        $metadata->addPropertyConstraint('telephone', new Assert\Length(array(
+            'min'   => 10,
+            'max'   => 10,
+            'exactMessage' => 'Le numéro de téléphone doit avoir 10 chiffres.',
+        )));
+
+    }
+
 }

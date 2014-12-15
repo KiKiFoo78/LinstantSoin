@@ -4,8 +4,10 @@ namespace InstantSoin\ProductBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
 use InstantSoin\ProductBundle\Entity\Categorie;
 
+use InstantSoin\UserBundle\Component\Validator\Constraints as CustomAssert;
 
 /**
  * Categorie
@@ -140,4 +142,26 @@ class Categorie
     {
         return $this->produits;
     }
+
+
+
+    public static function loadValidatorMetadata(ClassMetadata $metadata)
+    {
+        $metadata->addPropertyConstraint('intitule', new Assert\NotBlank());
+        $metadata->addPropertyConstraint('intitule', new Assert\Length(array(
+            'min'   => 2,
+            'max'   => 50,
+            'minMessage' => 'L\'intitule de la catégorie doit être au minimum de 2 caractères.',
+            'maxMessage' => 'L\'intitule de la catégorie doit être au maximum de 50 caractères.',
+        )));
+
+        $metadata->addPropertyConstraint('description', new Assert\NotBlank());
+        $metadata->addPropertyConstraint('description', new Assert\Length(array(
+            'min'   => 2,
+            'max'   => 50,
+            'minMessage' => 'La description de cette catégorie doit être au minimum de 2 caractères.',
+            'maxMessage' => 'La description de cette catégorie doit être au maximum de 250 caractères.',
+        )));
+    }
+
 }

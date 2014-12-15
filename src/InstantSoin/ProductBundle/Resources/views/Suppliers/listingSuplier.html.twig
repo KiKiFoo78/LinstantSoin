@@ -1,0 +1,38 @@
+{% extends 'UserBundle:Admin:admin.html.twig' %}
+{% block body %}
+
+    <h3>Gestion des fournisseurs</h3>
+    {% for flashMessage in app.session.flashbag.get('user_add_success') %}
+        <div class="add_success">
+        <p>
+        {{ flashMessage }}
+        </p>
+        <br>
+        </div>
+	{% endfor %}
+	<br><br>
+
+    <table class="gestion-table" >
+        <thead>
+            <th>Nom du fournisseur</th>
+            <th>Image associée</th>
+            <th>Action</th>
+        </thead>
+            {% for fourns in fournisseurs %}
+                <tr>
+                    <td>
+                        {{ fournisseurs[ loop.index0 ].nom }}
+                    </td>
+                    <td>
+                        <img src="{{ asset(fournisseurs[ loop.index0 ].urlimage) }}" class="afficheImage">
+                    </td>
+                    <td>
+                        <div class="btn-modif" ><a href="{{ path( 'updateSupplier', {'nom' : fournisseurs[ loop.index0 ].nom } ) }}">Modifier</a></div>
+                        <br><br>
+                        <div class="btn-suppr" ><a href="{{ path( 'deleteSupplier', {'nom' : fournisseurs[ loop.index0 ].nom } ) }}">Supprimer</a></div>
+                    </td>
+                </tr>
+            {% endfor %}
+    </table>
+	
+{% endblock %}

@@ -4,8 +4,10 @@ namespace InstantSoin\ProductBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
 use InstantSoin\ProductBundle\Entity\Produits;
 
+use InstantSoin\UserBundle\Component\Validator\Constraints as CustomAssert;
 
 /**
  * Produits
@@ -302,4 +304,36 @@ class Produits
     {
         return $this->fournisseurs;
     }
+
+    public static function loadValidatorMetadata(ClassMetadata $metadata)
+    {
+        $metadata->addPropertyConstraint('reference', new Assert\NotBlank());
+        $metadata->addPropertyConstraint('reference', new Assert\Length(array(
+            'min'   => 2,
+            'max'   => 10,
+            'minMessage' => 'Le reference du produit doit être au minimum de 2 caractères.',
+            'maxMessage' => 'Le reference du produit doit être au maximum de 10 caractères.',
+        )));
+
+        $metadata->addPropertyConstraint('designation', new Assert\NotBlank());
+        $metadata->addPropertyConstraint('designation', new Assert\Length(array(
+            'min'   => 2,
+            'max'   => 50,
+            'minMessage' => 'La désignation de ce produit doit être au minimum de 2 caractères.',
+            'maxMessage' => 'La désignation de ce produit doit être au maximum de 50 caractères.',
+        )));
+
+        $metadata->addPropertyConstraint('description', new Assert\NotBlank());
+        $metadata->addPropertyConstraint('description', new Assert\Length(array(
+            'min'   => 20,
+            'max'   => 250,
+            'minMessage' => 'La description du produit doit être au minimum de 20 caractères.',
+            'maxMessage' => 'La description du produit doit être au maximum de 250 caractères.',
+        )));
+
+        $metadata->addPropertyConstraint('stock', new Assert\GreaterThan(0));
+    }
+
+
+
 }

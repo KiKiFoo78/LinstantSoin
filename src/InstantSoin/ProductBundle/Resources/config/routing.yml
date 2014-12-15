@@ -182,7 +182,7 @@ updateSupplier:
 
 
 deleteSupplier:
-    pattern:  /deleteSupplier
+    pattern:  /deleteSupplier/{nom}
     defaults: { _controller: ProductBundle:SupplierAdmin:deleteSupplier }
     requirements:
         _method:  GET
