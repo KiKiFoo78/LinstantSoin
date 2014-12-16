@@ -10,7 +10,7 @@ use InstantSoin\ProductBundle\Entity\Categorie;
 use InstantSoin\UserBundle\Component\Validator\Constraints as CustomAssert;
 
 /**
- * Categorie
+ * categorie
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="InstantSoin\ProductBundle\Repository\CategorieRepository")
@@ -43,7 +43,7 @@ class Categorie
     /**
     * @var ArrayCollection $produits
     *
-    * @ORM\OneToMany(targetEntity="InstantSoin\ProductBundle\Entity\Produits", mappedBy="Categorie", cascade={"persist", "remove"})
+    * @ORM\OneToMany(targetEntity="InstantSoin\ProductBundle\Entity\Produits", mappedBy="categorie", cascade={"persist", "remove"})
     */
     private $produits;
     /**

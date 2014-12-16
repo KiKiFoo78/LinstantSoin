@@ -5,12 +5,15 @@ namespace InstantSoin\ProductBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
+
 use InstantSoin\ProductBundle\Entity\Fournisseurs;
+use InstantSoin\ProductBundle\Repository\FournisseursRepository;
+use InstantSoin\ProductBundle\Form\FournisseursType;
 
 use InstantSoin\UserBundle\Component\Validator\Constraints as CustomAssert;
 
 /**
- * Fournisseurs
+ * fournisseurs
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="InstantSoin\ProductBundle\Repository\FournisseursRepository")
@@ -113,7 +116,7 @@ class Fournisseurs
     /**
     * @var ArrayCollection $produits
     *
-    * @ORM\OneToMany(targetEntity="InstantSoin\ProductBundle\Entity\Produits", mappedBy="Fournisseurs", cascade={"persist", "remove"})
+    * @ORM\OneToMany(targetEntity="InstantSoin\ProductBundle\Entity\Produits", mappedBy="fournisseurs", cascade={"persist", "remove"})
     */
     private $produits;
 

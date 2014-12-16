@@ -1,0 +1,30 @@
+{% extends 'UserBundle:Admin:admin.html.twig' %}
+{% block body %}
+
+    <h3>Gestion des catégories</h3><table class="gestion-table" >
+        <thead>
+            <th>Intitulé de la catégorie</th>
+            <th>Description</th>
+            <th>Action</th>
+        </thead>
+            {% for categ in categories %}
+                <tr>
+                    <td>
+                        {{ categories[ loop.index0 ].intitule }}
+                    </td>
+                    <td>
+                        {{ categories[ loop.index0 ].description }}
+                    </td>
+                    <td>
+                        <div class="btn btn-primary" >
+                            <a href="{{ path( 'updateCategory', {'id' : categories[ loop.index0 ].id } ) }}">Modifier</a>
+                        </div><br><br>
+                        <div class="btn btn-danger" >
+                            <a href="{{ path( 'deleteCategory', {'id' : categories[ loop.index0 ].id } ) }}">Supprimer</a>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+    </table>
+	
+{% endblock %}

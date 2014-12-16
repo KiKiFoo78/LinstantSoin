@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class FournisseursType extends AbstractType
 {
@@ -18,7 +19,7 @@ class FournisseursType extends AbstractType
         $builder
             ->add('nom', 'text', array('required' => true, 'label' => 'Nom du fournisseur'))
             ->add('description', 'text', array('required' => true, 'label' => 'Description'))
-            ->add('image', 'file', array('required' => true, 'label' => 'Image ou logo du fournisseur'))
+            ->add('image', 'file', array('data_class' => null,'required' => false, 'label' => 'Image ou logo du fournisseur'))
             ->add('adresse1', 'text',  array('required' => true, 'label' => 'Adresse1'))
             ->add('adresse2', 'text', array('required' => false, 'label' => 'Adresse2'))
             ->add('adresse3', 'text', array('required' => false, 'label' => 'Adresse3'))

@@ -27,9 +27,9 @@
                         <img src="{{ asset(fournisseurs[ loop.index0 ].urlimage) }}" class="afficheImage">
                     </td>
                     <td>
-                        <div class="btn-modif" ><a href="{{ path( 'updateSupplier', {'nom' : fournisseurs[ loop.index0 ].nom } ) }}">Modifier</a></div>
+                        <div class="btn btn-primary" ><a href="{{ path( 'updateSupplier', {'id' : fournisseurs[ loop.index0 ].id } ) }}">Modifier</a></div>
                         <br><br>
-                        <div class="btn-suppr" ><a href="{{ path( 'deleteSupplier', {'nom' : fournisseurs[ loop.index0 ].nom } ) }}">Supprimer</a></div>
+                        <div class="btn btn-danger" ><a href="{{ path( 'deleteSupplier', {'id' : fournisseurs[ loop.index0 ].id } ) }}">Supprimer</a></div>
                     </td>
                 </tr>
             {% endfor %}

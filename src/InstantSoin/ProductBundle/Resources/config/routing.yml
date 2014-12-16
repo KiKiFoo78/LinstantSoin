@@ -145,63 +145,63 @@ createCategory:
 
 
 updateCategory:
-    pattern:  /updateCategory
+    pattern:  /updateCategory/{id}
     defaults: { _controller: ProductBundle:CategoryAdmin:updateCategory }
     requirements:
-        _method:  GET
+        _method:  GET|POST
 
 
 deleteCategory:
-    pattern:  /deleteCategory
+    pattern:  /deleteCategory/{id}
     defaults: { _controller: ProductBundle:CategoryAdmin:deleteCategory }
     requirements:
-        _method:  GET
+        _method:  GET|POST
 
 
 listingCategory:
     pattern:  /listingCategory
     defaults: { _controller: ProductBundle:CategoryAdmin:listingCategory }
     requirements:
-        _method:  GET
+        _method:  GET|POST
 
 
 
 # ------------------------------------ SUPPLIERS ------------------------------------ #
 createSupplier:
-    pattern:  /createSupplier
+    path:  /createSupplier
     defaults: { _controller: ProductBundle:SupplierAdmin:createSupplier }
+    requirements:
+        _method:  GET
+
+
+updateSupplier:
+    pattern:  /updateSupplier/{id}
+    defaults: { _controller: ProductBundle:SupplierAdmin:updateSupplier }
     requirements:
         _method:  GET|POST
 
 
-updateSupplier:
-    pattern:  /updateSupplier
-    defaults: { _controller: ProductBundle:SupplierAdmin:updateSupplier }
-    requirements:
-        _method:  GET
-
-
 deleteSupplier:
-    pattern:  /deleteSupplier/{nom}
+    pattern:  /deleteSupplier/{id}
     defaults: { _controller: ProductBundle:SupplierAdmin:deleteSupplier }
     requirements:
-        _method:  GET
+        _method:  GET|POST
 
 
 listingSupplier:
     pattern:  /listingSupplier
     defaults: { _controller: ProductBundle:SupplierAdmin:listingSupplier }
     requirements:
-        _method:  GET
+        _method:  GET|POST
 
 
 
 # ------------------------------------ SERVICES ------------------------------------ #
 createServices:
-    pattern:  /createServices
+    path:  /createServices
     defaults: { _controller: ProductBundle:ServicesAdmin:createServices }
     requirements:
-        _method:  GET|POST
+        _method:  GET
 
 
 updateServices:
@@ -228,10 +228,10 @@ listingServices:
 
 # ------------------------------------ PRODUCTS ------------------------------------ #
 createProducts:
-    pattern:  /createProducts
+    path:  /createProducts
     defaults: { _controller: ProductBundle:ProductsAdmin:createProducts }
     requirements:
-        _method:  GET|POST
+        _method:  GET
 
 
 updateProducts:

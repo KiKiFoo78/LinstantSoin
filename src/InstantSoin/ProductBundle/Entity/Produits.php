@@ -10,7 +10,7 @@ use InstantSoin\ProductBundle\Entity\Produits;
 use InstantSoin\UserBundle\Component\Validator\Constraints as CustomAssert;
 
 /**
- * Produits
+ * produits
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="InstantSoin\ProductBundle\Repository\ProduitsRepository")
