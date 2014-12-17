@@ -3,6 +3,12 @@
 namespace InstantSoin\ProductBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\EntityRepository;
+
+use InstantSoin\ProductBundle\Entity\Produits;
+use InstantSoin\ProductBundle\Form\ProduitsType;
+use InstantSoin\ProductBundle\Repository\ProduitsRepository;
 
 class ProductsController extends Controller
 {
@@ -25,8 +31,11 @@ class ProductsController extends Controller
                                 ->add('recherche', 'search', array('label' => '', 'attr' => array('class' => 'productSearch')))
                                 ->add('save', 'submit', array('label' => 'Rechercher','attr' => array('class' => 'productSearch')))
                                 ->getForm();
-                                
-        return $this->render('ProductBundle:Products:Products_cremes.html.twig', array('search' => $search->createView()));
+
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:Produits');
+        $cremes = $repository->findByCategorie('15');
+
+        return $this->render('ProductBundle:Products:Products_cremes.html.twig', array('cremes' => $cremes, 'search' => $search->createView()));
     }
 
 
@@ -38,7 +47,7 @@ class ProductsController extends Controller
                                 ->add('recherche', 'search', array('label' => '', 'attr' => array('class' => 'productSearch')))
                                 ->add('save', 'submit', array('label' => 'Rechercher','attr' => array('class' => 'productSearch')))
                                 ->getForm();
-                                
+    
         return $this->render('ProductBundle:Products:Products_gommages.html.twig', array('search' => $search->createView()));
     }
 

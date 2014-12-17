@@ -168,10 +168,10 @@ listingCategory:
 
 # ------------------------------------ SUPPLIERS ------------------------------------ #
 createSupplier:
-    path:  /createSupplier
+    pattern:  /createSupplier
     defaults: { _controller: ProductBundle:SupplierAdmin:createSupplier }
     requirements:
-        _method:  GET
+        _method:  GET|POST
 
 
 updateSupplier:
@@ -198,58 +198,58 @@ listingSupplier:
 
 # ------------------------------------ SERVICES ------------------------------------ #
 createServices:
-    path:  /createServices
+    pattern:  /createServices
     defaults: { _controller: ProductBundle:ServicesAdmin:createServices }
     requirements:
-        _method:  GET
+        _method:  GET|POST
 
 
 updateServices:
-    pattern:  /updateServices
+    pattern:  /updateServices/{id}
     defaults: { _controller: ProductBundle:ServicesAdmin:updateServices }
     requirements:
-        _method:  GET
+        _method:  GET|POST
 
 
 deleteServices:
-    pattern:  /deleteServices
+    pattern:  /deleteServices/{id}
     defaults: { _controller: ProductBundle:ServicesAdmin:deleteServices }
     requirements:
-        _method:  GET
+        _method:  GET|POST
 
 
 listingServices:
     pattern:  /listingServices
     defaults: { _controller: ProductBundle:ServicesAdmin:listingServices }
     requirements:
-        _method:  GET
+        _method:  GET|POST
 
 
 
 # ------------------------------------ PRODUCTS ------------------------------------ #
 createProducts:
-    path:  /createProducts
+    pattern:  /createProducts
     defaults: { _controller: ProductBundle:ProductsAdmin:createProducts }
     requirements:
-        _method:  GET
+        _method:  GET|POST
 
 
 updateProducts:
-    pattern:  /updateProducts
+    pattern:  /updateProducts/{id}
     defaults: { _controller: ProductBundle:ProductsAdmin:updateProducts }
     requirements:
-        _method:  GET
+        _method:  GET|POST
 
 
 deleteProducts:
-    pattern:  /deleteProducts
+    pattern:  /deleteProducts/{id}
     defaults: { _controller: ProductBundle:ProductsAdmin:deleteProducts }
     requirements:
-        _method:  GET
+        _method:  GET|POST
 
 
 listingProducts:
     pattern:  /listingProducts
     defaults: { _controller: ProductBundle:ProductsAdmin:listingProducts }
     requirements:
-        _method:  GET
+        _method:  GET|POST

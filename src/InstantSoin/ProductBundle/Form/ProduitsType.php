@@ -26,7 +26,7 @@ class ProduitsType extends AbstractType
             ->add('reference', 'text', array('required' => true, 'label' => 'Référence du produit :'))
             ->add('designation', 'text', array('required' => true, 'label' => 'Désignation du produit :'))
             ->add('description', 'text', array('required' => true, 'label' => 'Description complète du produit :'))
-            ->add('image', 'file', array('required' => true, 'label' => 'Image du produit :'))
+            ->add('image', 'file', array('data_class' => null,'required' => false, 'label' => 'Image du produit :'))
             ->add('stock', 'text', array('required' => true, 'label' => 'Stock actuel du produit :'))
             ->add('categorie', 'entity', array(
                             'class' => 'ProductBundle:Categorie',

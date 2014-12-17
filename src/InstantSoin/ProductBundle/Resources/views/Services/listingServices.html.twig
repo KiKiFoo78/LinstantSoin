@@ -1,0 +1,36 @@
+{% extends 'UserBundle:Admin:admin.html.twig' %}
+{% block body %}
+
+    <h3>Gestion des prestations</h3>
+    <div>
+        <a href="createServices" class="btn btn-success actionButton">Ajouter une prestation</a>
+    </div>
+    <br><br>
+        <table class="table table-hover modifTable" >
+            <thead>
+                <tr>
+                    <th>Référence et libellé de la prestation</th>
+                    <th>Image associée</th>
+                    <th>Action</th>
+                 </tr>
+            </thead>
+            <tbody>
+                {% for servs in services %}
+                    <tr>
+                        <td>
+                            {{ services[ loop.index0 ].reference }}<br>
+                            {{ services[ loop.index0 ].libelle }}
+                        </td>
+                        <td>
+                            <img src="{{ asset(services[ loop.index0 ].urlimage) }}" class="miniImgProd">
+                        </td>
+                        <td>
+                            <a href="{{ path( 'updateServices', {'id' : services[ loop.index0 ].id } ) }}" class="btn btn-primary actionButton">Modifier</a><br><br>
+                            <a href="{{ path( 'deleteServices', {'id' : services[ loop.index0 ].id } ) }}" class="btn btn-danger actionButton">Supprimer</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+	
+{% endblock %}

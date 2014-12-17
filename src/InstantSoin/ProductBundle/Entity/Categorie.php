@@ -158,7 +158,7 @@ class Categorie
         $metadata->addPropertyConstraint('description', new Assert\NotBlank());
         $metadata->addPropertyConstraint('description', new Assert\Length(array(
             'min'   => 2,
-            'max'   => 50,
+            'max'   => 250,
             'minMessage' => 'La description de cette catégorie doit être au minimum de 2 caractères.',
             'maxMessage' => 'La description de cette catégorie doit être au maximum de 250 caractères.',
         )));
