@@ -2,7 +2,7 @@
 
 {% block body %}
    <h3>Les services de soins à domicile effectués :</h3>
-
+   <section>
       <div>
          <img src="{{asset('bundles/InstantSoin/Images/Buttons/face.jpg')}}" alt="Image impossible à charger">
       	<form action="{{ path( 'services_face' ) }}">
@@ -38,5 +38,5 @@
          	<input type="submit" name="peeling" value="Les épilations">
          </form>
       </div>
-
+   </section>
 {% endblock %}

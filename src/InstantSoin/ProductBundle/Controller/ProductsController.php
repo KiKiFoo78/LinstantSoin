@@ -33,7 +33,7 @@ class ProductsController extends Controller
                                 ->getForm();
 
         $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:Produits');
-        $cremes = $repository->findByCategorie('15');
+        $cremes = $repository->findByCategorieProd('15');
 
         return $this->render('ProductBundle:Products:Products_cremes.html.twig', array('cremes' => $cremes, 'search' => $search->createView()));
     }

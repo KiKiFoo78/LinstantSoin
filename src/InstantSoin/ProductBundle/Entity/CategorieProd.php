@@ -5,17 +5,17 @@ namespace InstantSoin\ProductBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
-use InstantSoin\ProductBundle\Entity\Categorie;
+use InstantSoin\ProductBundle\Entity\CategorieProd;
 
 use InstantSoin\UserBundle\Component\Validator\Constraints as CustomAssert;
 
 /**
- * categorie
+ * categorieProd
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="InstantSoin\ProductBundle\Repository\CategorieRepository")
+ * @ORM\Entity(repositoryClass="InstantSoin\ProductBundle\Repository\CategorieProdRepository")
  */
-class Categorie
+class CategorieProd
 {
     /**
      * @var integer
@@ -41,9 +41,30 @@ class Categorie
     private $description;
 
     /**
+     * @var string
+     * @Assert\File( maxSize = "2048k", mimeTypesMessage = "Please upload a valid Image")
+     * @ORM\Column(name="image", type="string", length=255)
+     */
+    private $image;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="urlimage", type="string", length=255)
+     */
+    private $urlimage;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="altimage", type="string", length=255)
+     */
+    private $altimage;
+
+    /**
     * @var ArrayCollection $produits
     *
-    * @ORM\OneToMany(targetEntity="InstantSoin\ProductBundle\Entity\Produits", mappedBy="categorie", cascade={"persist", "remove"})
+    * @ORM\OneToMany(targetEntity="InstantSoin\ProductBundle\Entity\Produits", mappedBy="categorieProd", cascade={"persist", "remove"})
     */
     private $produits;
     /**
@@ -68,7 +89,7 @@ class Categorie
      * Set intitule
      *
      * @param string $intitule
-     * @return Categorie
+     * @return CategorieProd
      */
     public function setIntitule($intitule)
     {
@@ -91,7 +112,7 @@ class Categorie
      * Set description
      *
      * @param string $description
-     * @return Categorie
+     * @return CategorieProd
      */
     public function setDescription($description)
     {
@@ -114,7 +135,7 @@ class Categorie
      * Add produits
      *
      * @param \InstantSoin\ProductBundle\Entity\Produits $produits
-     * @return Categorie
+     * @return CategorieProd
      */
     public function addProduit(\InstantSoin\ProductBundle\Entity\Produits $produits)
     {
@@ -162,6 +183,76 @@ class Categorie
             'minMessage' => 'La description de cette catégorie doit être au minimum de 2 caractères.',
             'maxMessage' => 'La description de cette catégorie doit être au maximum de 250 caractères.',
         )));
+    }
+
+
+    /**
+     * Set image
+     *
+     * @param string $image
+     * @return CategorieProd
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return string 
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * Set urlimage
+     *
+     * @param string $urlimage
+     * @return CategorieProd
+     */
+    public function setUrlimage($urlimage)
+    {
+        $this->urlimage = $urlimage;
+
+        return $this;
+    }
+
+    /**
+     * Get urlimage
+     *
+     * @return string 
+     */
+    public function getUrlimage()
+    {
+        return $this->urlimage;
+    }
+
+    /**
+     * Set altimage
+     *
+     * @param string $altimage
+     * @return CategorieProd
+     */
+    public function setAltimage($altimage)
+    {
+        $this->altimage = $altimage;
+
+        return $this;
+    }
+
+    /**
+     * Get altimage
+     *
+     * @return string 
+     */
+    public function getAltimage()
+    {
+        return $this->altimage;
     }
 
 }

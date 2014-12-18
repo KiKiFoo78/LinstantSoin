@@ -1,0 +1,40 @@
+{% extends 'UserBundle:Admin:admin.html.twig' %}
+{% block body %}
+
+    <h3>Gestion des catégories de produit</h3>
+    <div>
+        <a href="createCategoryProd" class="btn btn-success actionButton">Ajouter une catégorie</a>
+    </div>
+    <br><br>
+    
+        <table class="table table-hover modifTable" >
+            <thead>
+                <tr>
+                    <th>Intitulé</th>
+                    <th>Image liée</th>
+                    <th>Description</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for categ in categoriesProd %}
+                    <tr>
+                        <td>
+                            {{ categoriesProd[ loop.index0 ].intitule }}
+                        </td>
+                        <td>
+                            <img src="{{ asset(categoriesProd[ loop.index0 ].urlimage) }}" class="miniImgProd">
+                        </td>
+                        <td>
+                            {{ categoriesProd[ loop.index0 ].description }}
+                        </td>
+                        <td>
+                                <a href="{{ path( 'updateCategoryProd', {'id' : categoriesProd[ loop.index0 ].id } ) }}" class="btn btn-primary actionButton">Modifier</a><br><br>                            
+                                <a href="{{ path( 'deleteCategoryProd', {'id' : categoriesProd[ loop.index0 ].id } ) }}" class="btn btn-danger actionButton">Supprimer</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+{% endblock %}

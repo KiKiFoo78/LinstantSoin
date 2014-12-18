@@ -6,9 +6,9 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-use InstantSoin\ProductBundle\Entity\Categorie;
-use InstantSoin\ProductBundle\Form\CategorieType;
-use InstantSoin\ProductBundle\Repository\CategorieRepository;
+use InstantSoin\ProductBundle\Entity\CategorieProd;
+use InstantSoin\ProductBundle\Form\CategorieProdType;
+use InstantSoin\ProductBundle\Repository\CategorieProdRepository;
 
 use InstantSoin\ProductBundle\Entity\Fournisseurs;
 use InstantSoin\ProductBundle\Form\FournisseursType;
@@ -28,18 +28,18 @@ class ProduitsType extends AbstractType
             ->add('description', 'text', array('required' => true, 'label' => 'Description complète du produit :'))
             ->add('image', 'file', array('data_class' => null,'required' => false, 'label' => 'Image du produit :'))
             ->add('stock', 'text', array('required' => true, 'label' => 'Stock actuel du produit :'))
-            ->add('categorie', 'entity', array(
-                            'class' => 'ProductBundle:Categorie',
+            ->add('categorieProd', 'entity', array(
+                            'class' => 'ProductBundle:CategorieProd',
                             'property' => 'intitule',
-                            'query_builder' => function(CategorieRepository $er)
+                            'query_builder' => function(CategorieProdRepository $er)
                             {
-                            return $er->createQueryBuilder('Categorie');
+                            return $er->createQueryBuilder('CategorieProd');
                             },
-                            'empty_value' => 'Sélectionnez la catégorie',
+                            'empty_value' => 'Sélectionnez la catégorie de produit',
                             'required' => true,
                             'expanded' => false,
                             'multiple' => false,
-                            'label' => 'Catégorie correspondante :',
+                            'label' => 'Catégorie produit correspondante :',
                         ))
             ->add('fournisseurs', 'entity', array(
                             'class' => 'ProductBundle:Fournisseurs',

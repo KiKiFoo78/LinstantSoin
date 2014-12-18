@@ -40,8 +40,6 @@ class Services
      */
     private $libelle;
 
-    
-
     /**
      * @var string
      *
@@ -49,6 +47,10 @@ class Services
      */
     private $description;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="InstantSoin\ProductBundle\Entity\CategorieServ")     
+     */
+    private $categorieServ;
 
     /**
      * @var string
@@ -218,5 +220,28 @@ class Services
     public function getAltimage()
     {
         return $this->altimage;
+    }
+
+    /**
+     * Set categorieServ
+     *
+     * @param \InstantSoin\ProductBundle\Entity\CategorieServ $categorieServ
+     * @return Services
+     */
+    public function setCategorieServ(\InstantSoin\ProductBundle\Entity\CategorieServ $categorieServ = null)
+    {
+        $this->categorieServ = $categorieServ;
+
+        return $this;
+    }
+
+    /**
+     * Get categorieServ
+     *
+     * @return \InstantSoin\ProductBundle\Entity\CategorieServ 
+     */
+    public function getCategorieServ()
+    {
+        return $this->categorieServ;
     }
 }

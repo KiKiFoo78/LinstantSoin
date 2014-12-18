@@ -6,7 +6,12 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class CategorieType extends AbstractType
+use InstantSoin\ProductBundle\Entity\CategorieProd;
+use InstantSoin\ProductBundle\Form\CategorieProdType;
+use InstantSoin\ProductBundle\Repository\CategorieProdRepository;
+
+
+class CategorieProdType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -15,8 +20,9 @@ class CategorieType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('intitule', 'text', array('required' => true, 'label' => 'Intitullé de la categorie :'))
-            ->add('description', 'text', array('required' => true, 'label' => 'Description complète de la categorie :'))
+            ->add('intitule', 'text', array('required' => true, 'label' => 'Intitulé de la categorie produit :'))
+            ->add('description', 'text', array('required' => true, 'label' => 'Description complète de la categorie produit :'))
+            ->add('image', 'file', array('data_class' => null,'required' => false, 'label' => 'Image de la catégorie de produit :'))
             ->add('save', 'submit', array('label' => 'Enregistrer'))
         ;
     }
@@ -27,7 +33,7 @@ class CategorieType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'InstantSoin\ProductBundle\Entity\Categorie'
+            'data_class' => 'InstantSoin\ProductBundle\Entity\CategorieProd'
         ));
     }
 
@@ -36,6 +42,7 @@ class CategorieType extends AbstractType
      */
     public function getName()
     {
-        return 'instantsoin_productbundle_categorie';
+        return 'instantsoin_productbundle_categorieProd';
     }
+
 }

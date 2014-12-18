@@ -2,7 +2,7 @@
 
 {% block body %}
    <h3>Les produits cosmétiques proposés :</h3>
-	
+	<section>
       <div>
          <img src="{{asset('bundles/InstantSoin/Images/Buttons/creme.jpeg')}}" class="serviceimg" alt="Image impossible à charger">
       	<form action="{{ path( 'product_cremes' ) }}">
@@ -39,5 +39,5 @@
          </form>
          
 	   </div>
-
+   </section>
 {% endblock %}

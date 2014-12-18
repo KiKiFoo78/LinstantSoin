@@ -1,0 +1,23 @@
+{% extends 'UserBundle:Admin:admin.html.twig' %}
+{% block body %}
+
+    <h3>Modifier une catégorie</h3>
+    {% for flashMessage in app.session.flashbag.get('user_add_success') %}
+        <div class="add_success">
+        <p>
+        {{ flashMessage }}
+        </p>
+        <br>
+        </div>
+    {% endfor %}
+    <br><br>
+
+    {{ form_start(form) }}
+        <fieldset class="createSupplier">
+            <br>
+            <img src="{{ asset(image) }}" class="miniImgProd">
+            {{ form_rest(form) }}
+        </fieldset>
+    {{ form_end(form) }}
+    
+{% endblock %}

@@ -136,33 +136,64 @@ Lien_Cnd_shellac:
 
 
 
-# ------------------------------------- CATEGORIES ------------------------------------- #
-createCategory:
-    pattern:  /createCategory
-    defaults: { _controller: ProductBundle:CategoryAdmin:createCategory }
+# ----------------------------------- CATEGORIES PROD ---------------------------------- #
+createCategoryProd:
+    pattern:  /createCategoryProd
+    defaults: { _controller: ProductBundle:CategoryProdAdmin:createCategoryProd }
     requirements:
         _method:  GET|POST
 
 
-updateCategory:
-    pattern:  /updateCategory/{id}
-    defaults: { _controller: ProductBundle:CategoryAdmin:updateCategory }
+updateCategoryProd:
+    pattern:  /updateCategoryProd/{id}
+    defaults: { _controller: ProductBundle:CategoryProdAdmin:updateCategoryProd }
     requirements:
         _method:  GET|POST
 
 
-deleteCategory:
-    pattern:  /deleteCategory/{id}
-    defaults: { _controller: ProductBundle:CategoryAdmin:deleteCategory }
+deleteCategoryProd:
+    pattern:  /deleteCategoryProd/{id}
+    defaults: { _controller: ProductBundle:CategoryProdAdmin:deleteCategoryProd }
     requirements:
         _method:  GET|POST
 
 
-listingCategory:
-    pattern:  /listingCategory
-    defaults: { _controller: ProductBundle:CategoryAdmin:listingCategory }
+listingCategoryProd:
+    pattern:  /listingCategoryProd
+    defaults: { _controller: ProductBundle:CategoryProdAdmin:listingCategoryProd }
     requirements:
         _method:  GET|POST
+
+
+
+# ----------------------------------- CATEGORIES SERV ---------------------------------- #
+createCategoryServ:
+    pattern:  /createCategoryServ
+    defaults: { _controller: ProductBundle:CategoryServAdmin:createCategoryServ }
+    requirements:
+        _method:  GET|POST
+
+
+updateCategoryServ:
+    pattern:  /updateCategoryServ/{id}
+    defaults: { _controller: ProductBundle:CategoryServAdmin:updateCategoryServ }
+    requirements:
+        _method:  GET|POST
+
+
+deleteCategoryServ:
+    pattern:  /deleteCategoryServ/{id}
+    defaults: { _controller: ProductBundle:CategoryServAdmin:deleteCategoryServ }
+    requirements:
+        _method:  GET|POST
+
+
+listingCategoryServ:
+    pattern:  /listingCategoryServ
+    defaults: { _controller: ProductBundle:CategoryServAdmin:listingCategoryServ }
+    requirements:
+        _method:  GET|POST
+
 
 
 

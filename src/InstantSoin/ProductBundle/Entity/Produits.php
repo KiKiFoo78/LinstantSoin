@@ -50,9 +50,9 @@ class Produits
     private $description;
 
     /**
-     * @ORM\ManyToOne(targetEntity="InstantSoin\ProductBundle\Entity\Categorie")     
+     * @ORM\ManyToOne(targetEntity="InstantSoin\ProductBundle\Entity\CategorieProd")     
      */
-    private $categorie;
+    private $categorieProd;
 
     /**
      * @var string
@@ -260,26 +260,26 @@ class Produits
     }
 
     /**
-     * Set categorie
+     * Set categorieProd
      *
-     * @param \InstantSoin\ProductBundle\Entity\Categorie $categorie
+     * @param \InstantSoin\ProductBundle\Entity\CategorieProd $categorieProd
      * @return Produits
      */
-    public function setCategorie(\InstantSoin\ProductBundle\Entity\Categorie $categorie = null)
+    public function setCategorieProd(\InstantSoin\ProductBundle\Entity\CategorieProd $categorieProd = null)
     {
-        $this->categorie = $categorie;
+        $this->categorieProd = $categorieProd;
 
         return $this;
     }
 
     /**
-     * Get categorie
+     * Get categorieProd
      *
-     * @return \InstantSoin\ProductBundle\Entity\Categorie 
+     * @return \InstantSoin\ProductBundle\Entity\CategorieProd 
      */
-    public function getCategorie()
+    public function getCategorieProd()
     {
-        return $this->categorie;
+        return $this->categorieProd;
     }
 
     /**
