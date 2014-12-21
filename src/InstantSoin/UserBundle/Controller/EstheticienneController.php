@@ -12,6 +12,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityRepository;
 
 use InstantSoin\UserBundle\Entity\User;
+use InstantSoin\ProductBundle\Entity\CategorieServ;
+use InstantSoin\ProductBundle\Entity\CategorieProd;
 
 
 class EstheticienneController extends Controller
@@ -19,8 +21,14 @@ class EstheticienneController extends Controller
 	
 	public function estheticienneAction()
 	{
-        
-		return $this->render('UserBundle:Estheticienne:Estheticienne.html.twig');
+         
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieProd');
+        $categoriesProd = $repository->findAllOrderedByName();
+
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieServ');
+        $categoriesServ = $repository->findAllOrderedByName();
+
+		return $this->render('UserBundle:Estheticienne:Estheticienne.html.twig', array('categoriesServ' => $categoriesServ, 'categoriesProd' => $categoriesProd));
 	}
 
 

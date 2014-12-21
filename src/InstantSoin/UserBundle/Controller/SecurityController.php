@@ -1,6 +1,5 @@
 <?php
 
-
 namespace InstantSoin\UserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -10,6 +9,13 @@ use InstantSoin\UserBundle\Entity\User;
 use Symfony\Component\HttpFoundation\Response;
 use InstantSoin\UserBundle\Entity\Enquiry;
 use InstantSoin\UserBundle\Form\EnquiryType;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\EntityRepository;
+
+use InstantSoin\ProductBundle\Entity\CategorieProd;
+use InstantSoin\ProductBundle\Repository\CategorieProdRepository;
+use InstantSoin\ProductBundle\Entity\CategorieServ;
+use InstantSoin\ProductBundle\Repository\CategorieServRepository;
 
 class SecurityController extends Controller
 {
@@ -25,6 +31,12 @@ class SecurityController extends Controller
                                 ->add('recherche', 'search', array('label' => '', 'attr' => array('class' => 'livreSearch')))
                                 ->add('save', 'submit', array('label' => 'Rechercher','attr' => array('class' => 'livreSearch')))
                                 ->getForm();
+
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieProd');
+        $categoriesProd = $repository->findAllOrderedByName();
+
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieServ');
+        $categoriesServ = $repository->findAllOrderedByName();
 
 		if ($this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
 			return $this->redirect($this->generateUrl('bibliotheque_index'));
@@ -42,6 +54,8 @@ class SecurityController extends Controller
 			'last_username' => $session->get(SecurityContext::LAST_USERNAME),
 			'error'         => $error,
 			'search' => $search->createView(),
+			'categoriesServ' => $categoriesServ,
+			'categoriesProd' => $categoriesProd
 			));
 	}
 
@@ -57,6 +71,12 @@ class SecurityController extends Controller
                                 ->add('recherche', 'search', array('label' => '', 'attr' => array('class' => 'productSearch')))
                                 ->add('save', 'submit', array('label' => 'Rechercher','attr' => array('class' => 'productSearch')))
                                 ->getForm();
+
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieProd');
+        $categoriesProd = $repository->findAllOrderedByName();
+
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieServ');
+        $categoriesServ = $repository->findAllOrderedByName();
 
 		$session = $this->getRequest()->getSession();
 		$user = new User();
@@ -105,7 +125,13 @@ class SecurityController extends Controller
 				return $this->redirect($this->generateUrl('new_account'));
 		}
 
-		return $this->render('UserBundle:Security:new_account.html.twig', array('search' => $search->createView(), 'form' => $form->createView()));
+		return $this->render('UserBundle:Security:new_account.html.twig',
+			array(
+			'search' => $search->createView(),
+			'form' => $form->createView(),
+			'categoriesServ' => $categoriesServ,
+			'categoriesProd' => $categoriesProd
+			));
 	}
 
 
@@ -122,11 +148,22 @@ class SecurityController extends Controller
                                 ->add('recherche', 'search', array('label' => '', 'attr' => array('class' => 'livreSearch')))
                                 ->add('save', 'submit', array('label' => 'Rechercher','attr' => array('class' => 'livreSearch')))
                                 ->getForm();
-        
+
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieProd');
+        $categoriesProd = $repository->findAllOrderedByName();
+
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieServ');
+        $categoriesServ = $repository->findAllOrderedByName();
         
         $username = $this->get('security.context')->getToken()->getUsername();
 		
-        return $this->render('UserBundle:Security:profil.html.twig', array('search' => $search->createView(), 'username' => $username));
+        return $this->render('UserBundle:Security:profil.html.twig',
+        	array(
+        		'search' => $search->createView(),
+        		'username' => $username,
+				'categoriesServ' => $categoriesServ,
+				'categoriesProd' => $categoriesProd
+        		));
     }
 
     public function profil_infoAction($username, request $request)
@@ -136,6 +173,11 @@ class SecurityController extends Controller
                                 ->add('save', 'submit', array('label' => 'Rechercher','attr' => array('class' => 'livreSearch')))
                                 ->getForm();
 
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieProd');
+        $categoriesProd = $repository->findAllOrderedByName();
+
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieServ');
+        $categoriesServ = $repository->findAllOrderedByName();
 
 		$session = $this->getRequest()->getSession();
 
@@ -191,7 +233,12 @@ class SecurityController extends Controller
 
 	    }
 	    
-    	return $this->render('UserBundle:Security:profil_info.html.twig', array('search' => $search->createView(), 'form'=> $form->createView()));
+    	return $this->render('UserBundle:Security:profil_info.html.twig',
+    		array('search' => $search->createView(),
+    			'form'=> $form->createView(),
+    			'categoriesServ' => $categoriesServ,
+				'categoriesProd' => $categoriesProd
+        		));
 
     }
 
@@ -207,6 +254,12 @@ class SecurityController extends Controller
                                 ->add('recherche', 'search', array('label' => '', 'attr' => array('class' => 'livreSearch')))
                                 ->add('save', 'submit', array('label' => 'Rechercher','attr' => array('class' => 'livreSearch')))
                                 ->getForm();
+
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieProd');
+        $categoriesProd = $repository->findAllOrderedByName();
+
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieServ');
+        $categoriesServ = $repository->findAllOrderedByName();
 
 	        $enquiry = new Enquiry();
 	        $form = $this->createForm(new EnquiryType(), $enquiry);
@@ -229,7 +282,13 @@ class SecurityController extends Controller
 	            }
 	        }
 
-	        return $this->render('UserBundle:Security:contact.html.twig', array('search' => $search->createView(),'form' => $form->createView()));
+	        return $this->render('UserBundle:Security:contact.html.twig',
+	        	array(
+	        		'search' => $search->createView(),
+	        		'form' => $form->createView(),
+	        		'categoriesServ' => $categoriesServ,
+					'categoriesProd' => $categoriesProd
+	        		));
 	    }
 
 

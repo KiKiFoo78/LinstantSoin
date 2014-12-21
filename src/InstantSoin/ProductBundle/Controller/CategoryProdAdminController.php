@@ -14,6 +14,8 @@ use Doctrine\ORM\EntityRepository;
 
 use InstantSoin\ProductBundle\Entity\CategorieProd;
 use InstantSoin\ProductBundle\Form\CategorieProdType;
+use InstantSoin\ProductBundle\Entity\CategorieServ;
+use InstantSoin\ProductBundle\Form\CategorieServType;
 
 class CategoryProdAdminController extends Controller
 {
@@ -60,7 +62,13 @@ class CategoryProdAdminController extends Controller
             return $this->redirect($this->generateUrl('createCategoryProd'));
         }
 
-        return $this->render('ProductBundle:Category:createCategoryProd.html.twig', array('form' => $form->createView()));
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieProd');
+        $categoriesProd = $repository->findAllOrderedByName();
+
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieServ');
+        $categoriesServ = $repository->findAllOrderedByName();
+
+        return $this->render('ProductBundle:Category:createCategoryProd.html.twig', array('form' => $form->createView(), 'categoriesServ' => $categoriesServ, 'categoriesProd' => $categoriesProd));
     }
 
 
@@ -105,7 +113,6 @@ class CategoryProdAdminController extends Controller
 
             $categorieProd->setUrlimage($dir.'/'.$nomImage);
             $categorieProd->setAltimage($categorieProd->getIntitule());
-
             }
     
             $updateCategProd = $form->get('intitule')->getData();
@@ -119,7 +126,13 @@ class CategoryProdAdminController extends Controller
             return $this->redirect($this->generateUrl('listingCategoryProd'));
         }
 
-        return $this->render('ProductBundle:Category:updateCategoryProd.html.twig', array('form' => $form->createView(), 'image' => $image));
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieProd');
+        $categoriesProd = $repository->findAllOrderedByName();
+
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieServ');
+        $categoriesServ = $repository->findAllOrderedByName();
+
+        return $this->render('ProductBundle:Category:updateCategoryProd.html.twig', array('form' => $form->createView(), 'image' => $image, 'categoriesServ' => $categoriesServ, 'categoriesProd' => $categoriesProd));
     }
 
 
@@ -142,9 +155,11 @@ class CategoryProdAdminController extends Controller
         $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieProd');
         $categoriesProd = $repository->findAllOrderedByName();
 
-        return $this->render('ProductBundle:Category:listingCategoryProd.html.twig', array('categoriesProd' => $categoriesProd));
-    }
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieServ');
+        $categoriesServ = $repository->findAllOrderedByName();
 
+        return $this->render('ProductBundle:Category:listingCategoryProd.html.twig', array('categoriesProd' => $categoriesProd, 'categoriesServ' => $categoriesServ));
+    }
 
 
 
@@ -154,9 +169,12 @@ class CategoryProdAdminController extends Controller
         $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieProd');
         $categoriesProd = $repository->findAllOrderedByName();
 
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieServ');
+        $categoriesServ = $repository->findAllOrderedByName();
+
         $_SESSION['categoriesProd']=$categoriesProd;
 
-        return $this->render('ProductBundle:Category:listingCategoryProd.html.twig', array('categoriesProd' => $categoriesProd));
+        return $this->render('ProductBundle:Category:listingCategoryProd.html.twig', array('categoriesProd' => $categoriesProd, 'categoriesServ' => $categoriesServ));
     }
 
 
@@ -166,16 +184,15 @@ class CategoryProdAdminController extends Controller
 
         $nom = str_replace($search,$replace,$nom);
        
-       $newChaine = "";
-       $i = 0;
-       $long = strlen($nom);
+        $newChaine = "";
+        $i = 0;
+        $long = strlen($nom);
 
-       for($idx=0; $idx<$long; $idx++){
+        for($idx=0; $idx<$long; $idx++){
             $car = $nom[$idx];
 
             switch ($car) {
                 case ' ':
-                    //$newChaine[$i] = '';
                     break;
                 case '/':
                     $newChaine[$i] = '_';
@@ -187,11 +204,8 @@ class CategoryProdAdminController extends Controller
                     $i++;
                     break;
             }
-
-
-       }
-       return implode($newChaine);
-
+        }
+        return implode($newChaine);
     }
 
 }

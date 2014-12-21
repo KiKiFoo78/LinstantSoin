@@ -24,19 +24,20 @@
                             <ul class="menu">
 
                                 <li>
-                                    <a href="{{ path( 'services_overall' ) }}">Mes clients</a>
+                                    <a href="{{ path( 'services_overall' ) }}">Prestations</a>
                                     <ul>
-                                            <li><a href="services_face">Créer un client</a></li>
-                                            <li><a href="services_body">Modifier un client</a></li>
-                                            <li><a href="services_soin">Supprimer un client</a></li>
+                                            {% for Service in categoriesServ %}
+                                            <li><a href="{{ path( 'services', {'id' : categoriesServ[ loop.index0 ].id } ) }}">{{categoriesServ[ loop.index0 ].intitule }}</a></li>
+                                            {% endfor %}
                                     </ul>
                                 </li>
 
                                 <li>
-                                    <a href="{{ path( 'product_overall' ) }}">Les commandes</a>
+                                    <a href="{{ path( 'product_overall' ) }}">La boutique</a>
                                     <ul>
-                                            <li><a href="{{ path( 'product_cremes' ) }}">Commandes passées</a></li>
-                                            <li><a href="{{ path( 'product_gommages' ) }}">Gérer les commandes</a></li>
+                                            {% for Products in categoriesProd %}
+                                            <li><a href="{{ path( 'products', {'id' : categoriesProd[ loop.index0 ].id } ) }}">{{categoriesProd[ loop.index0 ].intitule }}</a></li>
+                                            {% endfor %}
                                     </ul>
                                 </li>
 

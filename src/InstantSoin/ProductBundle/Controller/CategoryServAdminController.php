@@ -36,7 +36,12 @@ class CategoryServAdminController extends Controller
                 if (!$extension) {
                     $extension = 'jpeg';
                 }
-            $nomImage = $form['intitule']->getData().rand(1, 99).'.'.$extension;
+
+            $nom = $form->get('intitule')->getData();
+
+            $temp = $this->stripAccents($nom);
+
+            $nomImage = $temp.'.'.$extension;
 
             $file->move($dir, $nomImage);
 
@@ -50,7 +55,7 @@ class CategoryServAdminController extends Controller
             $em->persist($categorieServ);
             $em->flush();
 
-            $this->get('session')->getFlashBag()->add('user_add_success', 'La catégorie service "' .$newCatServ. '" a bien été créée. Vous pouvez créer les services associés.');
+            $this->get('session')->getFlashBag()->add('user_add_success', 'La catégorie "' .$newCatServ. '" a bien été créée. Vous pouvez créer les services associés.');
 
             return $this->redirect($this->generateUrl('createCategoryServ'));
         }
@@ -89,7 +94,12 @@ class CategoryServAdminController extends Controller
                 if (!$extension) {
                     $extension = 'jpeg';
                 }
-            $nomImage = $form['intitule']->getData().rand(1, 99).'.'.$extension;
+
+            $nom = $form->get('intitule')->getData();
+
+            $temp = $this->stripAccents($nom);
+
+            $nomImage = $temp.'.'.$extension;
 
             $file->move($dir, $nomImage);
 
@@ -103,7 +113,7 @@ class CategoryServAdminController extends Controller
             $em->persist($categorieServ);
             $em->flush();
 
-            $this->get('session')->getFlashBag()->add('user_add_success', 'La categorie service "' .$updateCategServ. '" a bien été mise à jour. Vous pouvez créer les services associés.');
+            $this->get('session')->getFlashBag()->add('user_add_success', 'La categorie "' .$updateCategServ. '" a bien été mise à jour. Vous pouvez créer les services associés.');
 
             return $this->redirect($this->generateUrl('listingCategoryServ'));
         }
@@ -137,7 +147,6 @@ class CategoryServAdminController extends Controller
 
     
 
-
     public function listingCategoryServAction()
     {
         $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieServ');
@@ -149,6 +158,34 @@ class CategoryServAdminController extends Controller
     }
 
 
+    public function stripAccents($nom){
+        $replace = array('e','e','e','a','o');
+        $search = array('é','è','ê','à','ô');
 
+        $nom = str_replace($search,$replace,$nom);
+       
+        $newChaine = "";
+        $i = 0;
+        $long = strlen($nom);
+
+        for($idx=0; $idx<$long; $idx++){
+            $car = $nom[$idx];
+
+            switch ($car) {
+                case ' ':
+                    break;
+                case '/':
+                    $newChaine[$i] = '_';
+                    $i++;
+                    break;
+                
+                default:
+                    $newChaine[$i] = $nom[$idx];
+                    $i++;
+                    break;
+            }
+        }
+        return implode($newChaine);
+    }
 
 }

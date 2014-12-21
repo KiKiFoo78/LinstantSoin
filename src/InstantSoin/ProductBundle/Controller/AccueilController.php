@@ -3,6 +3,11 @@
 namespace InstantSoin\ProductBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\EntityRepository;
+
+use InstantSoin\ProductBundle\Entity\CategorieServ;
+use InstantSoin\ProductBundle\Entity\CategorieProd;
 
 class AccueilController extends Controller
 {
@@ -13,8 +18,26 @@ class AccueilController extends Controller
                                 ->add('recherche', 'search', array('label' => '', 'attr' => array('class' => 'productSearch')))
                                 ->add('save', 'submit', array('label' => 'Rechercher','attr' => array('class' => 'productSearch')))
                                 ->getForm();
+
+
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieProd');
+        $categoriesProd = $repository->findAllOrderedByName();
+
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieServ');
+        $categoriesServ = $repository->findAllOrderedByName();
+
+
+    //var_dump($categoriesServ);
+    //var_dump($categoriesProd);
+    //die();
+
                                 
-        return $this->render('ProductBundle:Accueil:accueil.html.twig', array('search' => $search->createView()));
+        return $this->render('ProductBundle:Accueil:accueil.html.twig',
+            array(
+                'search' => $search->createView(),
+                'categoriesServ' => $categoriesServ,
+                'categoriesProd' => $categoriesProd,
+            ));
     }
 
     public function sidebarAction() {
@@ -29,7 +52,10 @@ class AccueilController extends Controller
                                 ->add('save', 'submit', array('label' => 'Rechercher','attr' => array('class' => 'productSearch')))
                                 ->getForm();
        
-        return $this->render('ProductBundle:Accueil:whoswho.html.twig', array('search' => $search->createView()));
+        return $this->render('ProductBundle:Accueil:whoswho.html.twig',
+            array(
+                'search' => $search->createView()
+            ));
     }
 
 
@@ -66,7 +92,10 @@ class AccueilController extends Controller
             }
         }
 
-        return $this->render('BloggerBlogBundle:Accueil:contact.html.twig', array('form' => $form->createView()));
+        return $this->render('BloggerBlogBundle:Accueil:contact.html.twig',
+            array(
+                'form' => $form->createView()
+            ));
     }
 
 

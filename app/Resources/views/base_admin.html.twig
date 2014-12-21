@@ -24,26 +24,29 @@
                             <ul class="menu">
 
                                 <li>
-                                    <a href="{{ path( 'services_overall' ) }}">TDB</a>
+                                    <a href="{{ path( 'services_overall' ) }}">Prestations</a>
                                     <ul>
-                                            <li><a href="services_face">Les soins visage</a></li>
-                                            <li><a href="services_body">Les soins du corps</a></li>
+                                            {% for Service in categoriesServ %}
+                                            <li><a href="{{ path( 'services', {'id' : categoriesServ[ loop.index0 ].id } ) }}">{{categoriesServ[ loop.index0 ].intitule }}</a></li>
+                                            {% endfor %}
                                     </ul>
                                 </li>
 
                                 <li>
-                                    <a href="{{ path( 'product_overall' ) }}">TBD</a>
+                                    <a href="{{ path( 'product_overall' ) }}">La boutique</a>
                                     <ul>
-                                            <li><a href="{{ path( 'product_cremes' ) }}">Crèmes de jour / crèmes de nuit</a></li>
-                                            <li><a href="{{ path( 'product_gommages' ) }}">Gommages et masques</a></li>
+                                            {% for Products in categoriesProd %}
+                                            <li><a href="{{ path( 'products', {'id' : categoriesProd[ loop.index0 ].id } ) }}">{{categoriesProd[ loop.index0 ].intitule }}</a></li>
+                                            {% endfor %}
                                     </ul>
                                 </li>
 
                                 <li>
-                                    <a href="{{ path( 'product_overall' ) }}">TBD</a>
+                                    <a href="{{ path( 'product_overall' ) }}">La boutique</a>
                                     <ul>
-                                            <li><a href="{{ path( 'product_cremes' ) }}">Crèmes de jour / crèmes de nuit</a></li>
-                                            <li><a href="{{ path( 'product_gommages' ) }}">Gommages et masques</a></li>
+                                            {% for Products in categoriesProd %}
+                                            <li><a href="{{ path( 'products', {'id' : categoriesProd[ loop.index0 ].id } ) }}">{{categoriesProd[ loop.index0 ].intitule }}</a></li>
+                                            {% endfor %}
                                     </ul>
                                 </li>
 

@@ -12,14 +12,22 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityRepository;
 
 use InstantSoin\UserBundle\Entity\User;
+use InstantSoin\ProductBundle\Entity\CategorieServ;
+use InstantSoin\ProductBundle\Entity\CategorieProd;
 
 
 class AdminController extends Controller
 {
 	public function adminAction()
 	{
-                                
-		return $this->render('UserBundle:Admin:admin.html.twig');
+        
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieProd');
+        $categoriesProd = $repository->findAllOrderedByName();
+
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieServ');
+        $categoriesServ = $repository->findAllOrderedByName();
+
+		return $this->render('UserBundle:Admin:admin.html.twig', array('categoriesServ' => $categoriesServ, 'categoriesProd' => $categoriesProd));
 	}
 	
 	public function sidebar_adminAction()

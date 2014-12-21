@@ -21,7 +21,7 @@ class CategorieProdType extends AbstractType
     {
         $builder
             ->add('intitule', 'text', array('required' => true, 'label' => 'Intitulé de la categorie produit :'))
-            ->add('description', 'text', array('required' => true, 'label' => 'Description complète de la categorie produit :'))
+            ->add('description', 'textarea', array('required' => true, 'label' => 'Description complète de la categorie produit :'))
             ->add('image', 'file', array('data_class' => null,'required' => false, 'label' => 'Image de la catégorie de produit :'))
             ->add('save', 'submit', array('label' => 'Enregistrer'))
         ;

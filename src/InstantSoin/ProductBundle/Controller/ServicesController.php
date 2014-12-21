@@ -3,6 +3,18 @@
 namespace InstantSoin\ProductBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\EntityRepository;
+
+use InstantSoin\ProductBundle\Entity\Services;
+use InstantSoin\ProductBundle\Form\ServicesType;
+use InstantSoin\ProductBundle\Repository\ServicesRepository;
+
+use InstantSoin\ProductBundle\Entity\CategorieProd;
+use InstantSoin\ProductBundle\Repository\CategorieProdRepository;
+use InstantSoin\ProductBundle\Entity\CategorieServ;
+use InstantSoin\ProductBundle\Repository\CategorieServRepository;
+
 
 class ServicesController extends Controller
 {
@@ -13,12 +25,23 @@ class ServicesController extends Controller
                                 ->add('recherche', 'search', array('label' => '', 'attr' => array('class' => 'productSearch')))
                                 ->add('save', 'submit', array('label' => 'Rechercher','attr' => array('class' => 'productSearch')))
                                 ->getForm();
+
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieProd');
+        $categoriesProd = $repository->findAllOrderedByName();
+
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieServ');
+        $categoriesServ = $repository->findAllOrderedByName();
                                 
-        return $this->render('ProductBundle:Services:Services_overall.html.twig', array('search' => $search->createView()));
+        return $this->render('ProductBundle:Services:Services_overall.html.twig',
+            array(
+                'search' => $search->createView(),
+                'categoriesServ' => $categoriesServ,
+                'categoriesProd' => $categoriesProd,
+            ));
     }
 
 
-    public function services_faceAction()
+    public function servicesAction($id, Request $Request)
     {
 
     	$search = $this->createFormBuilder()
@@ -30,62 +53,4 @@ class ServicesController extends Controller
     }
 
 
-    public function services_bodyAction()
-    {
-
-    	$search = $this->createFormBuilder()
-                                ->add('recherche', 'search', array('label' => '', 'attr' => array('class' => 'productSearch')))
-                                ->add('save', 'submit', array('label' => 'Rechercher','attr' => array('class' => 'productSearch')))
-                                ->getForm();
-                                
-        return $this->render('ProductBundle:Services:Services_body.html.twig', array('search' => $search->createView()));
-    }
-
-
-    public function services_soinsAction()
-    {
-
-    	$search = $this->createFormBuilder()
-                                ->add('recherche', 'search', array('label' => '', 'attr' => array('class' => 'productSearch')))
-                                ->add('save', 'submit', array('label' => 'Rechercher','attr' => array('class' => 'productSearch')))
-                                ->getForm();
-                                
-        return $this->render('ProductBundle:Services:Services_soins.html.twig', array('search' => $search->createView()));
-    }
-
-
-    public function services_forfaitsAction()
-    {
-
-    	$search = $this->createFormBuilder()
-                                ->add('recherche', 'search', array('label' => '', 'attr' => array('class' => 'productSearch')))
-                                ->add('save', 'submit', array('label' => 'Rechercher','attr' => array('class' => 'productSearch')))
-                                ->getForm();
-                                
-        return $this->render('ProductBundle:Services:Services_forfaits.html.twig', array('search' => $search->createView()));
-    }
-
-
-    public function services_massagesAction()
-    {
-
-    	$search = $this->createFormBuilder()
-                                ->add('recherche', 'search', array('label' => '', 'attr' => array('class' => 'productSearch')))
-                                ->add('save', 'submit', array('label' => 'Rechercher','attr' => array('class' => 'productSearch')))
-                                ->getForm();
-                                
-        return $this->render('ProductBundle:Services:Services_massages.html.twig', array('search' => $search->createView()));
-    }
-
-
-    public function services_peelingAction()
-    {
-
-    	$search = $this->createFormBuilder()
-                                ->add('recherche', 'search', array('label' => '', 'attr' => array('class' => 'productSearch')))
-                                ->add('save', 'submit', array('label' => 'Rechercher','attr' => array('class' => 'productSearch')))
-                                ->getForm();
-                                
-        return $this->render('ProductBundle:Services:Services_peeling.html.twig', array('search' => $search->createView()));
-    }
 }

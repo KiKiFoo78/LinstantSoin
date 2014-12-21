@@ -10,6 +10,11 @@ use InstantSoin\ProductBundle\Entity\Produits;
 use InstantSoin\ProductBundle\Form\ProduitsType;
 use InstantSoin\ProductBundle\Repository\ProduitsRepository;
 
+use InstantSoin\ProductBundle\Entity\CategorieProd;
+use InstantSoin\ProductBundle\Repository\CategorieProdRepository;
+use InstantSoin\ProductBundle\Entity\CategorieServ;
+use InstantSoin\ProductBundle\Repository\CategorieServRepository;
+
 class ProductsController extends Controller
 {
     public function products_overallAction()
@@ -19,12 +24,21 @@ class ProductsController extends Controller
                                 ->add('recherche', 'search', array('label' => '', 'attr' => array('class' => 'productSearch')))
                                 ->add('save', 'submit', array('label' => 'Rechercher','attr' => array('class' => 'productSearch')))
                                 ->getForm();
+
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieProd');
+        $categoriesProd = $repository->findAllOrderedByName();
+
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieServ');
+        $categoriesServ = $repository->findAllOrderedByName();
+
+        //var_dump($categoriesProd);
+        //die();
                                 
-        return $this->render('ProductBundle:Products:Products_overall.html.twig', array('search' => $search->createView()));
+        return $this->render('ProductBundle:Products:Products_overall.html.twig', array('search' => $search->createView(), 'categoriesServ' => $categoriesServ, 'categoriesProd' => $categoriesProd));
     }
 
 
-    public function products_cremesAction()
+    public function productsAction($id, Request $Request)
     {
 
         $search = $this->createFormBuilder()
@@ -38,57 +52,5 @@ class ProductsController extends Controller
         return $this->render('ProductBundle:Products:Products_cremes.html.twig', array('cremes' => $cremes, 'search' => $search->createView()));
     }
 
-
-
-    public function products_gommagesAction()
-    {
-
-        $search = $this->createFormBuilder()
-                                ->add('recherche', 'search', array('label' => '', 'attr' => array('class' => 'productSearch')))
-                                ->add('save', 'submit', array('label' => 'Rechercher','attr' => array('class' => 'productSearch')))
-                                ->getForm();
-    
-        return $this->render('ProductBundle:Products:Products_gommages.html.twig', array('search' => $search->createView()));
-    }
-
-
-
-
-    public function products_maquillageAction()
-    {
-
-        $search = $this->createFormBuilder()
-                                ->add('recherche', 'search', array('label' => '', 'attr' => array('class' => 'productSearch')))
-                                ->add('save', 'submit', array('label' => 'Rechercher','attr' => array('class' => 'productSearch')))
-                                ->getForm();
-                                
-        return $this->render('ProductBundle:Products:Products_maquillage.html.twig', array('search' => $search->createView()));
-    }
-
-
-
-    public function products_lotionsAction()
-    {
-
-        $search = $this->createFormBuilder()
-                                ->add('recherche', 'search', array('label' => '', 'attr' => array('class' => 'productSearch')))
-                                ->add('save', 'submit', array('label' => 'Rechercher','attr' => array('class' => 'productSearch')))
-                                ->getForm();
-                                
-        return $this->render('ProductBundle:Products:Products_lotions.html.twig', array('search' => $search->createView()));
-    }
-
-
-
-    public function products_parfumerieAction()
-    {
-
-        $search = $this->createFormBuilder()
-                                ->add('recherche', 'search', array('label' => '', 'attr' => array('class' => 'productSearch')))
-                                ->add('save', 'submit', array('label' => 'Rechercher','attr' => array('class' => 'productSearch')))
-                                ->getForm();
-                                
-        return $this->render('ProductBundle:Products:Products_parfumerie.html.twig', array('search' => $search->createView()));
-    }
 
 }

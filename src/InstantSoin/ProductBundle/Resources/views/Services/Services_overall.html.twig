@@ -3,40 +3,8 @@
 {% block body %}
    <h3>Les services de soins à domicile effectués :</h3>
    <section>
-      <div>
-         <img src="{{asset('bundles/InstantSoin/Images/Buttons/face.jpg')}}" alt="Image impossible à charger">
-      	<form action="{{ path( 'services_face' ) }}">
-         	<input type="submit" name="face" value="Les soins visage">
-         </form>
-
-         <img src="{{asset('bundles/InstantSoin/Images/Buttons/soinscorps.jpg')}}" alt="Image impossible à charger">
-      	<form action="{{ path( 'services_body' ) }}">
-         	<input type="submit" name="body" value="Les soins du corps">
-      	</form>
-      </div>
-
-      <div>
-         <img src="{{asset('bundles/InstantSoin/Images/Buttons/manucure.jpg')}}" alt="Image impossible à charger">
-      	<form action="{{ path( 'services_soins' ) }}">
-         	<input type="submit" name="soins" value="Les soins des ongles">
-         </form>
-
-         <img src="{{asset('bundles/InstantSoin/Images/Buttons/.jpeg')}}" alt="Image impossible à charger">
-      	<form action="{{ path( 'services_forfaits' ) }}">
-         	<input type="submit" name="forfaits" value="Les forfaits">
-      	</form>
-      </div>
-
-      <div>
-         <img src="{{asset('bundles/InstantSoin/Images/Buttons/massages.jpg')}}" alt="Image impossible à charger">
-         <form action="{{ path( 'services_massages' ) }}">
-         	<input type="submit" name="massages" value="Les massages">
-      	</form>
-
-         <img src="{{asset('bundles/InstantSoin/Images/Buttons/epilation.jpg')}}" alt="Image impossible à charger">
-         <form action="{{ path( 'services_peeling' ) }}">
-         	<input type="submit" name="peeling" value="Les épilations">
-         </form>
-      </div>
+      {% for Products in categoriesServ %}
+         <div class="overall"><img src="{{ asset(categoriesServ[ loop.index0 ].urlimage) }}" class="serviceimg" alt="Image impossible à charger"><form action="{{ path( 'services', {'id' : categoriesServ[ loop.index0 ].id } ) }}"><input type="submit" name="{{categoriesServ[ loop.index0 ].id }} "value="{{categoriesServ[ loop.index0 ].intitule }}" alt="Cliquez pour accéder à la rubrique"></form></div>
+      {% endfor %}
    </section>
 {% endblock %}
