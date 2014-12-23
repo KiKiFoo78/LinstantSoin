@@ -14,6 +14,10 @@ use Doctrine\ORM\EntityRepository;
 
 use InstantSoin\ProductBundle\Entity\CategorieServ;
 use InstantSoin\ProductBundle\Form\CategorieServType;
+use InstantSoin\ProductBundle\Repository\CategorieServRepository;
+use InstantSoin\ProductBundle\Entity\CategorieProd;
+use InstantSoin\ProductBundle\Repository\CategorieProdRepository;
+
 
 class CategoryServAdminController extends Controller
 {
@@ -60,7 +64,18 @@ class CategoryServAdminController extends Controller
             return $this->redirect($this->generateUrl('createCategoryServ'));
         }
 
-        return $this->render('ProductBundle:Category:createCategoryServ.html.twig', array('form' => $form->createView()));
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieProd');
+        $categoriesProd = $repository->findAllOrderedByName();
+
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieServ');
+        $categoriesServ = $repository->findAllOrderedByName();
+
+        return $this->render('ProductBundle:Category:createCategoryServ.html.twig',
+            array(
+                'form' => $form->createView(),
+                'categoriesServ' => $categoriesServ,
+                'categoriesProd' => $categoriesProd,
+            ));
     }
 
 
@@ -118,7 +133,19 @@ class CategoryServAdminController extends Controller
             return $this->redirect($this->generateUrl('listingCategoryServ'));
         }
 
-        return $this->render('ProductBundle:Category:updateCategoryServ.html.twig', array('form' => $form->createView(), 'image' => $image));
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieProd');
+        $categoriesProd = $repository->findAllOrderedByName();
+
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieServ');
+        $categoriesServ = $repository->findAllOrderedByName();
+
+        return $this->render('ProductBundle:Category:updateCategoryServ.html.twig',
+            array(
+                'form' => $form->createView(),
+                'image' => $image,
+                'categoriesServ' => $categoriesServ,
+                'categoriesProd' => $categoriesProd,
+            ));
     }
 
 
@@ -141,7 +168,14 @@ class CategoryServAdminController extends Controller
         $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieServ');
         $categoriesServ = $repository->findAllOrderedByName();
 
-        return $this->render('ProductBundle:Category:listingCategoryServ.html.twig', array('categoriesServ' => $categoriesServ));
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieProd');
+        $categoriesProd = $repository->findAllOrderedByName();
+
+        return $this->render('ProductBundle:Category:listingCategoryServ.html.twig',
+            array(
+                'categoriesServ' => $categoriesServ,
+                'categoriesProd' => $categoriesProd,
+            ));
     }
 
 
@@ -152,15 +186,22 @@ class CategoryServAdminController extends Controller
         $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieServ');
         $categoriesServ = $repository->findAllOrderedByName();
 
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieProd');
+        $categoriesProd = $repository->findAllOrderedByName();
+
         $_SESSION['categoriesServ']=$categoriesServ;
 
-        return $this->render('ProductBundle:Category:listingCategoryServ.html.twig', array('categoriesServ' => $categoriesServ));
+        return $this->render('ProductBundle:Category:listingCategoryServ.html.twig',
+            array(
+                'categoriesServ' => $categoriesServ,
+                'categoriesProd' => $categoriesProd,
+            ));
     }
 
 
-    public function stripAccents($nom){
-        $replace = array('e','e','e','a','o');
-        $search = array('é','è','ê','à','ô');
+    private function stripAccents($nom){
+        $replace = array('e','e','e','a','o','e','e','a','u','u');
+        $search = array('é','è','ê','à','ô','É','È','À','ù','Ù');
 
         $nom = str_replace($search,$replace,$nom);
        
@@ -174,8 +215,14 @@ class CategoryServAdminController extends Controller
             switch ($car) {
                 case ' ':
                     break;
+                case '®':
+                    break;
                 case '/':
                     $newChaine[$i] = '_';
+                    $i++;
+                    break;
+                case '-':
+                    $newChaine[$i] = '-';
                     $i++;
                     break;
                 

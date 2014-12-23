@@ -15,11 +15,21 @@ use Doctrine\ORM\EntityRepository;
 use InstantSoin\ProductBundle\Entity\Services;
 use InstantSoin\ProductBundle\Form\ServicesType;
 use InstantSoin\ProductBundle\Repository\ServicesRepository;
+use InstantSoin\ProductBundle\Entity\CategorieProd;
+use InstantSoin\ProductBundle\Repository\CategorieProdRepository;
+use InstantSoin\ProductBundle\Entity\CategorieServ;
+use InstantSoin\ProductBundle\Repository\CategorieServRepository;
 
 class ServicesAdminController extends Controller
 {
     public function createServicesAction(request $request)
     {
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieProd');
+        $categoriesProd = $repository->findAllOrderedByName();
+
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieServ');
+        $categoriesServ = $repository->findAllOrderedByName();
+
         $service = new Services();
 
         $form = $this->createForm(new ServicesType(), $service);
@@ -37,7 +47,12 @@ class ServicesAdminController extends Controller
                 if (!$extension) {
                     $extension = 'jpeg';
                 }
-            $nomImage = $form['reference']->getData().rand(1, 99).'.'.$extension;
+
+            $nom = $form->get('designation')->getData();
+
+            $temp = $this->stripAccents($nom);
+
+            $nomImage = $temp.'.'.$extension;
 
             $file->move($dir, $nomImage);
 
@@ -56,7 +71,12 @@ class ServicesAdminController extends Controller
             return $this->redirect($this->generateUrl('createServices'));
         }
 
-        return $this->render('ProductBundle:Services:createServices.html.twig', array('form' => $form->createView()));
+        return $this->render('ProductBundle:Services:createServices.html.twig',
+            array(
+                'form' => $form->createView(),
+                'categoriesServ' => $categoriesServ,
+                'categoriesProd' => $categoriesProd,
+            ));
     }
 
 
@@ -68,6 +88,11 @@ class ServicesAdminController extends Controller
         $em = $this->getDoctrine()->getEntityManager();
         $service = $em->getRepository('ProductBundle:services')->findById($id)[0];
         
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieProd');
+        $categoriesProd = $repository->findAllOrderedByName();
+
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieServ');
+        $categoriesServ = $repository->findAllOrderedByName();
 
         if (!$service) {
             $service = new Services();
@@ -90,7 +115,12 @@ class ServicesAdminController extends Controller
                 if (!$extension) {
                     $extension = 'jpeg';
                 }
-            $nomImage = $form['reference']->getData().rand(1, 99).'.'.$extension;
+           
+            $nom = $form->get('designation')->getData();
+
+            $temp = $this->stripAccents($nom);
+
+            $nomImage = $temp.'.'.$extension;
 
             $file->move($dir, $nomImage);
 
@@ -110,7 +140,13 @@ class ServicesAdminController extends Controller
             return $this->redirect($this->generateUrl('listingServices'));
         }
 
-        return $this->render('ProductBundle:Services:updateServices.html.twig', array('form' => $form->createView(), 'image' => $image));
+        return $this->render('ProductBundle:Services:updateServices.html.twig',
+            array(
+                'form' => $form->createView(),
+                'image' => $image,
+                'categoriesServ' => $categoriesServ,
+                'categoriesProd' => $categoriesProd,
+            ));
     }
 
 
@@ -129,7 +165,18 @@ class ServicesAdminController extends Controller
         $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:Services');
         $services = $repository->findAllOrderedByName();
 
-        return $this->render('ProductBundle:Services:listingServices.html.twig', array('services' => $services));
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieProd');
+        $categoriesProd = $repository->findAllOrderedByName();
+
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieServ');
+        $categoriesServ = $repository->findAllOrderedByName();
+
+        return $this->render('ProductBundle:Services:listingServices.html.twig',
+            array(
+                'services' => $services,
+                'categoriesServ' => $categoriesServ,
+                'categoriesProd' => $categoriesProd,
+            ));
     }
 
 
@@ -139,12 +186,54 @@ class ServicesAdminController extends Controller
         $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:Services');
         $services = $repository->findAllOrderedByName();
 
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieProd');
+        $categoriesProd = $repository->findAllOrderedByName();
+
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieServ');
+        $categoriesServ = $repository->findAllOrderedByName();
+
         $_SESSION['services'] = $services;
 
-        return $this->render('ProductBundle:Services:listingServices.html.twig', array('services' => $services));
+        return $this->render('ProductBundle:Services:listingServices.html.twig',
+            array(
+                'services' => $services,
+                'categoriesServ' => $categoriesServ,
+                'categoriesProd' => $categoriesProd,
+            ));
     }
 
+    private function stripAccents($nom){
+        $replace = array('e','e','e','a','o','e','e','a','u','u');
+        $search = array('é','è','ê','à','ô','É','È','À','ù','Ù');
 
+        $nom = str_replace($search,$replace,$nom);
+       
+        $newChaine = "";
+        $i = 0;
+        $long = strlen($nom);
 
+        for($idx=0; $idx<$long; $idx++){
+            $car = $nom[$idx];
+
+            switch ($car) {
+                case ' ':
+                    break;
+                case '/':
+                    $newChaine[$i] = '_';
+                    $i++;
+                    break;
+                case '-':
+                    $newChaine[$i] = '-';
+                    $i++;
+                    break;
+                
+                default:
+                    $newChaine[$i] = $nom[$idx];
+                    $i++;
+                    break;
+            }
+        }
+        return implode($newChaine);
+    }
 
 }

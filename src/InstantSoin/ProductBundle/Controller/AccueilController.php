@@ -6,8 +6,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityRepository;
 
-use InstantSoin\ProductBundle\Entity\CategorieServ;
 use InstantSoin\ProductBundle\Entity\CategorieProd;
+use InstantSoin\ProductBundle\Repository\CategorieProdRepository;
+use InstantSoin\ProductBundle\Entity\CategorieServ;
+use InstantSoin\ProductBundle\Repository\CategorieServRepository;
 
 class AccueilController extends Controller
 {
@@ -25,12 +27,6 @@ class AccueilController extends Controller
 
         $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieServ');
         $categoriesServ = $repository->findAllOrderedByName();
-
-
-    //var_dump($categoriesServ);
-    //var_dump($categoriesProd);
-    //die();
-
                                 
         return $this->render('ProductBundle:Accueil:accueil.html.twig',
             array(
@@ -71,6 +67,13 @@ class AccueilController extends Controller
 
 
     public function contactAction() {
+
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieProd');
+        $categoriesProd = $repository->findAllOrderedByName();
+
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieServ');
+        $categoriesServ = $repository->findAllOrderedByName();
+        
         $enquiry = new Enquiry();
         $form = $this->createForm(new EnquiryType(), $enquiry);
 
@@ -94,7 +97,9 @@ class AccueilController extends Controller
 
         return $this->render('BloggerBlogBundle:Accueil:contact.html.twig',
             array(
-                'form' => $form->createView()
+                'form' => $form->createView(),
+                'categoriesServ' => $categoriesServ,
+                'categoriesProd' => $categoriesProd,
             ));
     }
 

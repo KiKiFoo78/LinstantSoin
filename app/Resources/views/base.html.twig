@@ -27,7 +27,7 @@
                                     <a href="{{ path( 'services_overall' ) }}">Prestations</a>
                                     <ul>
                                             {% for Service in categoriesServ %}
-                                            <li><a href="{{ path( 'services', {'id' : categoriesServ[ loop.index0 ].id } ) }}">{{categoriesServ[ loop.index0 ].intitule }}</a></li>
+                                            <li><a href="{{ path( 'services_by_cat', {'id' : categoriesServ[ loop.index0 ].id } ) }}">{{categoriesServ[ loop.index0 ].intitule }}</a></li>
                                             {% endfor %}
                                     </ul>
                                 </li>
@@ -36,7 +36,7 @@
                                     <a href="{{ path( 'product_overall' ) }}">La boutique</a>
                                     <ul>
                                             {% for Products in categoriesProd %}
-                                            <li><a href="{{ path( 'products', {'id' : categoriesProd[ loop.index0 ].id } ) }}">{{categoriesProd[ loop.index0 ].intitule }}</a></li>
+                                            <li><a href="{{ path( 'products_by_cat', {'id' : categoriesProd[ loop.index0 ].id } ) }}">{{categoriesProd[ loop.index0 ].intitule }}</a></li>
                                             {% endfor %}
                                     </ul>
                                 </li>
@@ -135,6 +135,10 @@
             <script>
             $(function() {
             $( "#accordion" ).accordion();
+            });
+
+            $(function() {
+            $( "#dialog" ).dialog();
             });
             </script>
             {% endblock %}

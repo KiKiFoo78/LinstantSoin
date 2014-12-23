@@ -8,8 +8,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-
 use Doctrine\Common\Collections\ArrayCollection;
+
 use Doctrine\ORM\EntityRepository;
 
 use InstantSoin\ProductBundle\Entity\CategorieProd;
@@ -68,7 +68,12 @@ class CategoryProdAdminController extends Controller
         $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieServ');
         $categoriesServ = $repository->findAllOrderedByName();
 
-        return $this->render('ProductBundle:Category:createCategoryProd.html.twig', array('form' => $form->createView(), 'categoriesServ' => $categoriesServ, 'categoriesProd' => $categoriesProd));
+        return $this->render('ProductBundle:Category:createCategoryProd.html.twig',
+            array(
+                'form' => $form->createView(),
+                'categoriesServ' => $categoriesServ,
+                'categoriesProd' => $categoriesProd,
+            ));
     }
 
 
@@ -132,7 +137,13 @@ class CategoryProdAdminController extends Controller
         $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieServ');
         $categoriesServ = $repository->findAllOrderedByName();
 
-        return $this->render('ProductBundle:Category:updateCategoryProd.html.twig', array('form' => $form->createView(), 'image' => $image, 'categoriesServ' => $categoriesServ, 'categoriesProd' => $categoriesProd));
+        return $this->render('ProductBundle:Category:updateCategoryProd.html.twig',
+            array(
+                'form' => $form->createView(),
+                'image' => $image,
+                'categoriesServ' => $categoriesServ,
+                'categoriesProd' => $categoriesProd,
+            ));
     }
 
 
@@ -158,7 +169,11 @@ class CategoryProdAdminController extends Controller
         $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieServ');
         $categoriesServ = $repository->findAllOrderedByName();
 
-        return $this->render('ProductBundle:Category:listingCategoryProd.html.twig', array('categoriesProd' => $categoriesProd, 'categoriesServ' => $categoriesServ));
+        return $this->render('ProductBundle:Category:listingCategoryProd.html.twig',
+            array(
+                'categoriesProd' => $categoriesProd,
+                'categoriesServ' => $categoriesServ,
+            ));
     }
 
 
@@ -174,13 +189,17 @@ class CategoryProdAdminController extends Controller
 
         $_SESSION['categoriesProd']=$categoriesProd;
 
-        return $this->render('ProductBundle:Category:listingCategoryProd.html.twig', array('categoriesProd' => $categoriesProd, 'categoriesServ' => $categoriesServ));
+        return $this->render('ProductBundle:Category:listingCategoryProd.html.twig',
+            array(
+                'categoriesProd' => $categoriesProd,
+                'categoriesServ' => $categoriesServ,
+            ));
     }
 
 
-    public function stripAccents($nom){
-        $replace = array('e','e','e','a','o');
-        $search = array('é','è','ê','à','ô');
+    private function stripAccents($nom){
+        $replace = array('e','e','e','a','o','e','e','a','u','u');
+        $search = array('é','è','ê','à','ô','É','È','À','ù','Ù');
 
         $nom = str_replace($search,$replace,$nom);
        
@@ -194,8 +213,14 @@ class CategoryProdAdminController extends Controller
             switch ($car) {
                 case ' ':
                     break;
+                case '®':
+                    break;
                 case '/':
                     $newChaine[$i] = '_';
+                    $i++;
+                    break;
+                case '-':
+                    $newChaine[$i] = '-';
                     $i++;
                     break;
                 

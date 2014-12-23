@@ -269,29 +269,6 @@ class Produits
     }
 
     /**
-     * Set prix
-     *
-     * @param string $prix
-     * @return Produits
-     */
-    public function setPrix($prix)
-    {
-        $this->prix = $prix;
-
-        return $this;
-    }
-
-    /**
-     * Get prix
-     *
-     * @return string 
-     */
-    public function getPrix()
-    {
-        return $this->prix;
-    }
-
-    /**
      * Set categorieProd
      *
      * @param \InstantSoin\ProductBundle\Entity\CategorieProd $categorieProd
@@ -368,6 +345,4 @@ class Produits
 
 
 
-
-    
 }

@@ -15,6 +15,10 @@ use Doctrine\ORM\EntityRepository;
 use InstantSoin\ProductBundle\Entity\Fournisseurs;
 use InstantSoin\ProductBundle\Repository\FournisseursRepository;
 use InstantSoin\ProductBundle\Form\FournisseursType;
+use InstantSoin\ProductBundle\Entity\CategorieProd;
+use InstantSoin\ProductBundle\Repository\CategorieProdRepository;
+use InstantSoin\ProductBundle\Entity\CategorieServ;
+use InstantSoin\ProductBundle\Repository\CategorieServRepository;
 
 
 class SupplierAdminController extends Controller
@@ -36,7 +40,12 @@ class SupplierAdminController extends Controller
                 if (!$extension) {
                     $extension = 'jpeg';
                 }
-            $nomImage = $form['nom']->getData().rand(1, 99).'.'.$extension;
+
+            $nom = $form->get('nom')->getData();
+
+            $temp = $this->stripAccents($nom);
+
+            $nomImage = $temp.'.'.$extension;
 
             $file->move($dir, $nomImage);
 
@@ -54,7 +63,18 @@ class SupplierAdminController extends Controller
             return $this->redirect($this->generateUrl('createSupplier'));
         }
 
-        return $this->render('ProductBundle:Suppliers:createSupplier.html.twig', array('form' => $form->createView()));
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieProd');
+        $categoriesProd = $repository->findAllOrderedByName();
+
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieServ');
+        $categoriesServ = $repository->findAllOrderedByName();
+
+        return $this->render('ProductBundle:Suppliers:createSupplier.html.twig',
+            array(
+                'form' => $form->createView(),
+                'categoriesServ' => $categoriesServ,
+                'categoriesProd' => $categoriesProd,
+            ));
     }
 
 
@@ -88,7 +108,12 @@ class SupplierAdminController extends Controller
                 if (!$extension) {
                     $extension = 'jpeg';
                 }
-            $nomImage = $form['nom']->getData().rand(1, 99).'.'.$extension;
+
+            $nom = $form->get('nom')->getData();
+
+            $temp = $this->stripAccents($nom);
+
+            $nomImage = $temp.'.'.$extension;
 
             $file->move($dir, $nomImage);
 
@@ -107,8 +132,20 @@ class SupplierAdminController extends Controller
 
             return $this->redirect($this->generateUrl('listingSupplier'));
         }
+        
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieProd');
+        $categoriesProd = $repository->findAllOrderedByName();
 
-        return $this->render('ProductBundle:Suppliers:updateSuplier.html.twig', array('form' => $form->createView(), 'image' => $image));
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieServ');
+        $categoriesServ = $repository->findAllOrderedByName();
+
+        return $this->render('ProductBundle:Suppliers:updateSuplier.html.twig',
+            array(
+                'form' => $form->createView(),
+                'image' => $image,
+                'categoriesServ' => $categoriesServ,
+                'categoriesProd' => $categoriesProd,
+            ));
     }
 
 
@@ -128,7 +165,18 @@ class SupplierAdminController extends Controller
         $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:Fournisseurs');
         $fournisseurs = $repository->findAllOrderedByName();
 
-        return $this->render('ProductBundle:Suppliers:listingSuplier.html.twig', array('fournisseurs' => $fournisseurs));
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieProd');
+        $categoriesProd = $repository->findAllOrderedByName();
+
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieServ');
+        $categoriesServ = $repository->findAllOrderedByName();
+
+        return $this->render('ProductBundle:Suppliers:listingSuplier.html.twig',
+            array(
+                'fournisseurs' => $fournisseurs,
+                'categoriesServ' => $categoriesServ,
+                'categoriesProd' => $categoriesProd,
+            ));
     }
 
 
@@ -142,9 +190,53 @@ class SupplierAdminController extends Controller
 
         $_SESSION['fournisseurs']=$fournisseurs;
 
-        return $this->render('ProductBundle:Suppliers:listingSuplier.html.twig', array('fournisseurs' => $fournisseurs));
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieProd');
+        $categoriesProd = $repository->findAllOrderedByName();
+
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieServ');
+        $categoriesServ = $repository->findAllOrderedByName();
+
+        return $this->render('ProductBundle:Suppliers:listingSuplier.html.twig',
+            array(
+                'fournisseurs' => $fournisseurs,
+                'categoriesServ' => $categoriesServ,
+                'categoriesProd' => $categoriesProd,
+            ));
     }
 
+    private function stripAccents($nom){
+        $replace = array('e','e','e','a','o','e','e','a','u','u');
+        $search = array('é','è','ê','à','ô','É','È','À','ù','Ù');
+
+        $nom = str_replace($search,$replace,$nom);
+       
+        $newChaine = "";
+        $i = 0;
+        $long = strlen($nom);
+
+        for($idx=0; $idx<$long; $idx++){
+            $car = $nom[$idx];
+
+            switch ($car) {
+                case ' ':
+                    break;
+                case '/':
+                    $newChaine[$i] = '_';
+                    $i++;
+                    break;
+                case '-':
+                    $newChaine[$i] = '-';
+                    $i++;
+                    break;
+                
+                default:
+                    $newChaine[$i] = $nom[$idx];
+                    $i++;
+                    break;
+            }
+        }
+        return implode($newChaine);
+    }
 
 
 }

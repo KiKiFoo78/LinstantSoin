@@ -48,8 +48,19 @@ class ServicesController extends Controller
                                 ->add('recherche', 'search', array('label' => '', 'attr' => array('class' => 'productSearch')))
                                 ->add('save', 'submit', array('label' => 'Rechercher','attr' => array('class' => 'productSearch')))
                                 ->getForm();
+
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieProd');
+        $categoriesProd = $repository->findAllOrderedByName();
+
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieServ');
+        $categoriesServ = $repository->findAllOrderedByName();
                                 
-        return $this->render('ProductBundle:Services:Services_face.html.twig', array('search' => $search->createView()));
+        return $this->render('ProductBundle:Services:Services_face.html.twig',
+            array(
+                'search' => $search->createView(),
+                'categoriesServ' => $categoriesServ,
+                'categoriesProd' => $categoriesProd,
+            ));
     }
 
 

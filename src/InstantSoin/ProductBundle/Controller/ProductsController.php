@@ -4,6 +4,9 @@ namespace InstantSoin\ProductBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+
 use Doctrine\ORM\EntityRepository;
 
 use InstantSoin\ProductBundle\Entity\Produits;
@@ -30,26 +33,43 @@ class ProductsController extends Controller
 
         $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieServ');
         $categoriesServ = $repository->findAllOrderedByName();
-
-        //var_dump($categoriesProd);
-        //die();
-                                
-        return $this->render('ProductBundle:Products:Products_overall.html.twig', array('search' => $search->createView(), 'categoriesServ' => $categoriesServ, 'categoriesProd' => $categoriesProd));
+                      
+        return $this->render('ProductBundle:Products:Products_overall.html.twig',
+            array(
+                'search' => $search->createView(),
+                'categoriesServ' => $categoriesServ,
+                'categoriesProd' => $categoriesProd,
+            ));
     }
 
 
-    public function productsAction($id, Request $Request)
+    public function products_by_catAction($id, Request $Request)
     {
+
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:Produits');
+        $products = $repository->findByCategorieProd($id);
 
         $search = $this->createFormBuilder()
                                 ->add('recherche', 'search', array('label' => '', 'attr' => array('class' => 'productSearch')))
                                 ->add('save', 'submit', array('label' => 'Rechercher','attr' => array('class' => 'productSearch')))
                                 ->getForm();
 
-        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:Produits');
-        $cremes = $repository->findByCategorieProd('15');
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieProd');
+        $categoriesProd = $repository->findAllOrderedByName();
 
-        return $this->render('ProductBundle:Products:Products_cremes.html.twig', array('cremes' => $cremes, 'search' => $search->createView()));
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieServ');
+        $categoriesServ = $repository->findAllOrderedByName();
+
+        //var_dump($products);
+        //die();
+
+        return $this->render('ProductBundle:Products:Products_by_cat.html.twig',
+            array(
+                'products' => $products,
+                'search' => $search->createView(),
+                'categoriesServ' => $categoriesServ,
+                'categoriesProd' => $categoriesProd,
+            ));
     }
 
 

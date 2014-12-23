@@ -9,9 +9,9 @@ product_overall:
     path:     /products_overall
     defaults: { _controller: ProductBundle:Products:products_overall }
 
-products:
-    path:     /products/{id}
-    defaults: { _controller: ProductBundle:Products:products }
+products_by_cat:
+    path:     /products_by_cat/{id}
+    defaults: { _controller: ProductBundle:Products:products_by_cat }
 
 
 #ROUTING SERVICES
@@ -20,9 +20,9 @@ services_overall:
     path:     /services_overall
     defaults: { _controller: ProductBundle:Services:services_overall }
 
-services:
-    path:     /services/{id}
-    defaults: { _controller: ProductBundle:Services:services }
+services_by_cat:
+    path:     /services_by_cat/{id}
+    defaults: { _controller: ProductBundle:Services:services_by_cat }
 
 
 

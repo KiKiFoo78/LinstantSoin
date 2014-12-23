@@ -8,18 +8,28 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityRepository;
+
 
 use InstantSoin\ProductBundle\Entity\Produits;
 use InstantSoin\ProductBundle\Form\ProduitsType;
 use InstantSoin\ProductBundle\Repository\ProduitsRepository;
+use InstantSoin\ProductBundle\Entity\CategorieProd;
+use InstantSoin\ProductBundle\Repository\CategorieProdRepository;
+use InstantSoin\ProductBundle\Entity\CategorieServ;
+use InstantSoin\ProductBundle\Repository\CategorieServRepository;
 
 class ProductsAdminController extends Controller
 {
     public function createProductsAction(request $request)
     {
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieProd');
+        $categoriesProd = $repository->findAllOrderedByName();
+
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieServ');
+        $categoriesServ = $repository->findAllOrderedByName();
+
         $produit = new Produits();
 
         $form = $this->createForm(new ProduitsType(), $produit);
@@ -37,7 +47,12 @@ class ProductsAdminController extends Controller
                 if (!$extension) {
                     $extension = 'jpeg';
                 }
-            $nomImage = $form['reference']->getData().rand(1, 99).'.'.$extension;
+
+            $nom = $form->get('designation')->getData();
+
+            $temp = $this->stripAccents($nom);
+
+            $nomImage = $temp.rand(1, 99).'.'.$extension;
 
             $file->move($dir, $nomImage);
 
@@ -56,7 +71,12 @@ class ProductsAdminController extends Controller
             return $this->redirect($this->generateUrl('createProducts'));
         }
 
-        return $this->render('ProductBundle:Products:createProducts.html.twig', array('form' => $form->createView()));
+        return $this->render('ProductBundle:Products:createProducts.html.twig',
+            array(
+                'form' => $form->createView(),
+                'categoriesServ' => $categoriesServ,
+                'categoriesProd' => $categoriesProd,
+            ));
     }
 
 
@@ -65,6 +85,12 @@ class ProductsAdminController extends Controller
 
     public function updateProductsAction($id, Request $request)
     {
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieProd');
+        $categoriesProd = $repository->findAllOrderedByName();
+
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieServ');
+        $categoriesServ = $repository->findAllOrderedByName();
+
         $em = $this->getDoctrine()->getEntityManager();
         $produit = $em->getRepository('ProductBundle:Produits')->findById($id)[0];
         
@@ -90,7 +116,12 @@ class ProductsAdminController extends Controller
                 if (!$extension) {
                     $extension = 'jpeg';
                 }
-            $nomImage = $form['reference']->getData().rand(1, 99).'.'.$extension;
+
+            $nom = $form->get('designation')->getData();
+
+            $temp = $this->stripAccents($nom);
+
+            $nomImage = $temp.rand(1, 99).'.'.$extension;
 
             $file->move($dir, $nomImage);
 
@@ -110,9 +141,14 @@ class ProductsAdminController extends Controller
             return $this->redirect($this->generateUrl('listingProducts'));
         }
 
-        return $this->render('ProductBundle:Products:updateProducts.html.twig', array('form' => $form->createView(), 'image' => $image));
+        return $this->render('ProductBundle:Products:updateProducts.html.twig',
+            array(
+                'form' => $form->createView(),
+                'image' => $image,
+                'categoriesServ' => $categoriesServ,
+                'categoriesProd' => $categoriesProd,
+            ));
     }
-
 
 
 
@@ -129,7 +165,18 @@ class ProductsAdminController extends Controller
         $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:Produits');
         $produits = $repository->findAllOrderedByName();
 
-        return $this->render('ProductBundle:Products:listingProducts.html.twig', array('produits' => $produits));
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieProd');
+        $categoriesProd = $repository->findAllOrderedByName();
+
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieServ');
+        $categoriesServ = $repository->findAllOrderedByName();
+
+        return $this->render('ProductBundle:Products:listingProducts.html.twig',
+            array(
+                'produits' => $produits,
+                'categoriesServ' => $categoriesServ,
+                'categoriesProd' => $categoriesProd,
+            ));
     }
 
 
@@ -141,12 +188,60 @@ class ProductsAdminController extends Controller
         $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:Produits');
         $produits = $repository->findAllOrderedByName();
 
-        $_SESSION['produits']=$produits;
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieProd');
+        $categoriesProd = $repository->findAllOrderedByName();
 
-        return $this->render('ProductBundle:Products:listingProducts.html.twig', array('produits' => $produits));
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieServ');
+        $categoriesServ = $repository->findAllOrderedByName();
+
+        $_SESSION['produits']=$produits;
+        //var_dump($categoriesProd);
+        //die();
+        return $this->render('ProductBundle:Products:listingProducts.html.twig',
+            array(
+                'produits' => $produits,
+                'categoriesServ' => $categoriesServ,
+                'categoriesProd' => $categoriesProd,
+            ));
     }
 
 
+
+    private function stripAccents($nom){
+        $replace = array('e','e','e','a','o','e','e','a','u','u',);
+        $search = array('é','è','ê','à','ô','É','È','À','ù','Ù',);
+
+        $nom = str_replace($search,$replace,$nom);
+       
+        $newChaine = "";
+        $i = 0;
+        $long = strlen($nom);
+
+        for($idx=0; $idx<$long; $idx++){
+            $car = $nom[$idx];
+
+            switch ($car) {
+                case ' ':
+                    break;
+                case '/':
+                    $newChaine[$i] = '_';
+                    $i++;
+                    break;
+                case '®':
+                    break;
+                case '-':
+                    $newChaine[$i] = '-';
+                    $i++;
+                    break;
+                
+                default:
+                    $newChaine[$i] = $nom[$idx];
+                    $i++;
+                    break;
+            }
+        }
+        return implode($newChaine);
+    }
 
 
 }

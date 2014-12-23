@@ -1,0 +1,26 @@
+{% extends 'ProductBundle::layout.html.twig' %}
+
+{% block body %}
+
+	<h3><a href="{{ path( 'product_overall' ) }}">{{products[0].categorieProd.intitule }} : <span>Retour</span></a></h3>
+	<br><br>
+	<section>
+	{% for products in products %}
+			<form class="CatListing" action="#">
+				<div>
+					<img src="{{ asset(products.urlimage) }}" class="catImg" alt="Image impossible à charger">
+					<br><br>
+					<a href="#" name="{{products.id }}">{{products.designation }}</a>
+					<br><br>
+				</div>
+				<div>
+						<p>Fabriquant : {{products.fournisseurs.nom }}</p>
+						<br>
+						<p>Stock actuel : {{products.stock}}</p>
+						<p>Prix : {{products.prix}} €</p>
+						<button>-</button><img class="panierlight" src="{{asset('bundles/InstantSoin/Images/panier_vide_light.png')}}" alt="Impossible à charger"><button>+</button>
+				</div>
+			</form>
+    {% endfor %}
+    </section>
+{% endblock %}
