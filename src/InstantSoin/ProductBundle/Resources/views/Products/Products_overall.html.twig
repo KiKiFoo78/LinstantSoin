@@ -4,6 +4,5 @@
    <h3>Les produits cosmétiques proposés :</h3>
 	<section>
       {% for Products in categoriesProd %}<div class="overall"><img src="{{ asset(categoriesProd[ loop.index0 ].urlimage) }}" class="serviceimg" alt="Image impossible à charger"><form action="{{ path( 'products_by_cat', {'id' : categoriesProd[ loop.index0 ].id } ) }}"><input type="submit" value="{{categoriesProd[ loop.index0 ].intitule }}" alt="Cliquez pour accéder à la rubrique"></form></div>{% endfor %}
-      
    </section>
 {% endblock %}

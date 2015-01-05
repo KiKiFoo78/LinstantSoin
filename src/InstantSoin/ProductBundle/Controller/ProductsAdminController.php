@@ -66,6 +66,7 @@ class ProductsAdminController extends Controller
             $em->persist($produit);
             $em->flush();
 
+            $this->get('session')->getFlashBag()->clear();
             $this->get('session')->getFlashBag()->add('user_add_success', 'La référence "' .$newProd. '" a bien été créée. Elle est maintenant disponible au catalogue.');
 
             return $this->redirect($this->generateUrl('createProducts'));
@@ -136,6 +137,7 @@ class ProductsAdminController extends Controller
             $em->persist($produit);
             $em->flush();
 
+            $this->get('session')->getFlashBag()->clear();
             $this->get('session')->getFlashBag()->add('user_add_success', 'Le Produit "' .$updateProd. '" a bien été mis à jour.');
 
             return $this->redirect($this->generateUrl('listingProducts'));

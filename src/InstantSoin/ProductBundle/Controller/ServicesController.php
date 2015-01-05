@@ -4,6 +4,8 @@ namespace InstantSoin\ProductBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Doctrine\ORM\EntityRepository;
 
 use InstantSoin\ProductBundle\Entity\Services;
@@ -41,10 +43,12 @@ class ServicesController extends Controller
     }
 
 
-    public function servicesAction($id, Request $Request)
+    public function services_by_catAction($id, Request $Request)
     {
+        $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:Services');
+        $services = $repository->findByCategorieServ($id);
 
-    	$search = $this->createFormBuilder()
+        $search = $this->createFormBuilder()
                                 ->add('recherche', 'search', array('label' => '', 'attr' => array('class' => 'productSearch')))
                                 ->add('save', 'submit', array('label' => 'Rechercher','attr' => array('class' => 'productSearch')))
                                 ->getForm();
@@ -54,13 +58,31 @@ class ServicesController extends Controller
 
         $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieServ');
         $categoriesServ = $repository->findAllOrderedByName();
-                                
-        return $this->render('ProductBundle:Services:Services_face.html.twig',
-            array(
-                'search' => $search->createView(),
-                'categoriesServ' => $categoriesServ,
-                'categoriesProd' => $categoriesProd,
-            ));
+
+        //var_dump($services);
+        //die();
+
+        if (!$services){
+            $session = $this->getRequest()->getSession();
+            $this->get('session')->getFlashBag()->clear();
+            $session->getFlashBag()->add('user_add_warning', 'Nous sommes désolés mais aucun service de cette catégorie n\'est n\'est disponible à la vente actuellement.');
+            
+            return $this->render('ProductBundle:Services:no_service.html.twig',
+                array(
+                    'search' => $search->createView(),
+                    'categoriesServ' => $categoriesServ,
+                    'categoriesProd' => $categoriesProd,
+                ));
+        }
+        else {
+            return $this->render('ProductBundle:Services:Services_by_cat.html.twig',
+                array(
+                    'services' => $services,
+                    'search' => $search->createView(),
+                    'categoriesServ' => $categoriesServ,
+                    'categoriesProd' => $categoriesProd,
+                ));
+        }
     }
 
 

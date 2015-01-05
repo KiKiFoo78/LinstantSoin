@@ -59,6 +59,7 @@ class CategoryServAdminController extends Controller
             $em->persist($categorieServ);
             $em->flush();
 
+            $this->get('session')->getFlashBag()->clear();
             $this->get('session')->getFlashBag()->add('user_add_success', 'La catégorie "' .$newCatServ. '" a bien été créée. Vous pouvez créer les services associés.');
 
             return $this->redirect($this->generateUrl('createCategoryServ'));
@@ -128,6 +129,7 @@ class CategoryServAdminController extends Controller
             $em->persist($categorieServ);
             $em->flush();
 
+            $this->get('session')->getFlashBag()->clear();
             $this->get('session')->getFlashBag()->add('user_add_success', 'La categorie "' .$updateCategServ. '" a bien été mise à jour. Vous pouvez créer les services associés.');
 
             return $this->redirect($this->generateUrl('listingCategoryServ'));
@@ -163,6 +165,7 @@ class CategoryServAdminController extends Controller
         $em->remove($categorieServ);
         $em->flush();
 
+        $this->get('session')->getFlashBag()->clear();
         $this->get('session')->getFlashBag()->add('user_add_success', 'La categorie "' .$nomCategServ. '" a bien été supprimée.');
 
         $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieServ');

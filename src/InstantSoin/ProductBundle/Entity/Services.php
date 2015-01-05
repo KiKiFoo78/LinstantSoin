@@ -36,7 +36,7 @@ class Services
     /**
      * @var string
      *
-     * @ORM\Column(name="designation", type="string", length=255)
+     * @ORM\Column(name="libelle", type="string", length=255)
      */
     private $libelle;
 
@@ -72,6 +72,13 @@ class Services
      * @ORM\Column(name="altimage", type="string", length=255)
      */
     private $altimage;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="nouveaute", type="boolean")
+     */
+    private $nouveaute;
 
     /**
      * @var decimal
@@ -272,5 +279,28 @@ class Services
     public function getPrix()
     {
         return $this->prix;
+    }
+
+    /**
+     * Set nouveaute
+     *
+     * @param boolean $nouveaute
+     * @return Services
+     */
+    public function setNouveaute($nouveaute)
+    {
+        $this->nouveaute = $nouveaute;
+
+        return $this;
+    }
+
+    /**
+     * Get nouveaute
+     *
+     * @return boolean 
+     */
+    public function getNouveaute()
+    {
+        return $this->nouveaute;
     }
 }

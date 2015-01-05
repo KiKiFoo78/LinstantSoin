@@ -24,6 +24,7 @@ class ServicesType extends AbstractType
             ->add('description', 'text', array('required' => true, 'label' => 'Description de la prestation :'))
             ->add('image', 'file', array('data_class' => null,'required' => false, 'label' => 'Image de la prestation :'))
             ->add('prix', 'money', array('required' => true, 'label' => 'Prix actuel du service :'))
+            ->add('nouveaute', 'checkbox', array('required' => false, 'label' => 'Afficher comme nouveauté :'))
             ->add('categorieServ', 'entity', array(
                             'class' => 'ProductBundle:CategorieServ',
                             'property' => 'intitule',

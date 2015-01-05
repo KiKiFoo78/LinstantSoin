@@ -58,6 +58,7 @@ class SupplierAdminController extends Controller
             $em->persist($fournisseur);
             $em->flush();
 
+            $this->get('session')->getFlashBag()->clear();
             $this->get('session')->getFlashBag()->add('user_add_success', 'Le fournisseur "' .$newFourn. '" a bien été créé. Vous pouvez créer les produits associés.');
 
             return $this->redirect($this->generateUrl('createSupplier'));
@@ -128,6 +129,7 @@ class SupplierAdminController extends Controller
             $em->persist($fournisseur);
             $em->flush();
 
+            $this->get('session')->getFlashBag()->clear();
             $this->get('session')->getFlashBag()->add('user_add_success', 'Le fournisseur "' .$updateFourn. '" a bien été mis à jour. Vous pouvez créer les produits associés.');
 
             return $this->redirect($this->generateUrl('listingSupplier'));
@@ -160,7 +162,6 @@ class SupplierAdminController extends Controller
         $em = $this->getDoctrine()->getManager();
         $em->remove($fournisseur);
         $em->flush();
-
 
         $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:Fournisseurs');
         $fournisseurs = $repository->findAllOrderedByName();

@@ -1,3 +1,2 @@
 parameters:
-    # Blogger contact email address
     ProductBundle.emails.contact_email: arnaud.hascoet@gmail.com

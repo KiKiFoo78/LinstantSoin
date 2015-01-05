@@ -88,7 +88,8 @@ class AccueilController extends Controller
                     ->setTo($this->container->getParameter('ProductBundle.emails.contact_email'))
                     ->setBody($this->renderView('ProductBundle:Accueil:contactEmail.txt.twig', array('enquiry' => $enquiry)));
                 $this->get('mailer')->send($message);
-        
+
+                $this->get('session')->getFlashBag()->clear();
                 $this->get('session')->getFlashBag()->add('msg-notice', 'Votre message a bien été envoyé, Merci !');
         
                 return $this->redirect($this->generateUrl('Demande_contact'));

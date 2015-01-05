@@ -79,6 +79,7 @@ class SecurityController extends Controller
         $categoriesServ = $repository->findAllOrderedByName();
 
 		$session = $this->getRequest()->getSession();
+		$this->get('session')->getFlashBag()->clear();
 		$user = new User();
 
 		$form = $this->createFormBuilder($user)
@@ -180,6 +181,7 @@ class SecurityController extends Controller
         $categoriesServ = $repository->findAllOrderedByName();
 
 		$session = $this->getRequest()->getSession();
+		$this->get('session')->getFlashBag()->clear();
 
 	    $em = $this->getDoctrine()->getManager();
 	    $user = $em->getRepository('UserBundle:User')->findByUsername($username)[0];
@@ -250,10 +252,10 @@ class SecurityController extends Controller
 	 */
 	public function contactAction()
 	{
-			$search = $this->createFormBuilder()
-                                ->add('recherche', 'search', array('label' => '', 'attr' => array('class' => 'livreSearch')))
-                                ->add('save', 'submit', array('label' => 'Rechercher','attr' => array('class' => 'livreSearch')))
-                                ->getForm();
+		$search = $this->createFormBuilder()
+            ->add('recherche', 'search', array('label' => '', 'attr' => array('class' => 'livreSearch')))
+            ->add('save', 'submit', array('label' => 'Rechercher','attr' => array('class' => 'livreSearch')))
+            ->getForm();
 
         $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieProd');
         $categoriesProd = $repository->findAllOrderedByName();
@@ -275,7 +277,8 @@ class SecurityController extends Controller
 	                    ->setTo($this->container->getParameter('InstantSoin.emails.contact_email'))
 	                    ->setBody($this->renderView('UserBundle:Security:contactEmail.txt.twig', array('enquiry' => $enquiry)));
 	                $this->get('mailer')->send($message);
-	        
+
+	                $this->get('session')->getFlashBag()->clear();
 	                $this->get('session')->getFlashBag()->add('contact-notice', 'Votre message a bien été envoyé. Merci !');
 	        
 	                return $this->redirect($this->generateUrl('Demande_contact'));
@@ -290,7 +293,4 @@ class SecurityController extends Controller
 					'categoriesProd' => $categoriesProd
 	        		));
 	    }
-
-
-
 }

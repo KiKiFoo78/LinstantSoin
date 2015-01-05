@@ -6,7 +6,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-
 use Doctrine\ORM\EntityRepository;
 
 use InstantSoin\ProductBundle\Entity\Produits;
@@ -44,8 +43,7 @@ class ProductsController extends Controller
 
 
     public function products_by_catAction($id, Request $Request)
-    {
-
+    {        
         $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:Produits');
         $products = $repository->findByCategorieProd($id);
 
@@ -60,9 +58,22 @@ class ProductsController extends Controller
         $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieServ');
         $categoriesServ = $repository->findAllOrderedByName();
 
-        //var_dump($products);
+        //var_dump($session);
         //die();
+        if (!$products){
 
+            $session = $this->getRequest()->getSession();
+            $this->get('session')->getFlashBag()->clear();
+
+            $session->getFlashBag()->add('user_add_warning', 'Nous sommes désolés mais aucun produit de cette catégorie n\'est n\'est disponible à la vente actuellement.');
+            return $this->render('ProductBundle:Products:no_product.html.twig',
+                array(
+                    'search' => $search->createView(),
+                    'categoriesServ' => $categoriesServ,
+                    'categoriesProd' => $categoriesProd,
+                ));
+        }
+        else {
         return $this->render('ProductBundle:Products:Products_by_cat.html.twig',
             array(
                 'products' => $products,
@@ -70,6 +81,7 @@ class ProductsController extends Controller
                 'categoriesServ' => $categoriesServ,
                 'categoriesProd' => $categoriesProd,
             ));
+        }
     }
 
 

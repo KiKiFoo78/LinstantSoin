@@ -28,6 +28,7 @@ class ProduitsType extends AbstractType
             ->add('description', 'text', array('required' => true, 'label' => 'Description complète du produit :'))
             ->add('image', 'file', array('data_class' => null,'required' => false, 'label' => 'Image du produit :'))
             ->add('prix', 'money', array('required' => true, 'label' => 'Prix actuel du produit :'))
+            ->add('nouveaute', 'checkbox', array('required' => false, 'label' => 'Afficher comme nouveauté :'))
             ->add('stock', 'text', array('required' => true, 'label' => 'Stock actuel du produit :'))
             ->add('categorieProd', 'entity', array(
                             'class' => 'ProductBundle:CategorieProd',

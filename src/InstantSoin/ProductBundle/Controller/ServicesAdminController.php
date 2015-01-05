@@ -48,7 +48,7 @@ class ServicesAdminController extends Controller
                     $extension = 'jpeg';
                 }
 
-            $nom = $form->get('designation')->getData();
+            $nom = $form->get('libelle')->getData();
 
             $temp = $this->stripAccents($nom);
 
@@ -66,6 +66,7 @@ class ServicesAdminController extends Controller
             $em->persist($service);
             $em->flush();
 
+            $this->get('session')->getFlashBag()->clear();
             $this->get('session')->getFlashBag()->add('user_add_success', 'La prestation "' .$newService. '" a bien été créée. Elle est maintenant disponible au catalogue.');
 
             return $this->redirect($this->generateUrl('createServices'));

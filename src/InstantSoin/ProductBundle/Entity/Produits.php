@@ -88,6 +88,13 @@ class Produits
     private $stock;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="nouveaute", type="boolean")
+     */
+    private $nouveaute;
+
+    /**
      * @var decimal
      *
      * @ORM\Column(name="prix", type="decimal", scale=2)
@@ -370,4 +377,27 @@ class Produits
 
 
     
+
+    /**
+     * Set nouveaute
+     *
+     * @param boolean $nouveaute
+     * @return Produits
+     */
+    public function setNouveaute($nouveaute)
+    {
+        $this->nouveaute = $nouveaute;
+
+        return $this;
+    }
+
+    /**
+     * Get nouveaute
+     *
+     * @return boolean 
+     */
+    public function getNouveaute()
+    {
+        return $this->nouveaute;
+    }
 }

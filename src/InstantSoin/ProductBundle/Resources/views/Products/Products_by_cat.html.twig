@@ -10,6 +10,11 @@
 				<div>
 					<img src="{{ asset(products.urlimage) }}" class="catImg" alt="Image impossible à charger">
 					<br><br>
+					{% if products.nouveaute > 0 %}
+						<h5 class="CatListingSpan">Nouveauté !</h5>
+					{% else %}
+						<h5 class="CatListingSpan"> </h5>
+					{% endif %}
 					<a href="#" name="{{products.id }}">{{products.designation }}</a>
 					<br><br>
 				</div>

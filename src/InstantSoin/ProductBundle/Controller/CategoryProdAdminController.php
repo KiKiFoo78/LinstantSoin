@@ -57,6 +57,7 @@ class CategoryProdAdminController extends Controller
             $em->persist($categorieProd);
             $em->flush();
 
+            $this->get('session')->getFlashBag()->clear();
             $this->get('session')->getFlashBag()->add('user_add_success', 'La catégorie "' .$newCatProd. '" a bien été créée. Vous pouvez créer les produits associés.');
 
             return $this->redirect($this->generateUrl('createCategoryProd'));
@@ -126,6 +127,7 @@ class CategoryProdAdminController extends Controller
             $em->persist($categorieProd);
             $em->flush();
 
+            $this->get('session')->getFlashBag()->clear();
             $this->get('session')->getFlashBag()->add('user_add_success', 'La categorie "' .$updateCategProd. '" a bien été mise à jour. Vous pouvez créer les produits associés.');
 
             return $this->redirect($this->generateUrl('listingCategoryProd'));
@@ -160,7 +162,8 @@ class CategoryProdAdminController extends Controller
         $em = $this->getDoctrine()->getManager();
         $em->remove($categorieProd);
         $em->flush();
-
+        
+        $this->get('session')->getFlashBag()->clear();
         $this->get('session')->getFlashBag()->add('user_add_success', 'La categorie "' .$nomCategProd. '" a bien été supprimée.');
 
         $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieProd');

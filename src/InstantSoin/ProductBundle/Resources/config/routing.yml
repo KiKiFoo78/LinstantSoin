@@ -12,6 +12,8 @@ product_overall:
 products_by_cat:
     path:     /products_by_cat/{id}
     defaults: { _controller: ProductBundle:Products:products_by_cat }
+    requirements:
+        _method:  GET|POST
 
 
 #ROUTING SERVICES
@@ -23,6 +25,8 @@ services_overall:
 services_by_cat:
     path:     /services_by_cat/{id}
     defaults: { _controller: ProductBundle:Services:services_by_cat }
+    requirements:
+        _method:  GET|POST
 
 
 
