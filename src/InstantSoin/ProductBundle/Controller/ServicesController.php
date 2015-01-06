@@ -58,31 +58,21 @@ class ServicesController extends Controller
 
         $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieServ');
         $categoriesServ = $repository->findAllOrderedByName();
-
-        //var_dump($services);
-        //die();
+        $currentCatServ = $repository->findById($id)[0];
 
         if (!$services){
             $session = $this->getRequest()->getSession();
             $this->get('session')->getFlashBag()->clear();
-            $session->getFlashBag()->add('user_add_warning', 'Nous sommes désolés mais aucun service de cette catégorie n\'est n\'est disponible à la vente actuellement.');
-            
-            return $this->render('ProductBundle:Services:no_service.html.twig',
-                array(
-                    'search' => $search->createView(),
-                    'categoriesServ' => $categoriesServ,
-                    'categoriesProd' => $categoriesProd,
-                ));
+            $session->getFlashBag()->add('user_add_warning', 'Nous sommes désolés mais aucun service de cette catégorie n\'est effectué actuellement.');
         }
-        else {
             return $this->render('ProductBundle:Services:Services_by_cat.html.twig',
                 array(
                     'services' => $services,
+                    'currentCatServ' => $currentCatServ,
                     'search' => $search->createView(),
                     'categoriesServ' => $categoriesServ,
                     'categoriesProd' => $categoriesProd,
                 ));
-        }
     }
 
 

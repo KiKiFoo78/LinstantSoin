@@ -32,4 +32,3 @@ user_profil:
 profil_info:
   path:     /profil_info/{username}
   defaults: { _controller: UserBundle:Security:profil_info }
-

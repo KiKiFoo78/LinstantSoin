@@ -54,34 +54,25 @@ class ProductsController extends Controller
 
         $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieProd');
         $categoriesProd = $repository->findAllOrderedByName();
-
+        $currentCatProd = $repository->findById($id)[0];
+        
         $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieServ');
         $categoriesServ = $repository->findAllOrderedByName();
 
-        //var_dump($session);
-        //die();
         if (!$products){
 
             $session = $this->getRequest()->getSession();
             $this->get('session')->getFlashBag()->clear();
-
-            $session->getFlashBag()->add('user_add_warning', 'Nous sommes désolés mais aucun produit de cette catégorie n\'est n\'est disponible à la vente actuellement.');
-            return $this->render('ProductBundle:Products:no_product.html.twig',
-                array(
-                    'search' => $search->createView(),
-                    'categoriesServ' => $categoriesServ,
-                    'categoriesProd' => $categoriesProd,
-                ));
+            $this->get('session')->getFlashBag()->add('user_add_warning', 'Nous sommes désolés mais aucun produit de cette catégorie n\'est disponible à la vente actuellement.');
         }
-        else {
         return $this->render('ProductBundle:Products:Products_by_cat.html.twig',
             array(
                 'products' => $products,
+                'currentCatProd' => $currentCatProd,
                 'search' => $search->createView(),
                 'categoriesServ' => $categoriesServ,
                 'categoriesProd' => $categoriesProd,
             ));
-        }
     }
 
 
