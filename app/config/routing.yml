@@ -1,3 +1,7 @@
+cart:
+    resource: "@CartBundle/Resources/config/routing.yml"
+    prefix:   /
+
 product:
     resource: "@ProductBundle/Resources/config/routing.yml"
     prefix:   /

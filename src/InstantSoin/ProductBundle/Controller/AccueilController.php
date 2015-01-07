@@ -3,6 +3,7 @@
 namespace InstantSoin\ProductBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityRepository;
 
@@ -19,8 +20,7 @@ class AccueilController extends Controller
     	$search = $this->createFormBuilder()
                                 ->add('recherche', 'search', array('label' => '', 'attr' => array('class' => 'productSearch')))
                                 ->add('save', 'submit', array('label' => 'Rechercher','attr' => array('class' => 'productSearch')))
-                                ->getForm();
-
+                                ->getForm();        
 
         $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieProd');
         $categoriesProd = $repository->findAllOrderedByName();
@@ -47,7 +47,8 @@ class AccueilController extends Controller
                                 ->add('recherche', 'search', array('label' => '', 'attr' => array('class' => 'productSearch')))
                                 ->add('save', 'submit', array('label' => 'Rechercher','attr' => array('class' => 'productSearch')))
                                 ->getForm();
-       
+        var_dump($_SESSION);
+        die();
         return $this->render('ProductBundle:Accueil:whoswho.html.twig',
             array(
                 'search' => $search->createView()

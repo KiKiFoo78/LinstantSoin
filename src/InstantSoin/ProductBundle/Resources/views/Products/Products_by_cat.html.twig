@@ -37,7 +37,9 @@
 								<br>
 								<p>Stock actuel : {{products.stock}}</p>
 								<p>Prix : {{products.prix}} €</p>
-								<button>-</button><img class="panierlight" src="{{asset('bundles/InstantSoin/Images/panier_vide_light.png')}}" alt="Impossible à charger"><a href=""><button>+</button></a>
+								<button data-id="{{products.id}}">-</button>
+									<img class="panierlight" src="{{asset('bundles/InstantSoin/Images/panier_vide_light.png')}}" alt="Impossible à charger">
+								<button data-id="{{products.id}}">+</button>
 						</div>
 					</form>
 		    {% endfor %}

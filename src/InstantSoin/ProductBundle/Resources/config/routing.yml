@@ -2,10 +2,6 @@ product_homepage:
     path:     /
     defaults: { _controller: ProductBundle:Accueil:accueil }
 
-panier:
-   pattern:   /panier
-   defaults:  { _controller: ProductBundle:Panier:show_panier }
-
 
 #ROUTING PRODUCTS
 

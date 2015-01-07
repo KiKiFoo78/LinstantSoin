@@ -1,0 +1,11 @@
+show_cart:
+    pattern:   /show_cart
+    defaults:  { _controller: CartBundle:Cart:show_cart }
+    requirements:
+        _method:  GET
+
+add_to_cart:
+    pattern:   /add_to_cart/{id}
+    defaults:  { _controller: CartBundle:Cart:add_to_cart }
+    requirements:
+        _method:  GET|POST

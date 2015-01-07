@@ -68,7 +68,7 @@
                                     <hr>
                                     {% endif %}
                                     {% if is_granted('ROLE_USER') or is_granted('IS_AUTHENTICATED_ANONYMOUSLY') %}
-                                        <a href="{{ path( 'panier' ) }}">Mon panier</a>
+                                        <a href="{{ path( 'show_cart' ) }}">Mon panier</a>
                                     {% endif %}
                                     <hr>
                                     {% if not app.user %} 
