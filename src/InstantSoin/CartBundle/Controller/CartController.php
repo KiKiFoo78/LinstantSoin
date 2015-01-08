@@ -42,12 +42,39 @@ class CartController extends Controller
             ));
     }
 
-    public function add_to_cartAction($id, Request $request)
+    public function to_cartAction(Request $request)
     {
-        $session = $this->get('session');
-        $session->set('id',$id);
-        var_dump($_SESSION);
+        if ($request->isXmlHttpRequest()) {
+            $actionMsg = "";
 
+            $session = $this->get('session');
+
+            $id = $request->get("id");
+            $action = $request->get("action");
+
+            $username = $this->get('security.context')->getToken()->getUsername();
+            $session->set('user',$username);
+
+            switch ($action) {
+                case '1':
+                    $session->set('id',$id);
+                    $session -> set('action','Ajout');
+                    break;
+                
+                case '2':
+                    $session->remove('id');
+                    $session -> set('action','Suppression');
+                    break;
+
+                default:
+                    # code...
+                    break;
+            }
+
+            return new Response($_SESSION['_sf2_attributes']['action']." de l'article ".$id." effectué correctement.");
+
+        } else {
+            // rediriger vers même page
+        }
     }
-    
 }

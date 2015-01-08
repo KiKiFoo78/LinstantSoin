@@ -4,8 +4,8 @@ show_cart:
     requirements:
         _method:  GET
 
-add_to_cart:
-    pattern:   /add_to_cart/{id}
-    defaults:  { _controller: CartBundle:Cart:add_to_cart }
+to_cart:
+    pattern:   /to_cart/
+    defaults:  { _controller: CartBundle:Cart:to_cart }
     requirements:
-        _method:  GET|POST
+        _method:  POST

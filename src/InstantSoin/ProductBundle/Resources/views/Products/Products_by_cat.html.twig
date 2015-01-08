@@ -37,13 +37,36 @@
 								<br>
 								<p>Stock actuel : {{products.stock}}</p>
 								<p>Prix : {{products.prix}} €</p>
-								<button data-id="{{products.id}}">-</button>
+								<button data-id="{{products.id}}" data-action="2" class="ToCart">-</button>
 									<img class="panierlight" src="{{asset('bundles/InstantSoin/Images/panier_vide_light.png')}}" alt="Impossible à charger">
-								<button data-id="{{products.id}}">+</button>
+								<button data-id="{{products.id}}" data-action="1" class="ToCart">+</button>
 						</div>
 					</form>
 		    {% endfor %}
 		</section>
 	{% endif %}
 	    
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+    $(document).ready(function(){
+            $(".ToCart").click(function(){
+
+                var id = $(this).data("id");
+				var action = $(this).data("action");
+
+                $.ajax(
+                {
+                    url:"{{ path( 'to_cart' ) }}",
+                    type : 'post',
+                    data : {id:+ id,action:+ action},
+                    success: function(data){
+                    	alert(data);
+                    }
+                });
+            });
+    });
+    </script>
 {% endblock %}

@@ -67,6 +67,7 @@ class CategorieServ
     * @ORM\OneToMany(targetEntity="InstantSoin\ProductBundle\Entity\Services", mappedBy="categorieServ", cascade={"persist", "remove"})
     */
     private $services;
+    
     /**
      * Constructor
      */
