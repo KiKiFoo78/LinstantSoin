@@ -35,9 +35,9 @@ class Cart
     /**
      * @var string
      *
-     * @ORM\Column(name="reference", type="string", length=10, unique=true)
+     * @ORM\Column(name="id_prod", type="string", length=10)
      */
-    private $reference;
+    private $id_prod;
 
     /**
      * @var integer
@@ -45,14 +45,6 @@ class Cart
      * @ORM\Column(name="quantite", type="integer", length=2)
      */
     private $quantite;
-
-    /**
-     * @var decimal
-     *
-     * @ORM\Column(name="prix", type="decimal", scale=2)
-     */
-    private $prix;
-
 
     /**
      * Get id
@@ -65,26 +57,26 @@ class Cart
     }
 
     /**
-     * Set reference
+     * Set id_prod
      *
-     * @param string $reference
+     * @param string $id_prod
      * @return Cart
      */
-    public function setReference($reference)
+    public function setId_prod($id_prod)
     {
-        $this->reference = $reference;
+        $this->id_prod = $id_prod;
     
         return $this;
     }
 
     /**
-     * Get reference
+     * Get id_prod
      *
      * @return string 
      */
-    public function getReference()
+    public function getId_prod()
     {
-        return $this->reference;
+        return $this->id_prod;
     }
 
     /**
@@ -111,29 +103,6 @@ class Cart
     }
 
     /**
-     * Set prix
-     *
-     * @param string $prix
-     * @return Cart
-     */
-    public function setPrix($prix)
-    {
-        $this->prix = $prix;
-    
-        return $this;
-    }
-
-    /**
-     * Get prix
-     *
-     * @return string 
-     */
-    public function getPrix()
-    {
-        return $this->prix;
-    }
-
-    /**
      * Set user
      *
      * @param \InstantSoin\UserBundle\Entity\User $user
@@ -154,5 +123,28 @@ class Cart
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Set id_prod
+     *
+     * @param string $idProd
+     * @return Cart
+     */
+    public function setIdProd($idProd)
+    {
+        $this->id_prod = $idProd;
+    
+        return $this;
+    }
+
+    /**
+     * Get id_prod
+     *
+     * @return string 
+     */
+    public function getIdProd()
+    {
+        return $this->id_prod;
     }
 }

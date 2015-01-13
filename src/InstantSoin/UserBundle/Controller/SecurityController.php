@@ -231,8 +231,6 @@ class SecurityController extends Controller
 			$session->getFlashBag()->add('user_modif_success', 'Les données ont été mises à jour correctement.');
 
 			return $this->redirect($this->generateUrl('profil_info', array('username' => $username)));
-
-
 	    }
 	    
     	return $this->render('UserBundle:Security:profil_info.html.twig',

@@ -1,0 +1,42 @@
+$username = $this->get('security.context')->getToken()->getUsername();
+            $session->set('user',$username);
+
+
+
+
+
+
+
+            $_SESSION['_sf2_attributes']['action']." de l'article ".$id.
+
+
+
+
+
+                // Si pas de caddie pour ce user :
+                if ( !$caddies )
+                {
+                    $caddie = new Cart();
+                    $caddie->setId_prod($id);
+                    $caddie->setQuantite(1);
+                    $caddie->setUser($user);
+                }
+                else
+                {   // Si un caddie existe, recherche si produit existe déjà dans caddie :
+                    $Long = count($caddies);
+                                                                                                    $_SESSION['Long'] = $Long;
+                        for ($i=0; $i < $Long ; $i++)
+                        { 
+                            $current = $caddies[$i];
+                                                                                                    $_SESSION['current'] = $current;
+                            $id_search = $current->getId_prod();
+                                                                                                    $_SESSION['id_search'] = $id_search;
+                        }
+                $caddie = new Cart();
+                $caddie->setId_prod($id);
+                $caddie->setQuantite(1);
+                $caddie->setUser($user);
+                }
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($caddie);
+            $em->flush();

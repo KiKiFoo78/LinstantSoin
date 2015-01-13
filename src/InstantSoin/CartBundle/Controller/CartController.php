@@ -13,19 +13,24 @@ use InstantSoin\ProductBundle\Entity\CategorieProd;
 use InstantSoin\ProductBundle\Repository\CategorieProdRepository;
 use InstantSoin\ProductBundle\Entity\CategorieServ;
 use InstantSoin\ProductBundle\Repository\CategorieServRepository;
+use InstantSoin\ProductBundle\Entity\Produits;
+use InstantSoin\ProductBundle\Repository\ProduitsRepository;
+use InstantSoin\CartBundle\Entity\Cart;
+use InstantSoin\CartBundle\Repository\CartRepository;
 
 class CartController extends Controller
 {
-    public function show_cartAction()
+
+    public function show_cartAction(Request $request)
     {
 
         $search = $this->createFormBuilder()
                                 ->add('recherche', 'search', array('label' => '', 'attr' => array('class' => 'productSearch')))
                                 ->add('save', 'submit', array('label' => 'Rechercher','attr' => array('class' => 'productSearch')))
                                 ->getForm();
-
-
-        var_dump($_SESSION);
+        
+        $session = $request->getSession();
+        var_dump($session->get('caddie'));
         die();
 
         $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieProd');
@@ -47,34 +52,64 @@ class CartController extends Controller
         if ($request->isXmlHttpRequest()) {
             $actionMsg = "";
 
-            $session = $this->get('session');
+            //Recupération des données du user actif :
+            //$user = $this->get('security.context')->getToken()->getUser();
+                                                                                                    //$_SESSION['user'] = $user;
 
+            //Recupération data du POST :
             $id = $request->get("id");
             $action = $request->get("action");
+            //if ($action == 1) { $action = "ajouté."; }
+            //else { $action = "supprimé."; }
+                                                                                                    $_SESSION['id'] = $id;
+                                                                                                    $_SESSION['action'] = $action;
+            $session = $request->getSession();
+            //$session->set('caddie' , array(array('idart' => $id, 'qtt' => 1)));
+            $cad = $session->get('caddie');
+            $cad[] = New Cart();
+            $session->set('caddie' , $cad);
 
-            $username = $this->get('security.context')->getToken()->getUsername();
-            $session->set('user',$username);
-
+            //Recupération du caddie éventuellement sauvegardé par le user :
+            //$repository = $this->getDoctrine()->getManager()->getRepository('CartBundle:Cart');
+            //$caddies = $repository->findByUser($user);
+                                                                                                    //$_SESSION['caddie'] = $caddie;
             switch ($action) {
                 case '1':
-                    $session->set('id',$id);
-                    $session -> set('action','Ajout');
+                    if ( !($session->get($id)) ){
+                        $session->set($id , 1);                       
+                    }
+                    else {
+                        $qte = $session->get($id);
+                        $qte++;
+                        $session->set($id , $qte);
+                    }
+                    $session->set('action','Ajout');
                     break;
-                
+
                 case '2':
-                    $session->remove('id');
-                    $session -> set('action','Suppression');
+                    $qte = $session->get($id);
+                    if ( $qte = 1 ){
+                        $session->remove($id);
+                    }
+                    else{
+                        $qte--;
+                        $session->set($id , $qte);
+                    }
+                    $session->set('action','Suppression');
                     break;
 
                 default:
                     # code...
                     break;
             }
+            
 
-            return new Response($_SESSION['_sf2_attributes']['action']." de l'article ".$id." effectué correctement.");
-
-        } else {
+            return new Response("Cet article a bien été ".$_SESSION['action']);
+        }
+        else
+        {
             // rediriger vers même page
         }
     }
+
 }
