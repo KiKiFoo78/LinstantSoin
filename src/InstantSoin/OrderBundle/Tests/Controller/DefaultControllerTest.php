@@ -1,6 +1,6 @@
 <?php
 
-namespace InstantSoin\CartBundle\Tests\Controller;
+namespace InstantSoin\OrderBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 

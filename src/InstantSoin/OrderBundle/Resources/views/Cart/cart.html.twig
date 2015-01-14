@@ -1,0 +1,37 @@
+{% extends 'ProductBundle::layout.html.twig' %}
+
+{% block body %}
+        <div>
+            {% for flashMessage in app.session.flashbag.get('success') %}
+                <div class="alert alert-success">
+                    {{ flashMessage }}
+                </div>
+            {% endfor %}
+            
+            <h2>Votre panier</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Références</th>
+                        <th>Quantité</th>
+                        <th>Prix unitaire</th>
+                        <th>Total HT</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if produits|length == 0 %}
+                        <tr>
+                            <td colspan="4"><center>Aucun article dans votre panier</center></td>
+                        </tr>
+                    {% endif %}
+                    
+                    {% for produit in produits %}
+                    
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% if produits|length != 0 %}
+            {% endif %}
+        </div>
+
+{% endblock %}

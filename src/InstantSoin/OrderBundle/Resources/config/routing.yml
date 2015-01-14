@@ -1,0 +1,11 @@
+cart_view:
+    path:     /cart/
+    defaults: { _controller: OrderBundle:Cart:Cart }
+
+
+to_cart:
+    pattern:  /to_cart/
+    defaults: { _controller: OrderBundle:Cart:to_cart }
+    requirements:
+        _method:  POST
+

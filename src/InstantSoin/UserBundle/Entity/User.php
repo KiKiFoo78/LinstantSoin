@@ -110,13 +110,6 @@ class User implements UserInterface
      */
     private $roles;
 
-    /**
-    * @var ArrayCollection $cart
-    *
-    * @ORM\OneToMany(targetEntity="InstantSoin\CartBundle\Entity\Cart", mappedBy="cart")
-    */
-    private $cart;
-
 
     public function eraseCredentials()
     {
@@ -457,27 +450,4 @@ class User implements UserInterface
 
     }
 
-
-    /**
-     * Set cart
-     *
-     * @param \InstantSoin\CartBundle\Entity\Cart $cart
-     * @return User
-     */
-    public function setCart(\InstantSoin\CartBundle\Entity\Cart $cart = null)
-    {
-        $this->cart = $cart;
-    
-        return $this;
-    }
-
-    /**
-     * Get cart
-     *
-     * @return \InstantSoin\CartBundle\Entity\Cart 
-     */
-    public function getCart()
-    {
-        return $this->cart;
-    }
 }

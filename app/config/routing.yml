@@ -1,5 +1,5 @@
-cart:
-    resource: "@CartBundle/Resources/config/routing.yml"
+order:
+    resource: "@OrderBundle/Resources/config/routing.yml"
     prefix:   /
 
 product:
