@@ -9,3 +9,8 @@ to_cart:
     requirements:
         _method:  POST
 
+emptyCart:
+    pattern:  /emptyCart/
+    defaults: { _controller: OrderBundle:Cart:emptyCart }
+    requirements:
+        _method:  POST

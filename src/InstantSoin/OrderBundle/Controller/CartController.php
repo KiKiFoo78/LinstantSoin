@@ -19,24 +19,20 @@ class CartController extends Controller
     {
         $session = $request->getSession();
 
-
-
         //////////////////////////////////////////////////////////
-        $panier = $session->get('panier');
-        var_dump($panier);
-        die();
+        //$panier = $session->get('panier');
+        //var_dump($panier);
         //////////////////////////////////////////////////////////
-
-
 
         if (!$session->has('panier')) $session->set('panier', array());
-        
-        
-        if (count($session->get('panier')) > 0) {
+
+        if (count($session->get('panier')) > 0)
+        {
             $em = $this->getDoctrine()->getManager();
-            $produits = $em->getRepository('EcommerceBundle:Produits')->findArray(array_keys($session->get('panier')));
-        } else {
-        
+            $produits = $em->getRepository('ProductBundle:Produits')->findArray(array_keys($session->get('panier')));
+        }
+        else
+        {
             $produits = array();
         }
 
@@ -50,7 +46,8 @@ class CartController extends Controller
 
         $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieServ');
         $categoriesServ = $repository->findAllOrderedByName();
-
+        //var_dump($produits[0]);
+        //die();
         return $this->render('OrderBundle:Cart:cart.html.twig',
         	array(
         		'produits' => $produits,
@@ -83,13 +80,13 @@ class CartController extends Controller
                     $session->set('action','ajouté');
                     break;
                 case '2':
-                    $qte = $panier->get($id);
+                    $qte = $panier[$id];
                     if ( $qte = 1 ){
-                        $panier->remove($id);
+                        unset($panier[$id]);
                     }
                     else{
                         $qte--;
-                        $panier->set($id , $qte);
+                        $panier[$id] = $qte;
                     }
                     $session->set('action','supprimé');
                     break;
@@ -100,7 +97,23 @@ class CartController extends Controller
 
             $session->set('panier',$panier);
             
-            return new Response("Cet article a bien été ".$session->get('action'));
+            return new Response("Cet article a bien été ".$session->get('action')." à votre panier.");
     }
 
+    public function emptyCartAction(Request $request)
+    {
+        $session = $request->getSession();
+        $action = $request->get("action");
+
+        if ($action = "vider"){
+
+            if ($session->has('panier')) $session->set('panier',array());
+
+            return new Response("Votre panier a bien été vidé.");
+        }
+    }
+
+
+
 }
+

@@ -1,18 +1,27 @@
 {% extends 'ProductBundle::layout.html.twig' %}
 
+{% set totalHT = 0 %}
+{% set totalTTC = 0 %}
+{% set refTva = {} %}
+{% for produit in produits %}
+    {% set refTva = refTva|merge({ (produit.tva.valeur ~ '%') : 0 }) %}
+{% endfor %}
+
 {% block body %}
-        <div>
-            {% for flashMessage in app.session.flashbag.get('success') %}
-                <div class="alert alert-success">
-                    {{ flashMessage }}
-                </div>
-            {% endfor %}
-            
-            <h2>Votre panier</h2>
-            <table>
+        <h3>Votre panier</h3>
+		{% for flashMessage in app.session.flashbag.get('user_add_success') %}
+	        <div class="add_success">
+	        <p>
+	        {{ flashMessage }}
+	        </p>
+	        <br>
+	        </div>
+		{% endfor %}
+		<br><br>
+        <table class="table table-hover modifTable" >
                 <thead>
                     <tr>
-                        <th>Références</th>
+                        <th>Désignation</th>
                         <th>Quantité</th>
                         <th>Prix unitaire</th>
                         <th>Total HT</th>
@@ -26,12 +35,58 @@
                     {% endif %}
                     
                     {% for produit in produits %}
-                    
+                    	<tr>
+                            <td>{{ produit.designation }}</td>
+                            <td>{{ panier[produit.id] }}</td>
+                            <td>{{ produit.prix }} €</td>
+                            <td>{{ produit.prix * panier[produit.id] }} €</td>
+                        </tr>
+                        {% set totalHT = totalHT + (produit.prix * panier[produit.id]) %}
+	                    {% set totalTTC = totalTTC + (produit.prix * panier[produit.id])|tva(produit.tva.multiplicate) %}
+	                    {% set refTva = refTva|merge({ (produit.tva.valeur ~ '%') : refTva[produit.tva.valeur ~ '%'] + ( produit.prix * panier[produit.id])|montantTva(produit.tva.multiplicate) }) %}
                     {% endfor %}
                 </tbody>
             </table>
-            {% if produits|length != 0 %}
-            {% endif %}
-        </div>
+		    {% if produits|length != 0 %}
+            <dl class="dl-horizontal pull-right">
+                <dt>Total HT :</dt><dd>{{ totalHT }} €</dd>
+                
+                {% for key, tva in refTva %}
+                    <dt>TVA {{ key }} :</dt><dd>{{ tva }} €</dd>
+                {% endfor %}
 
+                <dt>Total TTC :</dt><dd>{{ totalTTC }} €</dd>
+            </dl>
+            <div class="clearfix"></div>
+            <a href="#" class="btn btn-success pull-right">Valider mon panier</a>
+            {% endif %}
+            <a href="#" class="btn btn-primary">Continuer mes achats</a>
+
+	        {% if produits|length > 0 %}
+		        <div>
+		        	<button data-action="vider" class="ToCart">Vider le panier</button>
+		        </div>
+	        {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+    $(document).ready(function(){
+            $(".ToCart").click(function(){
+
+				var action = $(this).data("action");
+
+                $.ajax(
+                {
+                    url:"{{ path( 'emptyCart' ) }}",
+                 	type : 'post',
+                    data : {action:+ action},
+                    success: function(data){
+                    	alert(data);
+                    }
+                });
+            });
+    });
+    </script>
 {% endblock %}

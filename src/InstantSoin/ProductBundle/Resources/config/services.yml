@@ -3,3 +3,13 @@ services:
         class: InstantSoin\ProductBundle\Form\FournisseursType
         tags:
             - { name: fournisseurs.type, alias: fournisseurs }
+
+tva:
+  class: InstantSoin\ProductBundle\Twig\Extension\TvaExtension
+  tags:
+    - { name: twig.extension }
+
+montantTva:
+  class: InstantSoin\ProductBundle\Twig\Extension\MontantTvaExtension
+  tags:
+    - { name: twig.extension }

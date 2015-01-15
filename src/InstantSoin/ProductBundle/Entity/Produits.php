@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use InstantSoin\ProductBundle\Entity\Produits;
+use InstantSoin\ProductBundle\Entity\Tva;
 
 use InstantSoin\UserBundle\Component\Validator\Constraints as CustomAssert;
 
@@ -101,7 +102,11 @@ class Produits
      */
     private $prix;
 
-
+    /**
+     * @ORM\ManyToOne(targetEntity="InstantSoin\ProductBundle\Entity\Tva", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $tva;
 
 
     /**
@@ -399,5 +404,28 @@ class Produits
     public function getNouveaute()
     {
         return $this->nouveaute;
+    }
+
+    /**
+     * Set tva
+     *
+     * @param \InstantSoin\ProductBundle\Entity\Tva $tva
+     * @return Produits
+     */
+    public function setTva(\InstantSoin\ProductBundle\Entity\Tva $tva)
+    {
+        $this->tva = $tva;
+    
+        return $this;
+    }
+
+    /**
+     * Get tva
+     *
+     * @return \InstantSoin\ProductBundle\Entity\Tva 
+     */
+    public function getTva()
+    {
+        return $this->tva;
     }
 }

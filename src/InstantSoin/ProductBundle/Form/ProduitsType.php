@@ -14,6 +14,9 @@ use InstantSoin\ProductBundle\Entity\Fournisseurs;
 use InstantSoin\ProductBundle\Form\FournisseursType;
 use InstantSoin\ProductBundle\Repository\FournisseursRepository;
 
+use InstantSoin\ProductBundle\Entity\Tva;
+use InstantSoin\ProductBundle\Repository\TvaRepository;
+
 class ProduitsType extends AbstractType
 {
     /**
@@ -28,6 +31,19 @@ class ProduitsType extends AbstractType
             ->add('description', 'text', array('required' => true, 'label' => 'Description complète du produit :'))
             ->add('image', 'file', array('data_class' => null,'required' => false, 'label' => 'Image du produit :'))
             ->add('prix', 'money', array('required' => true, 'label' => 'Prix actuel du produit :'))
+            ->add('tva', 'entity', array(
+                            'class' => 'ProductBundle:Tva',
+                            'property' => 'nom',
+                            'query_builder' => function(TvaRepository $er)
+                            {
+                            return $er->createQueryBuilder('Tva');
+                            },
+                            'empty_value' => 'Sélectionnez la TVA à appliquer',
+                            'required' => true,
+                            'expanded' => false,
+                            'multiple' => false,
+                            'label' => 'TVA à appliquer :',
+                        ))
             ->add('nouveaute', 'checkbox', array('required' => false, 'label' => 'Afficher comme nouveauté :'))
             ->add('stock', 'text', array('required' => true, 'label' => 'Stock actuel du produit :'))
             ->add('categorieProd', 'entity', array(
