@@ -79,7 +79,6 @@ services:
         tags:
             - { name: kernel.event_listener, event: kernel.exception, method: onKernelException }
 
-
 parameters:
     # Bibliotheque contact email address
     InstantSoin.emails.contact_email: arnaud.hascoet@gmail.com

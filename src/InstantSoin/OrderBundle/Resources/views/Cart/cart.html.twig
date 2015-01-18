@@ -9,6 +9,13 @@
 
 {% block body %}
         <h3>Votre panier</h3>
+        
+        {% if produits|length > 0 %}
+                <div>
+                    <button data-action="vider" class="btn btn-warning actionButton ToCart">Vider le panier</button>
+                </div>
+        {% endif %}
+
 		{% for flashMessage in app.session.flashbag.get('user_add_success') %}
 	        <div class="add_success">
 	        <p>
@@ -36,10 +43,19 @@
                     
                     {% for produit in produits %}
                     	<tr>
-                            <td>{{ produit.designation }}</td>
-                            <td>{{ panier[produit.id] }}</td>
-                            <td>{{ produit.prix }} €</td>
-                            <td>{{ produit.prix * panier[produit.id] }} €</td>
+                            <form action="{{ path('to_cart', { 'id' : produit.id }) }}" method="get">
+                                <td>{{ produit.designation }}</td>
+                                <td>
+                                    <select name="qte" class="span1" onChange="this.form.submit()">
+                                        {% for i in 1..10 %}
+                                            <option value="{{ i }}" {% if i == panier[produit.id] %} selected="selected" {% endif %}>{{ i }}</option>
+                                        {% endfor %}
+                                    </select>&nbsp;
+                                    <a href="{{ path('del_prod_cart', { 'id' : produit.id }) }}"><img src="{{ asset('bundles/InstantSoin/Images/Trash_Can.png') }}"></a>
+                                </td>
+                                <td>{{ produit.prix }} €</td>
+                                <td>{{ produit.prix * panier[produit.id] }} €</td>
+                            </form>
                         </tr>
                         {% set totalHT = totalHT + (produit.prix * panier[produit.id]) %}
 	                    {% set totalTTC = totalTTC + (produit.prix * panier[produit.id])|tva(produit.tva.multiplicate) %}
@@ -56,17 +72,13 @@
                 {% endfor %}
 
                 <dt>Total TTC :</dt><dd>{{ totalTTC }} €</dd>
+                <div class="clearfix">
+                    <a href="#" class="btn btn-primary pull-left actionButton">Continuer mes achats</a>
+                    <a href="#" class="btn btn-success pull-right actionButton">Valider mon panier</a>
+                </div>
             </dl>
-            <div class="clearfix"></div>
-            <a href="#" class="btn btn-success pull-right">Valider mon panier</a>
             {% endif %}
-            <a href="#" class="btn btn-primary">Continuer mes achats</a>
-
-	        {% if produits|length > 0 %}
-		        <div>
-		        	<button data-action="vider" class="ToCart">Vider le panier</button>
-		        </div>
-	        {% endif %}
+            
 {% endblock %}
 
 {% block javascripts %}

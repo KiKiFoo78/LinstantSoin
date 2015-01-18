@@ -14,3 +14,15 @@ emptyCart:
     defaults: { _controller: OrderBundle:Cart:emptyCart }
     requirements:
         _method:  POST
+
+modify_cart:
+    pattern:  /modify_cart/
+    defaults: { _controller: OrderBundle:Cart:modify_cart }
+    requirements:
+        _method:  POST
+
+del_prod_cart:
+    pattern:  /del_prod_cart/
+    defaults: { _controller: OrderBundle:Cart:del_prod_cart }
+    requirements:
+        _method:  GET

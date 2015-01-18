@@ -36,10 +36,8 @@
 								<p>Fabriquant : {{products.fournisseurs.nom }}</p>
 								<br>
 								<p>Stock actuel : {{products.stock}}</p>
-								<p>Prix : {{products.prix}} €</p>
-								<button data-id="{{products.id}}" data-action="2" class="ToCart">-</button>
-									<img class="panierlight" src="{{asset('bundles/InstantSoin/Images/panier_vide_light.png')}}" alt="Impossible à charger">
-								<button data-id="{{products.id}}" data-action="1" class="ToCart">+</button>
+								<p>Prix : {{products.prix|tva(products.tva.multiplicate)}} € TTC</p>
+								<a class="btn btn-success ToCart actionButton" data-id="{{products.id}}" data-qte="1">Ajouter au panier</a>
 						</div>
 					</form>
 		    {% endfor %}
@@ -55,13 +53,13 @@
             $(".ToCart").click(function(){
 
                 var id = $(this).data("id");
-				var action = $(this).data("action");
+				var qte = $(this).data("qte");
 
                 $.ajax(
                 {
                     url:"{{ path( 'to_cart' ) }}",
                     type : 'post',
-                    data : {id:+ id,action:+ action},
+                    data : {id:+ id, qte:+ qte},
                     success: function(data){
                     	alert(data);
                     }

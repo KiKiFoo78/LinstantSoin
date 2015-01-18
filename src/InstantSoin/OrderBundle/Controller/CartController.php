@@ -65,39 +65,31 @@ class CartController extends Controller
         $panier = $session->get('panier');
         
         $id = $request->get("id");
-        $action = $request->get("action");
+        $qte = $request->get("qte");
 
-        switch ($action) {
-                case '1':
-                    if (array_key_exists($id, $panier)) {
-                        $qte = $panier[$id];
-                        $qte++;
-                        $panier[$id] = $qte;                       
-                    }
-                    else {
-                        $panier[$id] = 1;
-                    }
-                    $session->set('action','ajouté');
-                    break;
-                case '2':
-                    $qte = $panier[$id];
-                    if ( $qte = 1 ){
-                        unset($panier[$id]);
-                    }
-                    else{
-                        $qte--;
-                        $panier[$id] = $qte;
-                    }
-                    $session->set('action','supprimé');
-                    break;
-                default:
-                    # code...
-                    break;
-            }
+        $panier[$id] = $qte;
+        $session->set('panier',$panier);
+        
+        return new Response("Votre panier a bien été mis à jour.");
+    }
 
+    public function del_prod_cartAction($id, Request $request)
+    {
+        $session = $this->getRequest()->getSession();
+        $panier = $session->get('panier');
+        
+        if (array_key_exists($id, $panier))
+        {
+            unset($panier[$id]);
             $session->set('panier',$panier);
-            
-            return new Response("Cet article a bien été ".$session->get('action')." à votre panier.");
+            //$this->get('session')->getFlashBag()->add('success','Article supprimé avec succès');
+        }
+        return $this->redirect($this->generateUrl('cart_view')); 
+    }
+
+        unset($panier[$id]);
+        $session->set('panier',$panier);
+        return new Response("L'article a été supprimé de votre panier."); 
     }
 
     public function emptyCartAction(Request $request)
