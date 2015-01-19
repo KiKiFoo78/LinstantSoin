@@ -43,7 +43,7 @@
                     
                     {% for produit in produits %}
                     	<tr>
-                            <form action="{{ path('to_cart', { 'id' : produit.id }) }}" method="get">
+                            <form action="{{ path('to_cart', { 'id' : produit.id }) }}" method="post">
                                 <td>{{ produit.designation }}</td>
                                 <td>
                                     <select name="qte" class="span1" onChange="this.form.submit()">
@@ -72,11 +72,13 @@
                 {% endfor %}
 
                 <dt>Total TTC :</dt><dd>{{ totalTTC }} €</dd>
+            </dl>
+                <br><br><br>
                 <div class="clearfix">
-                    <a href="#" class="btn btn-primary pull-left actionButton">Continuer mes achats</a>
+                    <a href="{{ path('product_overall') }}" class="btn btn-primary pull-left actionButton">Continuer mes achats</a>
                     <a href="#" class="btn btn-success pull-right actionButton">Valider mon panier</a>
                 </div>
-            </dl>
+            
             {% endif %}
             
 {% endblock %}

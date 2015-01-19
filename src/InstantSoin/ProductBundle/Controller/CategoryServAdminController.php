@@ -192,8 +192,6 @@ class CategoryServAdminController extends Controller
         $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieProd');
         $categoriesProd = $repository->findAllOrderedByName();
 
-        $_SESSION['categoriesServ']=$categoriesServ;
-
         return $this->render('ProductBundle:Category:listingCategoryServ.html.twig',
             array(
                 'categoriesServ' => $categoriesServ,
@@ -203,8 +201,8 @@ class CategoryServAdminController extends Controller
 
 
     private function stripAccents($nom){
-        $replace = array('e','e','e','a','o','e','e','a','u','u');
-        $search = array('é','è','ê','à','ô','É','È','À','ù','Ù');
+        $replace = array('e','e','e','a','o','e','e','a','a','u','u','r');
+        $search = array('é','è','ê','à','ô','É','È','À','Â','ù','Ù','®');
 
         $nom = str_replace($search,$replace,$nom);
        

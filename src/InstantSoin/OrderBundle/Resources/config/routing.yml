@@ -22,7 +22,7 @@ modify_cart:
         _method:  POST
 
 del_prod_cart:
-    pattern:  /del_prod_cart/
+    pattern:  /del_prod_cart/{id}
     defaults: { _controller: OrderBundle:Cart:del_prod_cart }
     requirements:
         _method:  GET

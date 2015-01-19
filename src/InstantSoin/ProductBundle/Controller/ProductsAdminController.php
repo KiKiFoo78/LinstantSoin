@@ -52,7 +52,7 @@ class ProductsAdminController extends Controller
 
             $temp = $this->stripAccents($nom);
 
-            $nomImage = $temp.rand(1, 99).'.'.$extension;
+            $nomImage = $temp.'.'.$extension;
 
             $file->move($dir, $nomImage);
 
@@ -122,7 +122,7 @@ class ProductsAdminController extends Controller
 
             $temp = $this->stripAccents($nom);
 
-            $nomImage = $temp.rand(1, 99).'.'.$extension;
+            $nomImage = $temp.'.'.$extension;
 
             $file->move($dir, $nomImage);
 
@@ -196,9 +196,6 @@ class ProductsAdminController extends Controller
         $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieServ');
         $categoriesServ = $repository->findAllOrderedByName();
 
-        $_SESSION['produits']=$produits;
-        //var_dump($categoriesProd);
-        //die();
         return $this->render('ProductBundle:Products:listingProducts.html.twig',
             array(
                 'produits' => $produits,
@@ -210,8 +207,8 @@ class ProductsAdminController extends Controller
 
 
     private function stripAccents($nom){
-        $replace = array('e','e','e','a','o','e','e','a','u','u',);
-        $search = array('é','è','ê','à','ô','É','È','À','ù','Ù',);
+        $replace = array('e','e','e','a','o','e','e','a','a','u','u','r');
+        $search = array('é','è','ê','à','ô','É','È','À','Â','ù','Ù','®');
 
         $nom = str_replace($search,$replace,$nom);
        

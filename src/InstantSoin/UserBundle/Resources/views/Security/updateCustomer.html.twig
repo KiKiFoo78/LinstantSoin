@@ -1,0 +1,56 @@
+{% extends 'UserBundle:Admin:admin.html.twig' %}
+{% block body %}
+
+    <h3>Modifier un compte client</h3>
+	{% for flashMessage in app.session.flashbag.get('user_modif_success') %}
+        <div class="add_success">
+        <p>
+        {{ flashMessage }}
+        </p>
+        <br>
+        </div>
+    {% endfor %}
+    <br><br>
+
+    {{ form_start(form) }}
+        <fieldset class="createLogin">
+		<br>
+		{{ form_label(form.nom, 'Nom :') }}
+		{{ form_widget(form.nom, {'attr': {'id': 'nom'}}) }}
+		{{ form_errors(form.nom) }}
+		<br>
+		{{ form_label(form.prenom, 'Prenom :') }}
+		{{ form_widget(form.prenom) }}
+		{{ form_errors(form.prenom) }}
+		<br>
+		{{ form_label(form.adresse1, 'Adresse 1 :') }}
+		{{ form_widget(form.adresse1) }}
+		{{ form_errors(form.adresse1) }}
+		<br>
+		{{ form_label(form.adresse2, 'Adresse 2 :') }}
+		{{ form_widget(form.adresse2) }}
+		<br>
+		{{ form_label(form.codepostal, 'Code postal :') }}
+		{{ form_widget(form.codepostal) }}
+		{{ form_errors(form.codepostal) }}
+		<br>
+		{{ form_label(form.ville, 'Ville :') }}
+		{{ form_widget(form.ville) }}
+		{{ form_errors(form.ville) }}
+		<br>
+		{{ form_label(form.email, 'Email :') }}
+		{{ form_widget(form.email) }}
+		{{ form_errors(form.email) }}
+		<br>
+		{{ form_label(form.telephone, 'Telephone :') }}
+		{{ form_widget(form.telephone) }}
+		{{ form_errors(form.telephone) }}
+		<br>
+		{{ form_label(form.password, 'Mot de passe :') }}
+		{{ form_widget(form.password, {'attr': {'id': 'form_password'}}) }}
+		<br>
+		{{ form_rest(form) }}
+	</fieldset>
+    {{ form_end(form) }}
+    
+{% endblock %}

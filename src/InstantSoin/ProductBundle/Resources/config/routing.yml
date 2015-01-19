@@ -15,7 +15,6 @@ products_by_cat:
     requirements:
         _method:  GET|POST
 
-
 #ROUTING SERVICES
 
 services_overall:
@@ -37,28 +36,10 @@ Demande_contact:
     path:     /contact
     defaults: { _controller: UserBundle:Security:contact }
 
-new_account:
-    path:     /new_account
-    defaults: { _controller: UserBundle:Security:new_account }
-
-
-
 
 Accueil_sidebar:
     pattern:  /sidebar
     defaults: { _controller: ProductBundle:Accueil:sidebar }
-    requirements:
-        _method:  GET
-
-sidebar_estheticienne:
-    pattern:  /sidebar_estheticienne
-    defaults: { _controller: UserBundle:Estheticienne:sidebar_estheticienne }
-    requirements:
-        _method:  GET
-
-sidebar_admin:
-    pattern:  /sidebar_admin
-    defaults: { _controller: UserBundle:Admin:sidebar_admin }
     requirements:
         _method:  GET
 

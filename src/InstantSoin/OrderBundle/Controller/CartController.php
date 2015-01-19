@@ -19,11 +19,6 @@ class CartController extends Controller
     {
         $session = $request->getSession();
 
-        //////////////////////////////////////////////////////////
-        //$panier = $session->get('panier');
-        //var_dump($panier);
-        //////////////////////////////////////////////////////////
-
         if (!$session->has('panier')) $session->set('panier', array());
 
         if (count($session->get('panier')) > 0)
@@ -46,8 +41,7 @@ class CartController extends Controller
 
         $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieServ');
         $categoriesServ = $repository->findAllOrderedByName();
-        //var_dump($produits[0]);
-        //die();
+
         return $this->render('OrderBundle:Cart:cart.html.twig',
         	array(
         		'produits' => $produits,
@@ -56,6 +50,7 @@ class CartController extends Controller
                 'search' => $search->createView(),
         		'panier' => $session->get('panier')));
     }
+
 
     public function to_cartAction(Request $request)
     {
@@ -73,7 +68,8 @@ class CartController extends Controller
         return new Response("Votre panier a bien été mis à jour.");
     }
 
-    public function del_prod_cartAction($id, Request $request)
+
+    public function del_prod_cartAction($id)
     {
         $session = $this->getRequest()->getSession();
         $panier = $session->get('panier');
@@ -82,15 +78,11 @@ class CartController extends Controller
         {
             unset($panier[$id]);
             $session->set('panier',$panier);
-            //$this->get('session')->getFlashBag()->add('success','Article supprimé avec succès');
+            $this->get('session')->getFlashBag()->add('success','Article supprimé avec succès');
         }
         return $this->redirect($this->generateUrl('cart_view')); 
     }
 
-        unset($panier[$id]);
-        $session->set('panier',$panier);
-        return new Response("L'article a été supprimé de votre panier."); 
-    }
 
     public function emptyCartAction(Request $request)
     {
@@ -103,9 +95,9 @@ class CartController extends Controller
 
             return new Response("Votre panier a bien été vidé.");
         }
+        return $this->redirect($this->generateUrl('cart_view'));
     }
 
 
 
 }
-

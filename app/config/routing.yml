@@ -9,30 +9,3 @@ product:
 user:
     resource: "@UserBundle/Resources/config/routing.yml"
     prefix:   /
-
-login:
-   pattern:   /login
-   defaults:  { _controller: UserBundle:Security:login }
-
-login_check:
-   pattern:   /login_check
-
-logout:
-  pattern:    /logout
-
-admin:
-  pattern:    /admin
-  defaults:   { _controller: UserBundle:Admin:admin }
-
-estheticienne:
-  pattern:    /estheticienne
-  defaults:   { _controller: UserBundle:Estheticienne:estheticienne }
-
-user_profil:
-  path:     /user_profil
-  defaults: { _controller: UserBundle:Security:profil }
-
-
-profil_info:
-  path:     /profil_info/{username}
-  defaults: { _controller: UserBundle:Security:profil_info }

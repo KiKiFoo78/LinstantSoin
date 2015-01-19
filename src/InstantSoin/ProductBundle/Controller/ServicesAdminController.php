@@ -193,8 +193,6 @@ class ServicesAdminController extends Controller
         $repository = $this->getDoctrine()->getManager()->getRepository('ProductBundle:CategorieServ');
         $categoriesServ = $repository->findAllOrderedByName();
 
-        $_SESSION['services'] = $services;
-
         return $this->render('ProductBundle:Services:listingServices.html.twig',
             array(
                 'services' => $services,
@@ -204,8 +202,8 @@ class ServicesAdminController extends Controller
     }
 
     private function stripAccents($nom){
-        $replace = array('e','e','e','a','o','e','e','a','u','u');
-        $search = array('é','è','ê','à','ô','É','È','À','ù','Ù');
+        $replace = array('e','e','e','a','o','e','e','a','a','u','u','r');
+        $search = array('é','è','ê','à','ô','É','È','À','Â','ù','Ù','®');
 
         $nom = str_replace($search,$replace,$nom);
        
