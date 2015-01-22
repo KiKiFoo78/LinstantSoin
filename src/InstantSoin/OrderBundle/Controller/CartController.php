@@ -62,7 +62,13 @@ class CartController extends Controller
         $id = $request->get("id");
         $qte = $request->get("qte");
 
+        if ($panier[$id] == 1){
+            $panier[$id]++;
+        }
+        else{
         $panier[$id] = $qte;
+        }
+
         $session->set('panier',$panier);
         
         return new Response("Votre panier a bien été mis à jour.");

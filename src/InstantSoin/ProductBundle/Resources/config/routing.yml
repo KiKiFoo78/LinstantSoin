@@ -15,6 +15,7 @@ products_by_cat:
     requirements:
         _method:  GET|POST
 
+
 #ROUTING SERVICES
 
 services_overall:

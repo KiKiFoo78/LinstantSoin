@@ -74,6 +74,4 @@ class ProductsController extends Controller
                 'categoriesProd' => $categoriesProd,
             ));
     }
-
-
 }

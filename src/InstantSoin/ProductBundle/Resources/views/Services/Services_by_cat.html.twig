@@ -2,7 +2,7 @@
 
 {% block body %}
 	{% if services is empty %}
-		<h3><a href="{{ path( 'services_overall' ) }}">{{currentCatServ.intitule}} :<span>Retour</span></a></h3>
+		<h3 class="h3"><a href="{{ path( 'services_overall' ) }}">{{currentCatServ.intitule}} :<span>Retour</span></a></h3>
 		<br>
 		<section>
 		    <br>
@@ -16,7 +16,7 @@
 			<br>
 	    </section>
 	{% else %}
-		<h3><a href="{{ path( 'services_overall' ) }}">{{currentCatServ.intitule}} :<span>Retour</span></a></h3>
+		<h3 class="h3"><a href="{{ path( 'services_overall' ) }}">{{currentCatServ.intitule}} :<span>Retour</span></a></h3>
 		<br><br>
 		<section>
 		{% for services in services %}
@@ -34,10 +34,39 @@
 					</div>
 					<div>
 							<p>Prix : {{services.prix}} €</p>
-							<button type="button">Détails</button>
+							<button class="btn btn-default btn-detail" data-toggle="modal" data-target="#myModal{{services.id}}" type="button">Détails</button>
 					</div>
 				</form>
 	    {% endfor %}
 	    </section>
+
+	    {% for services in services %}
+			<div class="modal fade" id="myModal{{services.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			  <div class="modal-dialog modal-md">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			        <h3 class="modal-title" id="myModalLabel">{{services.libelle }}
+					</h3>
+			      	</div>
+			      <div class="modal-body">
+			        	<img src="{{ asset(services.urlimage) }}" class="detailImg" alt="Image impossible à charger">
+							<br>
+							<h5>{{services.description }}</h5>
+							<br><br><br><br>
+							<br>
+							<h4>Prix : {{services.prix}} € TTC</h4>	
+			      </div>
+			      <div class="modal-footer">
+  				        {% if services.nouveaute > 0 %}
+							<span>Nouveauté !</span>
+						{% endif %}
+			       		<button type="button" class="btn btn-default" data-dismiss="modal">Retour</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+		{% endfor %}
+
     {% endif %}
 {% endblock %}

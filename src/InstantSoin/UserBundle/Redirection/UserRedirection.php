@@ -8,6 +8,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
+use InstantSoin\UserBundle\Entity\User;
+use InstantSoin\UserBundle\Controller\SecurityController;
+
+
 class UserRedirection implements AuthenticationSuccessHandlerInterface
 {
     private $router;
@@ -38,7 +42,23 @@ class UserRedirection implements AuthenticationSuccessHandlerInterface
 
             $redirection = new RedirectResponse($this->router->generate('product_homepage'));
         }
+        //$function = "InstantSoin\UserBundle\Controller\SecurityController.php/lastLogDate(".$token.")";
+        //$temp = $this->{$function};
 
         return $redirection;
     }
+
+    //public function lastLogDate($token)
+    //{   
+    //    $user = $token->getUser('lastLogin');
+    //    $date = getdate();
+    //    $user->setLastLogin($date);
+
+    //    $em = $this->getDoctrine()->getEntityManager();
+    //    $em->persist($user);
+    //    $em->flush();
+    //    return true;
+    //}
+
+    
 }

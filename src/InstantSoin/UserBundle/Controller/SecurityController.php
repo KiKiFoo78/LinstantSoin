@@ -50,6 +50,7 @@ class SecurityController extends Controller
 			$error = $session->get(SecurityContext::AUTHENTICATION_ERROR);
 			$session->remove(SecurityContext::AUTHENTICATION_ERROR);
 		}
+
 		return $this->render('UserBundle:Security:login.html.twig', array(
 
 			'last_username' => $session->get(SecurityContext::LAST_USERNAME),
@@ -58,8 +59,23 @@ class SecurityController extends Controller
 			'categoriesServ' => $categoriesServ,
 			'categoriesProd' => $categoriesProd
 			));
+
+
 	}
 
+	public function lastLogDate($token)
+    {   
+        $user = $token->getUser('lastLogin');
+        $date = getdate();
+        $user->setLastLogin($date);
+
+        $em = $this->getDoctrine()->getManager();
+                $em->persist($user);
+                $em->flush();
+        return true;
+        //var_dump($user->getLastLogin());
+        //die();
+    }
 
 	/******************************************************************************************************************************
 	 * CREATION USER BY HIMSELF

@@ -1,7 +1,7 @@
 {% extends 'ProductBundle::layout.html.twig' %}
 
 {% block body %}
-   <h3>Les services de soins à domicile effectués :</h3>
+   <h3 class="h3">Les services de soins à domicile effectués :</h3>
    <section>
       {% for Services in categoriesServ %}
          <div class="overall"><img src="{{ asset(categoriesServ[ loop.index0 ].urlimage) }}" class="serviceimg" alt="Image impossible à charger"><form action="{{ path( 'services_by_cat', {'id' : categoriesServ[ loop.index0 ].id } ) }}"><input type="submit" value="{{categoriesServ[ loop.index0 ].intitule }}" alt="Cliquez pour accéder à la rubrique"></form></div>

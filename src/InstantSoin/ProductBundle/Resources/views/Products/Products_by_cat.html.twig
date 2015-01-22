@@ -2,7 +2,7 @@
 
 {% block body %}
 	{% if products is empty %}
-		<h3><a href="{{ path( 'product_overall' ) }}">{{currentCatProd.intitule}} :<span>Retour</span></a></h3>
+		<h3 class="h3"><a href="{{ path( 'product_overall' ) }}">{{currentCatProd.intitule}} :<span>Retour</span></a></h3>
 		<br>
 		<section>
 		    <br>
@@ -16,20 +16,21 @@
 			<br>
 	    </section>
 	{% else %}
-		<h3><a href="{{ path( 'product_overall' ) }}">{{currentCatProd.intitule}} : <span>Retour</span></a></h3>
+		<h3 class="h3"><a href="{{ path( 'product_overall' ) }}">{{currentCatProd.intitule}} : <span>Retour</span></a></h3>
 		<br><br>
 		<section>
 			{% for products in products %}
-					<form class="CatListing" action="#">
+					<div class="CatListing" data-toggle="modal" data-target="#myModal{{products.id}}">
 						<div>
-							<img src="{{ asset(products.urlimage) }}" class="catImg" alt="Image impossible à charger">
+								<img src="{{ asset(products.urlimage) }}" class="catImg" alt="Image impossible à charger">
+
 							<br><br>
 							{% if products.nouveaute > 0 %}
 								<h5 class="CatListingSpan">Nouveauté !</h5>
 							{% else %}
 								<h5 class="CatListingSpan"> </h5>
 							{% endif %}
-							<a href="#" name="{{products.id }}">{{products.designation }}</a>
+							<p>{{products.designation }}</p>
 							<br><br>
 						</div>
 						<div>
@@ -39,9 +40,41 @@
 								<p>Prix : {{products.prix|tva(products.tva.multiplicate)}} € TTC</p>
 								<a class="btn btn-success ToCart actionButton" data-id="{{products.id}}" data-qte="1">Ajouter au panier</a>
 						</div>
-					</form>
+					</div>
 		    {% endfor %}
 		</section>
+
+		{% for products in products %}
+			<div class="modal fade" id="myModal{{products.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			  <div class="modal-dialog modal-md">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			        <h3 class="modal-title" id="myModalLabel">{{products.designation }}
+					</h3>
+			      	</div>
+			      <div class="modal-body">
+			        	<img src="{{ asset(products.urlimage) }}" class="detailImg" alt="Image impossible à charger">
+							<h4>Fabriquant : {{products.fournisseurs.nom }}</h4>
+							<br>
+							<h5>{{products.description }}</h5>
+							<br><br><br><br>
+							<h4>Stock actuel : {{products.stock}}</h4>
+							<br>
+							<h4>Prix : {{products.prix|tva(products.tva.multiplicate)}} € TTC</h4>	
+			      </div>
+			      <div class="modal-footer">
+  				        {% if products.nouveaute > 0 %}
+							<span>Nouveauté !</span>
+						{% endif %}
+			       		<button type="button" class="btn btn-default" data-dismiss="modal">Retour</button>
+			        	<a class="btn btn-success ToCart actionButton" data-id="{{products.id}}" data-qte="1">Ajouter au panier</a>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+		{% endfor %}
+		
 	{% endif %}
 	    
 {% endblock %}

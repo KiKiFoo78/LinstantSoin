@@ -9,7 +9,7 @@
         <link rel="stylesheet" href="{{asset('bundles/InstantSoin/css/bootstrap.css')}}">
         <link rel="stylesheet" href="{{asset('bundles/InstantSoin/css/style.css')}}">
         {% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('bundles/InstantSoin/Images/bigpads.png') }}" />
+        <link rel="icon" type="image/x-icon" href="{{asset('bundles/InstantSoin/Images/bigpads.png') }}" />
     </head>
     <body>
         <section class="header">
@@ -102,13 +102,13 @@
             <script src="//code.jquery.com/jquery-1.10.2.js"></script>
             <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
             <script type="text/javascript" src="{{asset('bundles/InstantSoin/js/app.js')}}" ></script>
-            
+            <script type="text/javascript" src="{{asset('bundles/InstantSoin/js/bootstrap.js')}}" ></script>
             
             <script>
                 function initialisation(){
                 var centreCarte = new google.maps.LatLng(49.0217586,1.7138252);
                 var optionsCarte = {
-                    zoom: 9,
+                    zoom:10,
                     center: centreCarte,
                     marker: true,
                     mapTypeId: google.maps.MapTypeId.ROADMAP,
